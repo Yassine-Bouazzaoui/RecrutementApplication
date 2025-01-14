@@ -1,113 +1,78 @@
 ﻿@model IEnumerable<RecrutementApplication.Models.Offre>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-@{
-    ViewData["Title"] = "Index";
-}
+<div class="text-center py-4">
+    <h2 class="display-4 fw-bold text-white">Espace Offres</h2>
+    <p class="text-light">Trouvez les offres qui correspondent à vos compétences et aspirations</p>
+</div>
 
-<h1>Index</h1>
+<div class="text-center mb-4">
+    <button class="btn btn-lg btn-outline-light shadow" type="button" data-bs-toggle="collapse" data-bs-target="#searchForm" aria-expanded="false" aria-controls="searchForm">
+        <i class="bi bi-search"></i> Chercher une offre
+    </button>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.rectuteurId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Secteur)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Profil)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Poste)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Remuneration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Responsibilites)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Qualifications)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DatePub)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeadLine)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Entreprise)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EntrepriseLogo)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.rectuteurId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Secteur)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Profil)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Poste)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Remuneration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Responsibilites)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Qualifications)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatePub)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeadLine)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Entreprise)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EntrepriseLogo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="collapse mb-4" id="searchForm">
+    <div class="card card-body shadow-lg border-0 bg-withe">
+        <h5 class="card-title text-center text-white">Affiner votre recherche</h5>
+        <form asp-action="Index" method="get">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="secteur" class="form-label text-white">Secteur</label>
+                    <input type="text" id="secteur" name="secteur" class="form-control bg-white text-dark" placeholder="Ex : Informatique" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="profil" class="form-label text-white">Profil</label>
+                    <input type="text" id="profil" name="profil" class="form-control bg-white text-dark" placeholder="Ex : Licence, Master" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="minRemuneration" class="form-label text-white">Rémunération minimale</label>
+                    <input type="number" id="minRemuneration" name="minRemuneration" class="form-control bg-white text-dark" placeholder="Ex : 17000" />
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-light btn-lg shadow">
+                    Rechercher
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-4">
+    <h3 class="text-center text-white">Liste des Offres</h3>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle shadow-sm">
+            <thead class="table-success text-center">
+                <tr>
+                    <th><i class="bi bi-file-earmark-text"></i> Type Contrat</th>
+                    <th><i class="bi bi-briefcase"></i> Secteur</th>
+                    <th><i class="bi bi-person-badge"></i> Profil</th>
+                    <th><i class="bi bi-people"></i> Poste</th>
+                    <th><i class="bi bi-cash"></i> Rémunération</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var offre in Model)
+                    {
+                        <tr class="text-center text-white">
+                            <td>@offre.Type</td>
+                            <td>@offre.Secteur</td>
+                            <td>@offre.Profil</td>
+                            <td>@offre.Poste</td>
+                            <td>@offre.Remuneration €</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center text-light">Aucune offre disponible.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+﻿@model RecrutementApplication.Models.Offre
+
+@{
+    ViewData["Title"] = "Créer une Offre";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">
+        <i class="fas fa-briefcase"></i> Créer une Nouvelle Offre
+    </h1>
+
+    @using (Html.BeginForm("CreateOffre", "User", FormMethod.Post, new { @class = "needs-validation", novalidate = "true" }))
+    {
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                @Html.LabelFor(m => m.Secteur, "Secteur", new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Secteur, new { @class = "form-control", placeholder = "Secteur de l'offre", required = "required" })
+                @Html.ValidationMessageFor(m => m.Secteur, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6 mb-3">
+                @Html.LabelFor(m => m.Profil, "Profil Requis", new { @class = "form-label" })
+                @Html.DropDownListFor(m => m.Profil, new SelectList(Enum.GetValues(typeof(RecrutementApplication.Models.Profile))), "-- Sélectionnez un profil --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Profil, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                @Html.LabelFor(m => m.Poste, "Poste", new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Poste, new { @class = "form-control", placeholder = "Intitulé du poste", required = "required" })
+                @Html.ValidationMessageFor(m => m.Poste, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6 mb-3">
+                @Html.LabelFor(m => m.Remuneration, "Rémunération", new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Remuneration, new { @class = "form-control", placeholder = "Montant de la rémunération", required = "required" })
+                @Html.ValidationMessageFor(m => m.Remuneration, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Description, "Description de l'Offre", new { @class = "form-label" })
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = 4, placeholder = "Description complète de l'offre", required = "required" })
+            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Responsibilites, "Responsabilités", new { @class = "form-label" })
+            @Html.TextAreaFor(m => m.Responsibilites, new { @class = "form-control", rows = 3, placeholder = "Liste des responsabilités", required = "required" })
+            @Html.ValidationMessageFor(m => m.Responsibilites, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Qualifications, "Qualifications Requises", new { @class = "form-label" })
+            @Html.TextAreaFor(m => m.Qualifications, new { @class = "form-control", rows = 3, placeholder = "Liste des qualifications", required = "required" })
+            @Html.ValidationMessageFor(m => m.Qualifications, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                @Html.LabelFor(m => m.Location, "Localisation", new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Location, new { @class = "form-control", placeholder = "Lieu de travail", required = "required" })
+                @Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6 mb-3">
+                @Html.LabelFor(m => m.DeadLine, "Date Limite", new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.DeadLine, new { @class = "form-control", type = "date", required = "required" })
+                @Html.ValidationMessageFor(m => m.DeadLine, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Enregistrer
+            </button>
+            <a href="@Url.Action("Index", "Offres")" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Retour
+            </a>
+        </div>
+    }
+</div>

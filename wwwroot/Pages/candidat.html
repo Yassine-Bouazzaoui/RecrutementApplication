@@ -1,5 +1,5 @@
 ﻿<div class="form-floating mb-3">
-    <input asp-for="Input.Titre" class="form-control" autocomplete="company" aria-required="true" placeholder="company you work for" />
+    <input asp-for="Input.Titre" class="form-control" autocomplete="Entreprise" aria-required="true" placeholder="Entreprise you work for" />
     <label asp-for="Input.Titre">Titre</label>
     <span asp-validation-for="Input.Titre" class="text-danger"></span>
 </div>
@@ -12,7 +12,7 @@
 
 <div class="form-floating mb-3">
     <input asp-for="Input.NbAnsExp" class="form-control" autocomplete="years-experience" aria-required="true" type="number" />
-    <label asp-for="Input.NbAnsExp">Number of years of experience</label>
+    <label asp-for="Input.NbAnsExp">Nombre d'années d'expérience</label>
     <span asp-validation-for="Input.NbAnsExp" class="text-danger"></span>
 </div>
 
@@ -29,6 +29,6 @@
 
 <div class="form-floating mb-3">
     <input accept=".pdf" class="form-control" aria-required="true" type="file" name="file" />
-    <label asp-for="Input.CV">Resume</label>
+    <label asp-for="Input.CV">Curriculum Vitae</label>
     <span asp-validation-for="Input.CV" class="text-danger"></span>
 </div>

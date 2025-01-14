@@ -10,6 +10,8 @@ namespace RecrutementApplication.Data
     {
         public DbSet<Offre> Offers { get; set; }
         public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<Candidature> Candidatures { get; set; }
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -19,6 +21,13 @@ namespace RecrutementApplication.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Candidature>()
+        .HasOne(c => c.Offre)
+        .WithMany()
+        .HasForeignKey(c => c.OffreId)
+        .OnDelete(DeleteBehavior.Cascade);
+
         }
+
     }
 }

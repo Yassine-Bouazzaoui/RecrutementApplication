@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecrutementApplication.Data;
 
@@ -11,9 +12,11 @@ using RecrutementApplication.Data;
 namespace RecrutementApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250114090220_AddCandidatures")]
+    partial class AddCandidatures
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -266,7 +269,7 @@ namespace RecrutementApplication.Migrations
 
                     b.Property<string>("CandidatId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly?>("DatePostulation")
                         .HasColumnType("date");
@@ -279,10 +282,6 @@ namespace RecrutementApplication.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CandidatId");
-
-                    b.HasIndex("OffreId");
-
                     b.ToTable("Candidatures");
                 });
 
@@ -294,11 +293,11 @@ namespace RecrutementApplication.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DatePub")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("DatePub")
+                        .HasColumnType("date");
 
-                    b.Property<DateTime>("DeadLine")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("DeadLine")
+                        .HasColumnType("date");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -397,25 +396,6 @@ namespace RecrutementApplication.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("RecrutementApplication.Models.Candidature", b =>
-                {
-                    b.HasOne("RecrutementApplication.Models.ApplicationUser", "Candidat")
-                        .WithMany()
-                        .HasForeignKey("CandidatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RecrutementApplication.Models.Offre", "Offre")
-                        .WithMany()
-                        .HasForeignKey("OffreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Candidat");
-
-                    b.Navigation("Offre");
                 });
 #pragma warning restore 612, 618
         }

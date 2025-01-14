@@ -9,7 +9,6 @@
   <ItemGroup>
 	  <None Include="wwwroot\pages\candidat.html" />
 	  <None Include="wwwroot\pages\recruteur.html" />
-    <None Include="Models\ViewModels\Postule.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\ViewModels\" />
     <Folder Include="wwwroot\img\" />
     <Folder Include="wwwroot\CVs\" />
   </ItemGroup>

@@ -3,122 +3,152 @@
 @{
     ViewData["Title"] = "Register";
 }
+<div class="container py-5">
+    <h2 class="text-center mb-4">Choisissez votre rôle</h2>
 
-<h1>@ViewData["Title"]</h1>
+    <!-- Cards Section -->
+    <div class="row justify-content-center">
+        <!-- Card for Candidat -->
+        <div class="col-md-5">
+            <div class="card shadow-lg role-card text-center" id="candidatCard" tabindex="0" role="button" aria-label="Sélectionner Candidat">
+                <div class="card-body">
+                    <i class="bi bi-person-fill display-1 text-primary"></i>
+                    <h4 class="card-title mt-3">Candidat</h4>
+                    <p class="card-text">Vous cherchez à postuler pour un emploi. Remplissez les informations nécessaires.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card for Recruteur -->
+        <div class="col-md-5">
+            <div class="card shadow-lg role-card text-center" id="recruteurCard" tabindex="0" role="button" aria-label="Sélectionner Recruteur">
+                <div class="card-body">
+                    <i class="bi bi-building display-1 text-success"></i>
+                    <h4 class="card-title mt-3">Recruteur</h4>
+                    <p class="card-text">Vous êtes un recruteur et souhaitez publier des offres. Remplissez les informations de l'entreprise.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="row">
-    <div class="col-md-5">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
-            <h2>Create a new account.</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Nom" class="form-control" autocomplete="Nom" aria-required="true" placeholder="Nom" />
-                <label asp-for="Input.Nom">Nom</label>
-                <span asp-validation-for="Input.Nom" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Prenom" class="form-control" autocomplete="Prenom" aria-required="true" placeholder="Prenom" />
-                <label asp-for="Input.Prenom">Prenom</label>
-                <span asp-validation-for="Input.Prenom" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Age" class="form-control" autocomplete="age" aria-required="true" placeholder="age" />
-                <label asp-for="Input.Age">Age</label>
-                <span asp-validation-for="Input.Age" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
+    <!-- Shared Form Section -->
+    <div id="formSection" class="mt-4 d-none">
+        <h3 id="formTitle" class="text-center mb-4"></h3>
+        <form method="post" enctype="multipart/form-data">
+            <div class="card p-4 shadow-sm">
+                <!-- Shared Fields -->
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Nom" class="form-control" placeholder="Nom" required />
+                    <label asp-for="Input.Nom">Nom</label>
+                    <span asp-validation-for="Input.Nom" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Prenom" class="form-control" placeholder="Prénom" required />
+                    <label asp-for="Input.Prenom">Prénom</label>
+                    <span asp-validation-for="Input.Prenom" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Age" class="form-control" placeholder="Âge" required type="number" />
+                    <label asp-for="Input.Age">Âge</label>
+                    <span asp-validation-for="Input.Age" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" type="email" class="form-control" placeholder="Adresse email" required />
+                    <label asp-for="Input.Email">Adresse email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" type="password" class="form-control" placeholder="Mot de passe" required />
+                    <label asp-for="Input.Password">Mot de passe</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Confirmer le mot de passe" required />
+                    <label asp-for="Input.ConfirmPassword">Confirmer le mot de passe</label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
 
-            <div class="form-floating mb-3">
-                <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select" id="mySelect">
-                    <option disabled selected>--Select a Role--</option>
-                </select>
+                <!-- Fields for Candidat -->
+                <div id="candidatFields" class="d-none">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Titre" class="form-control" placeholder="Titre Professionnel" />
+                        <label asp-for="Input.Titre">Titre Professionnel</label>
+                        <span asp-validation-for="Input.Titre" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Diplome" class="form-control" placeholder="Diplôme" />
+                        <label asp-for="Input.Diplome">Diplôme</label>
+                        <span asp-validation-for="Input.Diplome" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.NbAnsExp" class="form-control" placeholder="Nombre d'années d'expérience" type="number" />
+                        <label asp-for="Input.NbAnsExp">Nombre d'années d'expérience</label>
+                        <span asp-validation-for="Input.NbAnsExp" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Input.Profil" class="form-label">Profil</label>
+                        <select asp-for="Input.Profil" class="form-select">
+                            <option value="Deug">Deug</option>
+                            <option value="Licence">Licence</option>
+                            <option value="Master">Master</option>
+                            <option value="Ingenieur">Ingénieur</option>
+                        </select>
+                        <span asp-validation-for="Input.Profil" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Input.CV" class="form-label">Curriculum Vitae</label>
+                        <input accept=".pdf" class="form-control" type="file" name="file" />
+                        <span asp-validation-for="Input.CV" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Fields for Recruteur -->
+                <div id="recruteurFields" class="d-none">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Entreprise" class="form-control" placeholder="Nom de l'entreprise" />
+                        <label asp-for="Input.Entreprise">Nom de l'entreprise</label>
+                        <span asp-validation-for="Input.Entreprise" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Input.UrlImageEntreprise" class="form-label">Logo de l'entreprise</label>
+                        <input accept=".png,.jpg,.jpeg" class="form-control" type="file" name="file" />
+                        <span asp-validation-for="Input.UrlImageEntreprise" class="text-danger"></span>
+                    </div>
+                    <input type="hidden" id="selectedRole" name="Input.Role" value="" />
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">S'inscrire</button>
             </div>
-
-            <br>
-
-            <div id="contentDiv"></div>
-
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>
     </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this article
-                            about setting up this ASP.NET application to support logging in via external service.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
-    </div>
 </div>
-<script>
-    const selectElement = document.getElementById('mySelect');
-    const contentDiv = document.getElementById('contentDiv');
-
-    selectElement.addEventListener('change', (event) => {
-        const selectedValue = event.target.value;
-
-        console.log('Selected value:', selectedValue);
-
-        switch (selectedValue) {
-            case 'Candidat':
-                fetch('./../../Pages/candidat.html')
-                    .then(response => response.text())
-                    .then(data => { contentDiv.innerHTML = data; })
-                    .catch(error => { contentDiv.innerHTML = "Error fetching external content."; });
-                break;
-
-            case 'Recruteur':
-                fetch('./../../Pages/recruteur.html')
-                    .then(response => response.text())
-                    .then(data => { contentDiv.innerHTML = data; })
-                    .catch(error => { contentDiv.innerHTML = "Error fetching external content."; });
-                break;
-            default:
-                contentDiv.innerHTML = "No valid selection";
-        }
-    });
-</script>
-
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        const candidatCard = document.getElementById('candidatCard');
+        const recruteurCard = document.getElementById('recruteurCard');
+        const formSection = document.getElementById('formSection');
+        const formTitle = document.getElementById('formTitle');
+        const candidatFields = document.getElementById('candidatFields');
+        const recruteurFields = document.getElementById('recruteurFields');
+        const selectedRole = document.getElementById('selectedRole');
 
+        function toggleForm(role) {
+            formSection.classList.remove('d-none');
+            formTitle.textContent = role === 'Candidat' ? 'Informations Candidat' : 'Informations Recruteur';
+            candidatFields.classList.toggle('d-none', role !== 'Candidat');
+            recruteurFields.classList.toggle('d-none', role !== 'Recruteur');
+            selectedRole.value = role;
+        }
+
+        candidatCard.addEventListener('click', () => toggleForm('Candidat'));
+        recruteurCard.addEventListener('click', () => toggleForm('Recruteur'));
+
+        candidatCard.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') toggleForm('Candidat');
+        });
+        recruteurCard.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') toggleForm('Recruteur');
+        });
+    </script>
 }

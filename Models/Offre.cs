@@ -1,6 +1,7 @@
 ﻿using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Identity;
 
 namespace RecrutementApplication.Models
 {
@@ -31,9 +32,11 @@ namespace RecrutementApplication.Models
         [DisplayName("Localisation de l'offre")]
         public string Location { get; set; }
         [DisplayName("Date de publication")]
-        public DateOnly DatePub { get; set; }
+        public DateTime DatePub { get; set; }
+
         [DisplayName("Date de fin")]
-        public DateOnly DeadLine { get; set; }
+        public DateTime DeadLine { get; set; }
+
         [DisplayName("Le nom de l'entreprise")]
         public string? Entreprise { get; set; }
         public string? EntrepriseLogo { get; set; }

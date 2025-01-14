@@ -1,102 +1,142 @@
 ﻿@model RecrutementApplication.Models.Offre
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Détails de l'offre";
 }
 
-<h1>Details</h1>
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-gradient bg-primary text-white py-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    @if (!string.IsNullOrEmpty(Model.EntrepriseLogo))
+                    {
+                        <img src="@Model.EntrepriseLogo" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;" alt="Logo entreprise" />
+                    }
+                    else
+                    {
+                        <div class="rounded-circle bg-white text-primary d-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-building fa-2x"></i>
+                        </div>
+                    }
+                </div>
+                <div>
+                    <h2 class="mb-0">@Model.Poste</h2>
+                    <p class="mb-0">@Model.Entreprise</p>
+                </div>
+            </div>
+        </div>
 
-<div>
-    <h4>Offre</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.rectuteurId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.rectuteurId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Secteur)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Secteur)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Profil)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Profil)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Poste)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Poste)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Remuneration)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Remuneration)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Responsibilites)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Responsibilites)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Qualifications)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Qualifications)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DatePub)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DatePub)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DeadLine)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DeadLine)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Entreprise)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Entreprise)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EntrepriseLogo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EntrepriseLogo)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+        <div class="card-body p-4">
+            <div class="row">
+                <!-- Colonne gauche - Informations principales -->
+                <div class="col-lg-8">
+                    <!-- Section des badges -->
+                    <div class="mb-4">
+                        <span class="badge bg-primary me-2 px-3 py-2">
+                            <i class="fas fa-file-contract me-1"></i> @Model.Type
+                        </span>
+                        <span class="badge bg-success me-2 px-3 py-2">
+                            <i class="fas fa-user-graduate me-1"></i> @Model.Profil
+                        </span>
+                        <span class="badge bg-info me-2 px-3 py-2">
+                            <i class="fas fa-industry me-1"></i> @Model.Secteur
+                        </span>
+                    </div>
+
+                    <!-- Section Description -->
+                    <div class="mb-4">
+                        <h4 class="text-primary mb-3">
+                            <i class="fas fa-align-left me-2"></i> Description
+                        </h4>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                @Model.Description
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section Responsabilités -->
+                    <div class="mb-4">
+                        <h4 class="text-primary mb-3">
+                            <i class="fas fa-tasks me-2"></i> Responsabilités
+                        </h4>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                @Model.Responsibilites
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section Qualifications -->
+                    <div class="mb-4">
+                        <h4 class="text-primary mb-3">
+                            <i class="fas fa-check-circle me-2"></i> Qualifications
+                        </h4>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                @Model.Qualifications
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colonne droite - Informations complémentaires -->
+                <div class="col-lg-4">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <h4 class="text-primary mb-4">
+                                <i class="fas fa-info-circle me-2"></i> Informations
+                            </h4>
+
+                            <div class="mb-3">
+                                <p class="mb-2">
+                                    <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                    <strong>Localisation</strong>
+                                </p>
+                                <p class="ms-4">@Model.Location</p>
+                            </div>
+
+                            <div class="mb-3">
+                                <p class="mb-2">
+                                    <i class="fas fa-money-bill-wave text-primary me-2"></i>
+                                    <strong>Rémunération</strong>
+                                </p>
+                                <p class="ms-4">@Model.Remuneration</p>
+                            </div>
+
+                            <div class="mb-3">
+                                <p class="mb-2">
+                                    <i class="far fa-calendar-alt text-primary me-2"></i>
+                                    <strong>Date de publication</strong>
+                                </p>
+                                <p class="ms-4">@Model.DatePub.ToString("dd MMMM yyyy")</p>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="mb-2">
+                                    <i class="fas fa-hourglass-end text-primary me-2"></i>
+                                    <strong>Date limite</strong>
+                                </p>
+                                <p class="ms-4">@Model.DeadLine.ToString("dd MMMM yyyy")</p>
+                            </div>
+
+                            @if (User.Identity.IsAuthenticated && !User.IsInRole("Recruteur"))
+                            {
+                                <button class="btn btn-primary w-100 mb-3">
+                                    <i class="fas fa-paper-plane me-2"></i> Postuler
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer bg-light p-3">
+            <a href="javascript:history.back()" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i> Retour
+            </a>
+        </div>
+    </div>
 </div>

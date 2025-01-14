@@ -1,0 +1,64 @@
+﻿@model RecrutementApplication.Models.Offre
+
+@{
+    ViewData["Title"] = "Supprimer l'offre";
+}
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-danger text-white">
+            <h3 class="card-title mb-0">
+                <i class="fas fa-exclamation-triangle"></i> Confirmation de suppression
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-circle"></i> Êtes-vous sûr de vouloir supprimer cette offre ? Cette action est irréversible.
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Détails de l'offre</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Poste</dt>
+                        <dd class="col-sm-9">@Model.Poste</dd>
+
+                        <dt class="col-sm-3">Type de contrat</dt>
+                        <dd class="col-sm-9">@Model.Type</dd>
+
+                        <dt class="col-sm-3">Secteur</dt>
+                        <dd class="col-sm-9">@Model.Secteur</dd>
+
+                        <dt class="col-sm-3">Profil requis</dt>
+                        <dd class="col-sm-9">@Model.Profil</dd>
+
+                        <dt class="col-sm-3">Localisation</dt>
+                        <dd class="col-sm-9">@Model.Location</dd>
+
+                        <dt class="col-sm-3">Date de publication</dt>
+                        <dd class="col-sm-9">@Model.DatePub.ToShortDateString()</dd>
+
+                        <dt class="col-sm-3">Date limite</dt>
+                        <dd class="col-sm-9">@Model.DeadLine.ToShortDateString()</dd>
+                    </dl>
+                </div>
+            </div>
+
+            @using (Html.BeginForm("DeleteOffre", "User", FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.Id)
+
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Confirmer la suppression
+                    </button>
+                    <a href="@Url.Action("MesOffres", "User")" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Annuler
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

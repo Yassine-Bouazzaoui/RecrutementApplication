@@ -1,0 +1,22 @@
+﻿@model IEnumerable<RecrutementApplication.Models.Candidature>
+
+<h1>Historique des Candidatures</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Offre</th>
+            <th>Date de Postulation</th>
+            <th>Lettre de Motivation</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var candidature in Model)
+        {
+            <tr>
+                <td>@candidature.Offre.Poste</td>
+                <td>@candidature.DatePostulation</td>
+                <td>@candidature.LettreMotivation</td>
+            </tr>
+        }
+    </tbody>
+</table>

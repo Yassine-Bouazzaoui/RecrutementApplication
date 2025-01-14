@@ -128,9 +128,9 @@ namespace RecrutementApplication.Areas.Identity.Pages.Account
             [Display(Name = "Télécharger votre CV")]
             public string CV { get; set; }
             [Display(Name = "Entreprise")]
-            public string Company { get; set; }
+            public string Entreprise { get; set; }
             [Display(Name = "Logo de l'entreprise")]
-            public string UrlImageCompany { get; set; }
+            public string UrlImageEntreprise { get; set; }
             [Display(Name = "Profil")]
             public Profile? Profil { get; set; }
         }
@@ -163,61 +163,62 @@ namespace RecrutementApplication.Areas.Identity.Pages.Account
 
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-
-                if (file != null && Input.Role == "Candidat")
-                {
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    string filePath = Path.Combine(wwwRootPath, @"CVs");
-                    using (var fileStrem = new FileStream(Path.Combine(filePath, fileName),
-                    FileMode.Create))
-                    {
-                        file.CopyTo(fileStrem);
-                    }
-                    user.CV = fileName;
-                    user.Diplome = Input.Diplome;
-                    user.Titre = Input.Titre;
-                    user.NbAnsExp = Input.NbAnsExp;
-                }
-
-                if (file != null && Input.Role == "Recruteur")
-                {
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    string filePath = Path.Combine(wwwRootPath, @"img");
-                    using (var fileStrem = new FileStream(Path.Combine(filePath, fileName),
-                    FileMode.Create))
-                    {
-                        file.CopyTo(fileStrem);
-                    }
-                    user.EntrepriseLogo = fileName;
-                    user.Entreprise = Input.Company;
-                }
 
                 user.Nom = Input.Nom;
                 user.Prenom = Input.Prenom;
                 user.Age = Input.Age;
                 user.Mail = Input.Email;
+                user.Profil = Input.Profil;
 
+
+                if (file != null)
+                {
+                    // Validation des fichiers
+                    var allowedExtensions = Input.Role == "Candidat" ? new[] { ".pdf" } : new[] { ".png", ".jpg", ".jpeg" };
+                    var fileExtension = Path.GetExtension(file.FileName).ToLower();
+                    if (!allowedExtensions.Contains(fileExtension))
+                    {
+                        ModelState.AddModelError("file", "Invalid file type.");
+                        return Page();
+                    }
+
+                    if (file.Length > 5 * 1024 * 1024) // 5MB max size
+                    {
+                        ModelState.AddModelError("file", "File size exceeds the limit of 5MB.");
+                        return Page();
+                    }
+
+                    // Gestion des fichiers pour les rôles
+                    if (Input.Role == "Candidat")
+                    {
+                        user.CV = await SaveFileAsync(file, "CVs");
+                        user.Diplome = Input.Diplome;
+                        user.Titre = Input.Titre;
+                        user.NbAnsExp = Input.NbAnsExp;
+                    }
+                    else if (Input.Role == "Recruteur")
+                    {
+                        user.EntrepriseLogo = await SaveFileAsync(file, "img");
+                        user.Entreprise = Input.Entreprise;
+                    }
+                }
+
+                // Remplissage des autres champs utilisateur
+               
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
-
-                await _userManager.UpdateAsync(user);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    if (!string.IsNullOrEmpty(Input.Role))
-                    {
-                        await _userManager.AddToRoleAsync(user, Input.Role);
-                    }
-                    else
-                    {
-                        await _userManager.AddToRoleAsync(user, Roles.Role_candidat);
-                    }
+                    // Attribution du rôle
+                    await AssignRoleAsync(user, Input.Role);
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -231,6 +232,8 @@ namespace RecrutementApplication.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
+                    TempData["Message"] = "Votre compte a été créé avec succès.";
+
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
@@ -241,15 +244,51 @@ namespace RecrutementApplication.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+            // Si nous arrivons ici, il y a eu un problème, on réaffiche le formulaire
             return Page();
         }
+
+        // Méthode pour sauvegarder un fichier
+        private async Task<string> SaveFileAsync(IFormFile file, string folderName)
+        {
+            string wwwRootPath = _webHostEnvironment.WebRootPath;
+            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            string filePath = Path.Combine(wwwRootPath, folderName);
+
+            // Vérification et création du répertoire si nécessaire
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+
+            using (var stream = new FileStream(Path.Combine(filePath, fileName), FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return fileName;
+        }
+
+        // Méthode pour attribuer un rôle à un utilisateur
+        private async Task AssignRoleAsync(ApplicationUser user, string role)
+        {
+            if (!string.IsNullOrEmpty(role))
+            {
+                await _userManager.AddToRoleAsync(user, role);
+            }
+            else
+            {
+                await _userManager.AddToRoleAsync(user, Roles.Role_candidat);
+            }
+        }
+
 
         private ApplicationUser CreateUser()
         {
