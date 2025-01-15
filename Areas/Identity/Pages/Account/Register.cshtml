@@ -29,6 +29,9 @@
             </div>
         </div>
     </div>
+    <div class="d-flex justify-content-center">
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </div>
 
     <!-- Shared Form Section -->
     <div id="formSection" class="mt-4 d-none">
@@ -57,12 +60,14 @@
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" type="password" class="form-control" placeholder="Mot de passe" required />
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password"
+                           aria-required="true" placeholder="password" />
                     <label asp-for="Input.Password">Mot de passe</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Confirmer le mot de passe" required />
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password"
+                           aria-required="true" placeholder="password" />
                     <label asp-for="Input.ConfirmPassword">Confirmer le mot de passe</label>
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>

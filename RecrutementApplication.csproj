@@ -27,8 +27,8 @@
 
   <ItemGroup>
     <Folder Include="Models\ViewModels\" />
-    <Folder Include="wwwroot\img\" />
     <Folder Include="wwwroot\CVs\" />
+    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>

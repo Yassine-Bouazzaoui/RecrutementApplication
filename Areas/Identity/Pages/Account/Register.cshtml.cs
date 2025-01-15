@@ -168,92 +168,107 @@ namespace RecrutementApplication.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                user.Nom = Input.Nom;
-                user.Prenom = Input.Prenom;
-                user.Age = Input.Age;
-                user.Mail = Input.Email;
-                user.Profil = Input.Profil;
-
-
-                if (file != null)
+                try
                 {
-                    // Validation des fichiers
-                    var allowedExtensions = Input.Role == "Candidat" ? new[] { ".pdf" } : new[] { ".png", ".jpg", ".jpeg" };
-                    var fileExtension = Path.GetExtension(file.FileName).ToLower();
-                    if (!allowedExtensions.Contains(fileExtension))
+                    // Remplissage des données utilisateur
+                    user.Nom = Input.Nom;
+                    user.Prenom = Input.Prenom;
+                    user.Age = Input.Age;
+                    user.Mail = Input.Email;
+                    user.Profil = Input.Profil;
+
+                    // Gestion du fichier uploadé
+                    if (file != null)
                     {
-                        ModelState.AddModelError("file", "Invalid file type.");
-                        return Page();
+                        var allowedExtensions = Input.Role == "Candidat" ? new[] { ".pdf" } : new[] { ".png", ".jpg", ".jpeg" };
+                        var fileExtension = Path.GetExtension(file.FileName).ToLower();
+
+                        if (!allowedExtensions.Contains(fileExtension))
+                        {
+                            ModelState.AddModelError("file", "Invalid file type.");
+                            throw new Exception("Invalid file type.");
+                        }
+
+                        if (file.Length > 5 * 1024 * 1024) // 5MB max size
+                        {
+                            ModelState.AddModelError("file", "File size exceeds the limit of 5MB.");
+                            throw new Exception("File size exceeds the limit.");
+                        }
+
+                        if (Input.Role == "Candidat")
+                        {
+                            user.CV = await SaveFileAsync(file, "CVs");
+                            user.Diplome = Input.Diplome;
+                            user.Titre = Input.Titre;
+                            user.NbAnsExp = Input.NbAnsExp;
+                        }
+                        else if (Input.Role == "Recruteur")
+                        {
+                            user.EntrepriseLogo = await SaveFileAsync(file, "img");
+                            user.Entreprise = Input.Entreprise;
+                        }
                     }
 
-                    if (file.Length > 5 * 1024 * 1024) // 5MB max size
+                    // Création de l'utilisateur
+                    await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                    await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                    var result = await _userManager.CreateAsync(user, Input.Password);
+
+                    if (result.Succeeded)
                     {
-                        ModelState.AddModelError("file", "File size exceeds the limit of 5MB.");
-                        return Page();
+                        _logger.LogInformation("User created a new account with password.");
+
+                        // Attribution du rôle
+                        await AssignRoleAsync(user, Input.Role);
+
+                        // Envoi du mail de confirmation
+                        var userId = await _userManager.GetUserIdAsync(user);
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                        var callbackUrl = Url.Page(
+                            "/Account/ConfirmEmail",
+                            pageHandler: null,
+                            values: new { area = "Identity", userId, code, returnUrl },
+                            protocol: Request.Scheme);
+
+                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                        TempData["Message"] = "Votre compte a été créé avec succès.";
+
+                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                        {
+                            return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl });
+                        }
+                        else
+                        {
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                            return LocalRedirect(returnUrl);
+                        }
                     }
 
-                    // Gestion des fichiers pour les rôles
-                    if (Input.Role == "Candidat")
+                    foreach (var error in result.Errors)
                     {
-                        user.CV = await SaveFileAsync(file, "CVs");
-                        user.Diplome = Input.Diplome;
-                        user.Titre = Input.Titre;
-                        user.NbAnsExp = Input.NbAnsExp;
-                    }
-                    else if (Input.Role == "Recruteur")
-                    {
-                        user.EntrepriseLogo = await SaveFileAsync(file, "img");
-                        user.Entreprise = Input.Entreprise;
+                        ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
-
-                // Remplissage des autres champs utilisateur
-               
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(user, Input.Password);
-
-                if (result.Succeeded)
+                catch (Exception ex)
                 {
-                    _logger.LogInformation("User created a new account with password.");
-
-                    // Attribution du rôle
-                    await AssignRoleAsync(user, Input.Role);
-
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    TempData["Message"] = "Votre compte a été créé avec succès.";
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    }
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    _logger.LogError(ex, "An error occurred during user registration.");
                 }
             }
 
-            // Si nous arrivons ici, il y a eu un problème, on réaffiche le formulaire
+            // Réinitialisation des listes pour éviter les erreurs d'affichage
+            Input.RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
+            {
+                Text = i,
+                Value = i
+            }).ToList();
+
             return Page();
         }
+
+        // Si nous arrivons ici, il y a eu un problème, on réaffiche le formulaire
 
         // Méthode pour sauvegarder un fichier
         private async Task<string> SaveFileAsync(IFormFile file, string folderName)
