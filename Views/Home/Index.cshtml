@@ -1,8 +1,229 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "RecrutementPro - Votre Passerelle Professionnelle";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hero-section position-relative bg-gradient-primary text-white overflow-hidden">
+    <div class="container position-relative z-1 py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h1 class="display-3 fw-bold mb-4 text-reveal">
+                    Transformez Vos <span class="text-accent">Ambitions Professionnelles</span>
+                </h1>
+                <p class="lead mb-5 text-reveal delay-1" style="color:white">
+                    Une plateforme révolutionnaire qui connecte les talents exceptionnels aux opportunités stratégiques.
+                </p>
+                <div class="d-flex gap-3 text-reveal delay-2">
+                    <a href="/Offres" class="btn btn-light text-primary btn-lg shadow-lg">
+                        <i class="bi bi-search me-2"></i>Découvrir les Offres
+                    </a>
+                    <a href="/User/MesOffres" class="btn btn-outline-light btn-lg shadow-lg" style="color:black">
+                        <i class="bi bi-plus-circle me-2"></i>Publier une Offre
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <div class="position-relative image-parallax">
+                    <img src="~/img/tendances-recrutement.png.webp" class="img-fluid rounded-4 shadow-lg transform-scale-hover" alt="Recrutement Moderne">
+                </div>
+            </div>
+        </div>
+    </div>
+    <svg class="position-absolute bottom-0 start-0 w-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#ffffff" fill-opacity="1" d="M0,256L48,240C96,224,192,192,288,176C384,160,480,160,576,176C672,192,768,224,864,245.3C960,267,1056,277,1152,261.3C1248,245,1344,203,1392,181.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+    </svg>
+</section>
+
+<section class="features-section bg-white py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-lg h-100 transform-hover reveal-on-scroll">
+                    <img src="~/img/images.jpg" class="card-img-top" alt="Recherche d'emploi">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-search-heart fs-2 text-primary me-3"></i>
+                            <h4 class="card-title mb-0">Recherche Personnalisée</h4>
+                        </div>
+                        <p class="card-text text-muted">Algorithme intelligent qui analyse vos compétences pour des recommandations précises.</p>
+                        <a href="/Offres" class="btn btn-outline-primary mt-3">
+                            Explorer les Opportunités
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-lg h-100 transform-hover reveal-on-scroll delay-1">
+                    <img src="~/img/3622.jpg" class="card-img-top" alt="Recruter des talents">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-people-fill fs-2 text-primary me-3"></i>
+                            <h4 class="card-title mb-0">Recrutement Stratégique</h4>
+                        </div>
+                        <p class="card-text text-muted">Outils avancés pour identifier et attirer les talents qui correspondent parfaitement à votre vision.</p>
+                        <a href="/User/MesOffres" class="btn btn-outline-primary mt-3">
+                            Publier une Offre
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-lg h-100 transform-hover reveal-on-scroll delay-2">
+                    <img src="~/img/confiance-et-sécurité.png" class="card-img-top" alt="Protection des données">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-shield-lock-fill fs-2 text-primary me-3"></i>
+                            <h4 class="card-title mb-0">Sécurité Absolue</h4>
+                        </div>
+                        <p class="card-text text-muted">Engagement total pour la protection de vos données personnelles avec des normes de sécurité de pointe.</p>
+                        <a href="/Home/Privacy" class="btn btn-outline-primary mt-3">
+                            Politique de Confidentialité
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats-section bg-light py-5">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h2 class="display-5 fw-bold mb-5 text-reveal">RecrutementPro : La Confiance en Chiffres</h2>
+                <div class="row">
+                    <div class="col-md-4 reveal-on-scroll">
+                        <div class="p-4 bg-white rounded-4 shadow-sm">
+                            <h3 class="display-4 fw-bold text-primary mb-2 counter">5000</h3>
+                            <p class="text-muted">Entreprises Partenaires</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 reveal-on-scroll delay-1">
+                        <div class="p-4 bg-white rounded-4 shadow-sm">
+                            <h3 class="display-4 fw-bold text-primary mb-2 counter">50000</h3>
+                            <p class="text-muted">Offres Actives</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 reveal-on-scroll delay-2">
+                        <div class="p-4 bg-white rounded-4 shadow-sm">
+                            <h3 class="display-4 fw-bold text-primary mb-2 counter">98</h3>
+                            <p class="text-muted">Taux de Satisfaction</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section bg-gradient-primary text-white py-5">
+    <div class="container text-center">
+        <h2 class="display-4 fw-bold mb-4 text-reveal">Votre Carrière Commence Ici</h2>
+        <p class="lead mb-5 text-reveal delay-1">Ne laissez pas passer vos opportunités. Rejoignez RecrutementPro dès maintenant.</p>
+        <div class="d-flex justify-content-center gap-3 text-reveal delay-2">
+            <a href="/Identity/Account/Register" class="btn btn-light text-primary btn-lg shadow-lg">
+                <i class="bi bi-person-plus me-2"></i>Créer un Compte
+            </a>
+            <a href="/Identity/Account/Login" class="btn btn-outline-light btn-lg shadow-lg">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Connexion
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    }
+
+    .transform-hover {
+        transition: transform 0.3s ease;
+    }
+
+        .transform-hover:hover {
+            transform: translateY(-10px);
+        }
+
+    .transform-scale-hover {
+        transition: transform 0.3s ease;
+    }
+
+        .transform-scale-hover:hover {
+            transform: scale(1.05);
+        }
+
+    .text-reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+        .text-reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    .delay-1 {
+        transition-delay: 0.2s;
+    }
+
+    .delay-2 {
+        transition-delay: 0.4s;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Text Reveal Animation
+        const textReveals = document.querySelectorAll('.text-reveal');
+        const scrollReveals = document.querySelectorAll('.reveal-on-scroll');
+        const counters = document.querySelectorAll('.counter');
+
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const count = parseInt(target.textContent);
+                    let current = 0;
+
+                    const updateCounter = () => {
+                        if (current < count) {
+                            current += Math.ceil(count / 50);
+                            if (current > count) current = count;
+                            target.textContent = current.toLocaleString();
+                            requestAnimationFrame(updateCounter);
+                        }
+                    };
+
+                    updateCounter();
+                }
+            });
+        }, observerOptions);
+
+        textReveals.forEach(reveal => revealObserver.observe(reveal));
+        scrollReveals.forEach(reveal => revealObserver.observe(reveal));
+        counters.forEach(counter => counterObserver.observe(counter));
+    });
+</script>
