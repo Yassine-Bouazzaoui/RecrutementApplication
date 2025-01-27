@@ -4,25 +4,120 @@
     ViewData["Title"] = "Détails de l'offre";
 }
 
+<!-- Ajout des styles personnalisés -->
+<style>
+    .text{
+        color:white;
+    }
+    :root {
+        --primary-dark: #1a1a1a;
+        --secondary-dark: #2d2d2d;
+        --text-primary: #e0e0e0;
+        --text-secondary: #b0b0b0;
+        --accent-color: #3498db;
+        --success-color: #2ecc71;
+        --info-color: #34495e;
+        --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    body {
+        background-color: var(--primary-dark);
+        color: var(--text-primary);
+    }
+
+    .card {
+        background-color: var(--secondary-dark);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: var(--card-shadow);
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+    .card-header {
+        background: linear-gradient(45deg, var(--accent-color), #2980b9);
+        border-bottom: none;
+    }
+
+    .badge {
+        transition: all 0.3s ease;
+    }
+
+        .badge:hover {
+            transform: scale(1.05);
+        }
+
+    .section-card {
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+    }
+
+        .section-card:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+    .btn-primary {
+        background: linear-gradient(45deg, var(--accent-color), #2980b9);
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+
+    .logo-container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        border-radius: 50%;
+        padding: 0.5rem;
+    }
+
+    .info-icon {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(52, 152, 219, 0.2);
+        border-radius: 50%;
+        margin-right: 1rem;
+    }
+</style>
+
 <div class="container mt-5">
-    <div class="card shadow-lg border-0 bg-light text-dark">
-        <div class="card-header bg-primary text-white py-4">
+    <div class="card shadow-lg border-0">
+        <!-- En-tête avec logo et titre -->
+        <div class="card-header py-4">
             <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    @if (!string.IsNullOrEmpty(Model.EntrepriseLogo))
-                    {
-                        <img src="@Model.EntrepriseLogo" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;" alt="Logo entreprise" />
-                    }
-                    else
-                    {
-                        <div class="rounded-circle bg-white text-primary d-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px;">
-                            <i class="fas fa-building fa-2x"></i>
-                        </div>
-                    }
-                </div>
-                <div>
-                    <h2 class="mb-0">@Model.Poste</h2>
-                    <p class="mb-0">@Model.Entreprise</p>
+                <div class="d-flex align-items-center">
+                    <div class="logo-container">
+                        @if (!string.IsNullOrEmpty(Model.EntrepriseLogo))
+                        {
+                            <img src="@Url.Content($"~/img/{Model.EntrepriseLogo}")"
+                                 alt="Logo de l'entreprise"
+                                 class="rounded-circle"
+                                 style="width: 80px; height: 80px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <div class="d-flex align-items-center justify-content-center"
+                                 style="width: 80px; height: 80px;">
+                                <i class="fas fa-building fa-2x text-white"></i>
+                            </div>
+                        }
+                    </div>
+                    <div class="ms-4">
+                        <h2 class="mb-1 text-white">@Model.Poste</h2>
+                        <p class="mb-0 text-white-50">@Model.Entreprise</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,119 +125,128 @@
         <div class="card-body p-4">
             <div class="row">
                 <div class="col-lg-8">
-                    <!-- Section des badges -->
-                    <div class="mb-4">
-                        <span class="badge bg-primary me-2 px-3 py-2">
-                            <i class="fas fa-file-contract me-1"></i> @Model.Type
+                    <!-- Badges améliorés -->
+                    <div class="mb-4 d-flex flex-wrap gap-2">
+                        <span class="badge bg-primary px-3 py-2">
+                            <i class="fas fa-file-contract me-2"></i>@Model.Type
                         </span>
-                        <span class="badge bg-success me-2 px-3 py-2">
-                            <i class="fas fa-user-graduate me-1"></i> @Model.Profil
+                        <span class="badge bg-success px-3 py-2">
+                            <i class="fas fa-user-graduate me-2"></i>@Model.Profil
                         </span>
-                        <span class="badge bg-info me-2 px-3 py-2">
-                            <i class="fas fa-industry me-1"></i> @Model.Secteur
+                        <span class="badge bg-info px-3 py-2">
+                            <i class="fas fa-industry me-2"></i>@Model.Secteur
                         </span>
                     </div>
 
-                    <!-- Section Description -->
-                    <div class="mb-4">
+                    <!-- Sections principales avec animation au survol -->
+                    <div class="section-card">
                         <h4 class="text-primary mb-3">
-                            <i class="fas fa-align-left me-2"></i> Description
+                            <i class="fas fa-align-left me-2"></i>Description
                         </h4>
-                        <div class="card bg-light text-dark">
-                            <div class="card-body">
-                                @Model.Description
-                            </div>
-                        </div>
+                        <p class="d-block text-white">@Model.Description</p>
                     </div>
 
-                    <!-- Section Responsabilités -->
-                    <div class="mb-4">
+                    <div class="section-card">
                         <h4 class="text-primary mb-3">
-                            <i class="fas fa-tasks me-2"></i> Responsabilités
+                            <i class="fas fa-tasks me-2"></i>Responsabilités
                         </h4>
-                        <div class="card bg-light text-dark">
-                            <div class="card-body">
-                                @Model.Responsibilites
-                            </div>
-                        </div>
+                        <p class="d-block text-white">@Model.Responsibilites</p>
                     </div>
 
-                    <!-- Section Qualifications -->
-                    <div class="mb-4">
+                    <div class="section-card">
                         <h4 class="text-primary mb-3">
-                            <i class="fas fa-check-circle me-2"></i> Qualifications
+                            <i class="fas fa-check-circle me-2"></i>Qualifications
                         </h4>
-                        <div class="card bg-light text-dark">
-                            <div class="card-body">
-                                @Model.Qualifications
-                            </div>
-                        </div>
+                        <p class="d-block text-white">@Model.Qualifications</p>
                     </div>
                 </div>
 
-                <!-- Colonne droite - Informations complémentaires -->
+                <!-- Panneau d'informations latéral -->
                 <div class="col-lg-4">
-                    <div class="card bg-light text-dark">
-                        <div class="card-body">
-                            <h4 class="text-primary mb-4">
-                                <i class="fas fa-info-circle me-2"></i> Informations
-                            </h4>
+                    <div class="section-card">
+                        <h4 class="text-primary mb-4">Informations clés</h4>
 
-                            <div class="mb-3">
-                                <p class="mb-2">
-                                    <i class="fas fa-map-marker-alt text-primary me-2"></i>
-                                    <strong>Localisation</strong>
-                                </p>
-                                <p class="ms-4">@Model.Location</p>
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt text-primary"></i>
                             </div>
-
-                            <div class="mb-3">
-                                <p class="mb-2">
-                                    <i class="fas fa-money-bill-wave text-primary me-2"></i>
-                                    <strong>Rémunération</strong>
-                                </p>
-                                <p class="ms-4">@Model.Remuneration</p>
+                            <div>
+                                <strong class="d-block">Localisation</strong>
+                                <span class="d-block text-white">@Model.Location</span>
                             </div>
-
-                            <div class="mb-3">
-                                <p class="mb-2">
-                                    <i class="far fa-calendar-alt text-primary me-2"></i>
-                                    <strong>Date de publication</strong>
-                                </p>
-                                <p class="ms-4">@Model.DatePub.ToString("dd MMMM yyyy")</p>
-                            </div>
-
-                            <div class="mb-4">
-                                <p class="mb-2">
-                                    <i class="fas fa-hourglass-end text-primary me-2"></i>
-                                    <strong>Date limite</strong>
-                                </p>
-                                <p class="ms-4">@Model.DeadLine.ToString("dd MMMM yyyy")</p>
-                            </div>
-
-                            @if (User.Identity.IsAuthenticated && !User.IsInRole("Recruteur"))
-                            {
-                                <button class="btn btn-primary w-100 mb-3">
-                                    <i class="fas fa-paper-plane me-2"></i> Postuler
-                                </button>
-                            }
                         </div>
+
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="info-icon">
+                                <i class="fas fa-money-bill-wave text-primary"></i>
+                            </div>
+                            <div>
+                                <strong class="d-block">Rémunération</strong>
+                                <span class="d-block text-white">@Model.Remuneration</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="info-icon">
+                                <i class="far fa-calendar-alt text-primary"></i>
+                            </div>
+                            <div>
+                                <strong class="d-block">Date de publication</strong>
+                                <span class="d-block text-white">@Model.DatePub.ToString("dd MMMM yyyy")</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="info-icon">
+                                <i class="fas fa-hourglass-end text-primary"></i>
+                            </div>
+                            <div>
+                                <strong class="d-block">Date limite</strong>
+                                <span class="d-block text-white">@Model.DeadLine.ToString("dd MMMM yyyy")</span>
+                            </div>
+                        </div>
+
+                        @if (User.Identity.IsAuthenticated && !User.IsInRole("Recruteur"))
+                        {
+                            <button class="btn btn-primary w-100 py-3 position-relative overflow-hidden">
+                                <i class="fas fa-paper-plane me-2"></i>
+                                <span>Postuler maintenant</span>
+                            </button>
+                        }
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card-footer bg-light p-3 d-flex justify-content-between">
-            <a href="javascript:history.back()" class="btn btn-outline-secondary">
-                <i class="fas fa-arrow-left me-2"></i> Retour
-            </a>
-            <a href="/Contact" class="btn btn-outline-primary">
-                <i class="fas fa-envelope me-2"></i> Contactez-nous
-            </a>
+        <div class="card-footer bg-transparent border-top border-secondary p-3">
+            <div class="d-flex justify-content-between">
+                <a href="javascript:history.back()"
+                   class="btn btn-outline-light">
+                    <i class="fas fa-arrow-left me-2"></i>Retour
+                </a>
+                <a href="/Contact"
+                   class="btn btn-outline-primary">
+                    <i class="fas fa-envelope me-2"></i>Contactez-nous
+                </a>
+            </div>
         </div>
     </div>
 </div>
 
 @section Scripts {
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Font Awesome for icons -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+    <script>
+        // Animation des badges au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            const badges = document.querySelectorAll('.badge');
+            badges.forEach((badge, index) => {
+                setTimeout(() => {
+                    badge.style.opacity = '1';
+                    badge.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
 }

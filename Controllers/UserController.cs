@@ -88,6 +88,14 @@ namespace RecrutementApplication.Controllers
                     ModelState.AddModelError("DeadLine", "La date de fin doit être postérieure à la date de publication.");
                     return View(offre);
                 }
+                var recruteur = _context.Users.FirstOrDefault(r => r.Id == offre.rectuteurId);
+
+                if (recruteur != null && !string.IsNullOrEmpty(recruteur.EntrepriseLogo))
+                {
+                    // Assigner le logo de l'entreprise à l'offre
+                    offre.EntrepriseLogo = recruteur.EntrepriseLogo;
+                }
+
 
                 _context.Offers.Add(offre);
                 _context.SaveChanges();
