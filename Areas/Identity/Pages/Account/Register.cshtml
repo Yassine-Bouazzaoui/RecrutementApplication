@@ -1,131 +1,272 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Inscription";
 }
-<div class="container py-5">
-    <h2 class="text-center mb-4">Choisissez votre rôle</h2>
 
-    <!-- Cards Section -->
-    <div class="row justify-content-center">
-        <!-- Card for Candidat -->
-        <div class="col-md-5">
-            <div class="card shadow-lg role-card text-center" id="candidatCard" tabindex="0" role="button" aria-label="Sélectionner Candidat">
-                <div class="card-body">
-                    <i class="bi bi-person-fill display-1 text-primary"></i>
-                    <h4 class="card-title mt-3">Candidat</h4>
-                    <p class="card-text">Vous cherchez à postuler pour un emploi. Remplissez les informations nécessaires.</p>
+<div class="container-fluid py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="badge bg-primary px-3 py-2 rounded-pill mb-3">
+                <i class="bi bi-rocket-takeoff me-2"></i>Commencez Votre Voyage
+            </span>
+            <h2 class="display-4 fw-bold mb-3">Rejoignez Notre Communauté</h2>
+            <p class="text-muted">Choisissez votre parcours et commencez votre aventure professionnelle</p>
+        </div>
+
+        <!-- Role Selection Cards -->
+        <div class="row justify-content-center g-4 mb-5">
+            <!-- Candidat Card -->
+            <div class="col-lg-5">
+                <div class="card h-100 border-0 bg-gradient-primary text-white hover-scale role-card" id="candidatCard" tabindex="0" role="button">
+                    <div class="card-body p-5 text-center">
+                        <div class="icon-circle bg-white bg-opacity-10 mx-auto mb-4">
+                            <i class="bi bi-person-workspace display-5 text-white"></i>
+                        </div>
+                        <h3 class="card-title h2 mb-4">Espace Talent</h3>
+                        <p class="card-text mb-4">Découvrez des opportunités exceptionnelles et construisez votre carrière idéale avec des entreprises innovantes.</p>
+                        <span class="btn btn-light btn-lg rounded-pill px-4">
+                            <i class="bi bi-arrow-right-circle me-2"></i>Je suis Candidat
+                        </span>
+                        <div class="features mt-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-circle me-2"></i>
+                                <span>Accès à des offres exclusives</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-circle me-2"></i>
+                                <span>Suivi de candidatures</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle me-2"></i>
+                                <span>Profil personnalisé</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recruteur Card -->
+            <div class="col-lg-5">
+                <div class="card h-100 border-0 bg-gradient-success text-white hover-scale role-card" id="recruteurCard" tabindex="0" role="button">
+                    <div class="card-body p-5 text-center">
+                        <div class="icon-circle bg-white bg-opacity-10 mx-auto mb-4">
+                            <i class="bi bi-building display-5 text-white"></i>
+                        </div>
+                        <h3 class="card-title h2 mb-4">Espace Recruteur</h3>
+                        <p class="card-text mb-4">Trouvez les meilleurs talents pour développer votre entreprise et gérez vos recrutements efficacement.</p>
+                        <span class="btn btn-light btn-lg rounded-pill px-4">
+                            <i class="bi bi-arrow-right-circle me-2"></i>Je suis Recruteur
+                        </span>
+                        <div class="features mt-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-circle me-2"></i>
+                                <span>Publication d'offres illimitée</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-circle me-2"></i>
+                                <span>Gestion des candidatures</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle me-2"></i>
+                                <span>Analytics avancés</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Card for Recruteur -->
-        <div class="col-md-5">
-            <div class="card shadow-lg role-card text-center" id="recruteurCard" tabindex="0" role="button" aria-label="Sélectionner Recruteur">
-                <div class="card-body">
-                    <i class="bi bi-building display-1 text-success"></i>
-                    <h4 class="card-title mt-3">Recruteur</h4>
-                    <p class="card-text">Vous êtes un recruteur et souhaitez publier des offres. Remplissez les informations de l'entreprise.</p>
+
+        <div class="d-flex justify-content-center">
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+
+        <!-- Form Section -->
+        <div id="formSection" class="mt-5 d-none">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-lg">
+                        <div class="card-body p-5">
+                            <h3 id="formTitle" class="text-center h2 mb-5"></h3>
+                            <form method="post" enctype="multipart/form-data">
+                                <!-- Personal Information Section -->
+                                <div class="mb-5">
+                                    <h4 class="mb-4">Informations Personnelles</h4>
+                                    <div class="row g-4">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input asp-for="Input.Nom" class="form-control" placeholder="Nom" required />
+                                                <label asp-for="Input.Nom">Nom</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input asp-for="Input.Prenom" class="form-control" placeholder="Prénom" required />
+                                                <label asp-for="Input.Prenom">Prénom</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input asp-for="Input.Age" class="form-control" placeholder="Âge" required type="number" />
+                                                <label asp-for="Input.Age">Âge</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input asp-for="Input.Email" type="email" class="form-control" placeholder="Email" required />
+                                                <label asp-for="Input.Email">Email</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Security Section -->
+                                <div class="mb-5">
+                                    <h4 class="mb-4">Sécurité</h4>
+                                    <div class="row g-4">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input asp-for="Input.Password" class="form-control" type="password" placeholder="Mot de passe" />
+                                                <label asp-for="Input.Password">Mot de passe</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input asp-for="Input.ConfirmPassword" class="form-control" type="password" placeholder="Confirmer" />
+                                                <label asp-for="Input.ConfirmPassword">Confirmer</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Candidat Fields -->
+                                <div id="candidatFields" class="d-none">
+                                    <div class="mb-5">
+                                        <h4 class="mb-4">Profil Professionnel</h4>
+                                        <div class="row g-4">
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input asp-for="Input.Titre" class="form-control" placeholder="Titre" />
+                                                    <label asp-for="Input.Titre">Titre Professionnel</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input asp-for="Input.NbAnsExp" class="form-control" type="number" placeholder="Expérience" />
+                                                    <label asp-for="Input.NbAnsExp">Années d'expérience</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input asp-for="Input.Diplome" class="form-control" placeholder="Diplôme" />
+                                                    <label asp-for="Input.Diplome">Diplôme</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <select asp-for="Input.Profil" class="form-select">
+                                                        <option value="">Sélectionnez...</option>
+                                                        <option value="Deug">Deug</option>
+                                                        <option value="Licence">Licence</option>
+                                                        <option value="Master">Master</option>
+                                                        <option value="Ingenieur">Ingénieur</option>
+                                                    </select>
+                                                    <label asp-for="Input.Profil">Niveau d'études</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="upload-zone p-4 rounded-3 bg-light text-center">
+                                                    <i class="bi bi-cloud-upload display-4 text-primary mb-3"></i>
+                                                    <h5>Déposez votre CV</h5>
+                                                    <p class="text-muted small mb-3">Format PDF uniquement</p>
+                                                    <input accept=".pdf" class="form-control" type="file" name="file" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Recruteur Fields -->
+                                <div id="recruteurFields" class="d-none">
+                                    <div class="mb-5">
+                                        <h4 class="mb-4">Information Entreprise</h4>
+                                        <div class="row g-4">
+                                            <div class="col-12">
+                                                <div class="form-floating">
+                                                    <input asp-for="Input.Entreprise" class="form-control" placeholder="Entreprise" />
+                                                    <label asp-for="Input.Entreprise">Nom de l'entreprise</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="upload-zone p-4 rounded-3 bg-light text-center">
+                                                    <i class="bi bi-image display-4 text-primary mb-3"></i>
+                                                    <h5>Logo de l'entreprise</h5>
+                                                    <p class="text-muted small mb-3">Formats acceptés : PNG, JPG</p>
+                                                    <input accept=".png,.jpg,.jpeg" class="form-control" type="file" name="file" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" id="selectedRole" name="Input.Role" value="" />
+
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5">
+                                        <i class="bi bi-check-circle me-2"></i>Créer mon compte
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="d-flex justify-content-center">
-        <div asp-validation-summary="All" class="text-danger"></div>
-    </div>
-
-    <!-- Shared Form Section -->
-    <div id="formSection" class="mt-4 d-none">
-        <h3 id="formTitle" class="text-center mb-4"></h3>
-        <form method="post" enctype="multipart/form-data">
-            <div class="card p-4 shadow-sm">
-                <!-- Shared Fields -->
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Nom" class="form-control" placeholder="Nom" required />
-                    <label asp-for="Input.Nom">Nom</label>
-                    <span asp-validation-for="Input.Nom" class="text-danger"></span>
-                </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Prenom" class="form-control" placeholder="Prénom" required />
-                    <label asp-for="Input.Prenom">Prénom</label>
-                    <span asp-validation-for="Input.Prenom" class="text-danger"></span>
-                </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Age" class="form-control" placeholder="Âge" required type="number" />
-                    <label asp-for="Input.Age">Âge</label>
-                    <span asp-validation-for="Input.Age" class="text-danger"></span>
-                </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Email" type="email" class="form-control" placeholder="Adresse email" required />
-                    <label asp-for="Input.Email">Adresse email</label>
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password"
-                           aria-required="true" placeholder="password" />
-                    <label asp-for="Input.Password">Mot de passe</label>
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password"
-                           aria-required="true" placeholder="password" />
-                    <label asp-for="Input.ConfirmPassword">Confirmer le mot de passe</label>
-                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                </div>
-
-                <!-- Fields for Candidat -->
-                <div id="candidatFields" class="d-none">
-                    <div class="form-floating mb-3">
-                        <input asp-for="Input.Titre" class="form-control" placeholder="Titre Professionnel" />
-                        <label asp-for="Input.Titre">Titre Professionnel</label>
-                        <span asp-validation-for="Input.Titre" class="text-danger"></span>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input asp-for="Input.Diplome" class="form-control" placeholder="Diplôme" />
-                        <label asp-for="Input.Diplome">Diplôme</label>
-                        <span asp-validation-for="Input.Diplome" class="text-danger"></span>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input asp-for="Input.NbAnsExp" class="form-control" placeholder="Nombre d'années d'expérience" type="number" />
-                        <label asp-for="Input.NbAnsExp">Nombre d'années d'expérience</label>
-                        <span asp-validation-for="Input.NbAnsExp" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Input.Profil" class="form-label">Profil</label>
-                        <select asp-for="Input.Profil" class="form-select">
-                            <option value="Deug">Deug</option>
-                            <option value="Licence">Licence</option>
-                            <option value="Master">Master</option>
-                            <option value="Ingenieur">Ingénieur</option>
-                        </select>
-                        <span asp-validation-for="Input.Profil" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Input.CV" class="form-label">Curriculum Vitae</label>
-                        <input accept=".pdf" class="form-control" type="file" name="file" />
-                        <span asp-validation-for="Input.CV" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <!-- Fields for Recruteur -->
-                <div id="recruteurFields" class="d-none">
-                    <div class="form-floating mb-3">
-                        <input asp-for="Input.Entreprise" class="form-control" placeholder="Nom de l'entreprise" />
-                        <label asp-for="Input.Entreprise">Nom de l'entreprise</label>
-                        <span asp-validation-for="Input.Entreprise" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Input.UrlImageEntreprise" class="form-label">Logo de l'entreprise</label>
-                        <input accept=".png,.jpg,.jpeg" class="form-control" type="file" name="file" />
-                        <span asp-validation-for="Input.UrlImageEntreprise" class="text-danger"></span>
-                    </div>
-                    <input type="hidden" id="selectedRole" name="Input.Role" value="" />
-                </div>
-
-                <button type="submit" class="btn btn-primary w-100">S'inscrire</button>
-            </div>
-        </form>
     </div>
 </div>
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    }
+
+    .bg-gradient-success {
+        background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+    }
+
+    .hover-scale {
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+
+        .hover-scale:hover {
+            transform: translateY(-5px);
+        }
+
+    .icon-circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .upload-zone {
+        border: 2px dashed #dee2e6;
+        transition: all 0.3s ease;
+    }
+
+        .upload-zone:hover {
+            border-color: #2196F3;
+            background-color: #f8f9fa;
+        }
+
+    .features {
+        text-align: left;
+        font-size: 0.9rem;
+    }
+</style>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
@@ -140,15 +281,19 @@
 
         function toggleForm(role) {
             formSection.classList.remove('d-none');
-            formTitle.textContent = role === 'Candidat' ? 'Informations Candidat' : 'Informations Recruteur';
+            formTitle.textContent = role === 'Candidat' ? 'Inscription Candidat' : 'Inscription Recruteur';
             candidatFields.classList.toggle('d-none', role !== 'Candidat');
             recruteurFields.classList.toggle('d-none', role !== 'Recruteur');
             selectedRole.value = role;
+
+            // Scroll to form
+            formSection.scrollIntoView({ behavior: 'smooth' });
         }
 
         candidatCard.addEventListener('click', () => toggleForm('Candidat'));
         recruteurCard.addEventListener('click', () => toggleForm('Recruteur'));
 
+        // Accessibility
         candidatCard.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') toggleForm('Candidat');
         });

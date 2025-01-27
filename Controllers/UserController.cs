@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RecrutementApplication.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -38,7 +39,6 @@ namespace RecrutementApplication.Controllers
             return View(Offers.ToList());
         }
 
-        // Afficher les détails d'une offre
         [AllowAnonymous]
         public IActionResult DetailsOffre(int id)
         {
@@ -50,19 +50,15 @@ namespace RecrutementApplication.Controllers
             [Authorize(Roles = "Recruteur")]
         public async Task<IActionResult> MesOffres()
         {
-            // Récupérer l'ID de l'utilisateur connecté
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Récupérer les offres de l'utilisateur, ordonnées par date de publication décroissante
             var mesOffres = await _context.Offers
                 .Where(o => o.rectuteurId == userId)
                 .OrderByDescending(o => o.DatePub)
                 .ToListAsync();
 
-            // Récupérer les informations de l'utilisateur pour afficher le nom de l'entreprise
             var user = await _userManager.FindByIdAsync(userId);
 
-            // Pour chaque offre, ajouter les informations de l'entreprise
             foreach (var offre in mesOffres)
             {
                 offre.Entreprise = user.Entreprise;
@@ -72,7 +68,6 @@ namespace RecrutementApplication.Controllers
             return View(mesOffres);
         }
 
-        // Ajouter une offre (recruteur uniquement)
         [Authorize(Roles = "Recruteur")]
         public IActionResult CreateOffre()
         {
@@ -85,18 +80,15 @@ namespace RecrutementApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Attribuer les valeurs calculées
                 offre.rectuteurId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 offre.DatePub = DateTime.Now;
 
-                // Valider la cohérence des dates
                 if (offre.DeadLine <= offre.DatePub)
                 {
                     ModelState.AddModelError("DeadLine", "La date de fin doit être postérieure à la date de publication.");
                     return View(offre);
                 }
 
-                // Enregistrer dans la base de données
                 _context.Offers.Add(offre);
                 _context.SaveChanges();
 
@@ -107,7 +99,6 @@ namespace RecrutementApplication.Controllers
         }
 
 
-        // Modifier une offre (recruteur uniquement)
         [Authorize(Roles = "Recruteur")]
         public IActionResult EditOffre(int id)
         {
@@ -131,7 +122,6 @@ namespace RecrutementApplication.Controllers
             return View(offre);
         }
 
-        // Supprimer une offre (recruteur uniquement)
         [Authorize(Roles = "Recruteur")]
         public IActionResult DeleteOffre(int id)
         {
