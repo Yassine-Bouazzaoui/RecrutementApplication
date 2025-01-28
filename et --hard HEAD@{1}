@@ -1,0 +1,12 @@
+[33md034b84[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31mRecrutementApplication/master[m[33m)[m HEAD@{0}: reset: moving to d034b846949808761b308d5150c923dce5813f1d
+[33md034b84[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31mRecrutementApplication/master[m[33m)[m HEAD@{1}: commit: améliorer Détails offre
+[33m3ef0696[m HEAD@{2}: reset: moving to 3ef069683db8dede497e1774017d9ce5fd399473
+[33m3ef0696[m HEAD@{3}: reset: moving to 3ef069683db8dede497e1774017d9ce5fd399473
+[33m3ef0696[m HEAD@{4}: reset: moving to 3ef069683db8dede497e1774017d9ce5fd399473
+[33m3ef0696[m HEAD@{5}: reset: moving to 3ef069683db8dede497e1774017d9ce5fd399473
+[33m3ef0696[m HEAD@{6}: commit: amélioration de la page d'accueil
+[33ma42917f[m HEAD@{7}: commit: Add project to the remote repo
+[33m06a46c0[m HEAD@{8}: commit: add validation errors and specify image replacement
+[33m62177c0[m HEAD@{9}: commit: Gestion de l'interface Recruteur
+[33mc341015[m HEAD@{10}: commit: Ajoutez des fichiers projet.
+[33mecaeae8[m HEAD@{11}: commit (initial): Ajouter .gitattributes et .gitignore

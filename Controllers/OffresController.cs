@@ -44,14 +44,13 @@ namespace RecrutementApplication.Controllers
                 }
             }
 
-            // Filtrer par rémunération minimale si spécifiée
             if (minRemuneration.HasValue)
             {
-                offres = offres.Where(o => decimal.Parse(o.Remuneration) >= minRemuneration.Value);
+                offres = offres.Where(o => o.Remuneration >= minRemuneration.Value);
             }
 
-            // Retourner la vue avec les offres filtrées
             return View(await offres.ToListAsync());
+
         }
 
 

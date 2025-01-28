@@ -23,7 +23,7 @@ namespace RecrutementApplication.Controllers
 
         // Afficher toutes les Offers
         [AllowAnonymous]
-        public IActionResult Index(string secteur = null, Profile? profil = null, string remuneration = null)
+        public IActionResult Index(string secteur = null, Profile? profil = null, decimal? remuneration = null)
         {
             var Offers = _context.Offers.AsQueryable();
 
@@ -33,11 +33,14 @@ namespace RecrutementApplication.Controllers
             if (profil.HasValue)
                 Offers = Offers.Where(o => o.Profil == profil.Value);
 
-            if (!string.IsNullOrEmpty(remuneration))
-                Offers = Offers.Where(o => o.Remuneration == remuneration);
+            if (remuneration.HasValue) // Vérifie si la valeur de 'remuneration' est présente
+            {
+                Offers = Offers.Where(o => o.Remuneration >= remuneration.Value); // Comparer avec un decimal
+            }
 
             return View(Offers.ToList());
         }
+
 
         [AllowAnonymous]
         public IActionResult DetailsOffre(int id)

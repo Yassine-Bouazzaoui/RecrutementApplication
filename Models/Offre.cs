@@ -22,7 +22,7 @@ namespace RecrutementApplication.Models
         [DisplayName("Poste")]
         public string Poste { get; set; }
         [DisplayName("Rémuneration")]
-        public string Remuneration { get; set; }
+        public decimal Remuneration { get; set; }
         [DisplayName("Description de l'offre")]
         public string Description { get; set; }
         [DisplayName("Responsibilités")]
