@@ -28,7 +28,22 @@ else
                     <td>@candidature.Candidat.Prenom</td>
                     <td>@candidature.Candidat.Email</td>
                     <td>@candidature.Candidat.PhoneNumber</td>
-                    <td><a href="@candidature.Candidat.CV" target="_blank">Voir CV</a></td>
+                    <td>
+                        
+                            @{
+                                var cvUrl = "/CVs/" + @candidature.Candidat.CV;
+                                if (!@candidature.Candidat.CV.EndsWith(".pdf"))
+                                {
+                                    cvUrl += ".pdf";
+                                }
+                            }
+                            <a href="@cvUrl" class="cv-button" target="_blank">
+                                <i class="fas fa-eye"></i>
+                                <span>Consulter le CV</span>
+                            </a>
+
+                        
+                    </td>
                 </tr>
             }
         </tbody>

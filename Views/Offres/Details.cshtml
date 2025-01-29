@@ -208,10 +208,13 @@
 
                         @if (User.Identity.IsAuthenticated && !User.IsInRole("Recruteur"))
                         {
-                            <button class="btn btn-primary w-100 py-3 position-relative overflow-hidden">
-                                <i class="fas fa-paper-plane me-2"></i>
-                                <span>Postuler maintenant</span>
-                            </button>
+                            <form method="post" asp-controller="User" asp-action="Postuler">
+                                <input type="hidden" name="offreId" value="@Model.Id" />
+                                <button type="submit" class="btn btn-primary w-100 py-3 position-relative overflow-hidden">
+                                    <i class="fas fa-paper-plane me-2"></i>
+                                    <span>Postuler maintenant</span>
+                                </button>
+                            </form>
                         }
                     </div>
                 </div>

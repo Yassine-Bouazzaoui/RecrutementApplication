@@ -14,11 +14,13 @@ namespace RecrutementApplication.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public UserController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, ILogger<UserController> logger)
         {
             _context = context;
             _userManager = userManager;
+            _logger = logger;
         }
 
         // Afficher toutes les Offers
@@ -92,10 +94,10 @@ namespace RecrutementApplication.Controllers
                     return View(offre);
                 }
                 var recruteur = _context.Users.FirstOrDefault(r => r.Id == offre.rectuteurId);
+                offre.Entreprise = recruteur.Entreprise;
 
                 if (recruteur != null && !string.IsNullOrEmpty(recruteur.EntrepriseLogo))
                 {
-                    // Assigner le logo de l'entreprise à l'offre
                     offre.EntrepriseLogo = recruteur.EntrepriseLogo;
                 }
 
@@ -155,36 +157,50 @@ namespace RecrutementApplication.Controllers
             }
             return RedirectToAction("Index");
         }
-        // Postuler à une offre
+
+        [HttpPost]
         [Authorize(Roles = "Candidat")]
         public IActionResult Postuler(int offreId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             var candidature = new Candidature
             {
                 CandidatId = userId,
                 OffreId = offreId,
                 DatePostulation = DateOnly.FromDateTime(DateTime.Now)
             };
-
             _context.Candidatures.Add(candidature);
             _context.SaveChanges();
-
             return RedirectToAction("HistoriqueCandidatures");
         }
 
-        // Consulter l'historique des candidatures
-        [Authorize(Roles = "Candidat")]
-        public IActionResult HistoriqueCandidatures()
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var candidatures = _context.Candidatures
-                .Where(c => c.CandidatId == userId)
-                .Include(c => c.Offre)
-                .ToList();
 
-            return View(candidatures);
+        [Authorize(Roles = "Candidat")]
+        public async Task<IActionResult> HistoriqueCandidatures()
+        {
+            try
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var candidatures = await _context.Candidatures
+                    .Where(c => c.CandidatId == userId)
+                    .Include(c => c.Offre)
+                    .OrderByDescending(c => c.DatePostulation) // Les plus récentes d'abord
+                    .ToListAsync();
+
+                // Ajouter un message de succès si présent dans TempData
+                if (TempData["Success"] != null)
+                {
+                    ViewBag.SuccessMessage = TempData["Success"].ToString();
+                }
+
+                return View(candidatures);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la récupération de l'historique des candidatures");
+                TempData["Error"] = "Une erreur est survenue lors du chargement de l'historique.";
+                return RedirectToAction("Index", "Home");
+            }
         }
         // Voir les candidats pour une offre
         [Authorize(Roles = "Recruteur")]

@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="profil" class="form-label text-white">Profil</label>
-                    <input type="text" id="profil" name="profil" class="form-control bg-white text-dark" placeholder="Ex : Licence, Master" />
+                    <input type="text" id="profil" name="profil" class="form-control bg-white text-dark" placeholder="Ex : Ingénieur" />
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="minRemuneration" class="form-label text-white">Rémunération minimale</label>
@@ -54,6 +54,7 @@
                     <th><i class="bi bi-person-badge"></i> Profil</th>
                     <th><i class="bi bi-people"></i> Poste</th>
                     <th><i class="bi bi-cash"></i> Rémunération</th>
+                    <th><i class="bi bi-border-width"></i> Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,6 +68,11 @@
                             <td>@offre.Profil</td>
                             <td>@offre.Poste</td>
                             <td>@offre.Remuneration €</td>
+                            <td>
+                                <a href="@Url.Action("Details", "Offres", new { id = offre.Id })" class="btn btn-sm btn-primary ms-2">
+                                    Détails
+                                </a>
+                            </td>
                         </tr>
                     }
                 }
