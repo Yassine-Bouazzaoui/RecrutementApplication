@@ -167,11 +167,30 @@ namespace RecrutementApplication.Controllers
             {
                 CandidatId = userId,
                 OffreId = offreId,
-                DatePostulation = DateOnly.FromDateTime(DateTime.Now)
+                DatePostulation = DateOnly.FromDateTime(DateTime.Now),
+                Status = StatusCandidature.EnAttente // Statut par défaut
             };
             _context.Candidatures.Add(candidature);
             _context.SaveChanges();
             return RedirectToAction("HistoriqueCandidatures");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Recruteur")]
+        public IActionResult UpdateCandidatureStatus(int candidatureId, StatusCandidature newStatus)
+        {
+            var candidature = _context.Candidatures.Find(candidatureId);
+            if (candidature == null) return NotFound();
+
+            // Vérifier que le recruteur est bien le propriétaire de l'offre
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var offre = _context.Offers.Find(candidature.OffreId);
+            if (offre.rectuteurId != userId) return Unauthorized();
+
+            candidature.Status = newStatus;
+            _context.SaveChanges();
+
+            return RedirectToAction("VoirCandidats", new { offreId = candidature.OffreId });
         }
 
 

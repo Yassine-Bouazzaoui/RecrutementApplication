@@ -1,88 +1,275 @@
 ﻿@model IEnumerable<RecrutementApplication.Models.Offre>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-<div class="text-center py-4">
-    <h2 class="display-4 fw-bold text-white">Espace Offres</h2>
-    <p class="text-light">Trouvez les offres qui correspondent à vos compétences et aspirations</p>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+
+<style>
+    :root {
+        --dark-bg: #1a1a1a;
+        --card-bg: #2d2d2d;
+        --accent: #6366f1;
+        --text-primary: #e2e2e2;
+        --text-secondary: #a0a0a0;
+    }
+
+    body {
+        background: linear-gradient(135deg, var(--dark-bg), #2c2c2c);
+        color: var(--text-primary);
+    }
+
+    select.custom-input {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--text-primary);
+        border-radius: 8px;
+        padding: 10px 15px;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23e2e2e2' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.762L10.825 4z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        padding-right: 40px;
+    }
+
+        select.custom-input option {
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            padding: 10px;
+        }
+
+        select.custom-input:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+            outline: none;
+        }
+
+        select.custom-input:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+    .page-header {
+        background: rgba(99, 102, 241, 0.1);
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    .search-card {
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+
+        .search-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+    .custom-input {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--text-primary);
+        border-radius: 8px;
+        padding: 10px 15px;
+    }
+
+        .custom-input:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+            color: var(--text-primary);
+        }
+
+    .search-btn {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .search-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+    .offres-table {
+        background: var(--card-bg);
+        border-radius: 15px;
+        overflow: hidden;
+        animation: slideInUp 0.5s ease-out;
+    }
+
+        .offres-table thead {
+            background: var(--accent);
+            color: white;
+        }
+
+        .offres-table th {
+            padding: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .offres-table tbody tr {
+            transition: background-color 0.3s ease;
+        }
+
+            .offres-table tbody tr:hover {
+                background: rgba(99, 102, 241, 0.1);
+            }
+
+    .action-btn {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+            background: #5254cc;
+        }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @@keyframes slideInUp {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+</style>
+
+<div class="page-header text-center">
+    <h1 class="display-4 fw-bold mb-3">Espace Offres</h1>
+    <p class="lead text-secondary">Découvrez les opportunités qui correspondent à vos aspirations</p>
 </div>
 
 <div class="text-center mb-4">
-    <button class="btn btn-lg btn-outline-light shadow" type="button" data-bs-toggle="collapse" data-bs-target="#searchForm" aria-expanded="false" aria-controls="searchForm">
-        <i class="bi bi-search"></i> Chercher une offre
+    <button class="search-btn" type="button" data-bs-toggle="collapse" data-bs-target="#searchForm" aria-expanded="false">
+        <i class="fas fa-search me-2"></i>Rechercher une offre
     </button>
 </div>
 
 <div class="collapse mb-4" id="searchForm">
-    <div class="card card-body shadow-lg border-0 bg-withe">
-        <h5 class="card-title text-center text-white">Affiner votre recherche</h5>
+    <div class="search-card p-4">
+        <h5 class="text-center mb-4">Affinez votre recherche</h5>
         <form asp-action="Index" method="get">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label for="secteur" class="form-label text-white">Secteur</label>
-                    <input type="text" id="secteur" name="secteur" class="form-control bg-white text-dark" placeholder="Ex : Informatique" />
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="mb-2"><i class="fas fa-building me-2"></i>Secteur</label>
+                        <input type="text" name="secteur" class="form-control custom-input" placeholder="Ex: Informatique">
+                    </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label for="profil" class="form-label text-white">Profil</label>
-                    <input type="text" id="profil" name="profil" class="form-control bg-white text-dark" placeholder="Ex : Ingénieur" />
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="mb-2"><i class="fas fa-user-tie me-2"></i>Profil</label>
+                        <select name="profil" class="form-control custom-input">
+                            <option value="">Sélectionnez un profil...</option>
+                            <option value="Deug">Deug</option>
+                            <option value="Licence">Licence</option>
+                            <option value="Master">Master</option>
+                            <option value="Ingenieur">Ingénieur</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label for="minRemuneration" class="form-label text-white">Rémunération minimale</label>
-                    <input type="number" id="minRemuneration" name="minRemuneration" class="form-control bg-white text-dark" placeholder="Ex : 17000" />
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="minRemuneration" class="form-label text-white">Détails</label>
-                    <input type="number" id="minRemuneration" name="minRemuneration" class="form-control bg-white text-dark" placeholder="Ex : 17000" />
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="mb-2"><i class="fas fa-euro-sign me-2"></i>Rémunération minimale</label>
+                        <input type="number" name="minRemuneration" class="form-control custom-input" placeholder="Ex: 35000">
+                    </div>
                 </div>
             </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-light btn-lg shadow">
-                    Rechercher
+            <div class="text-center mt-4">
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search me-2"></i>Rechercher
                 </button>
             </div>
         </form>
     </div>
 </div>
 
-<div class="mt-4">
-    <h3 class="text-center text-white">Liste des Offres</h3>
-    <div class="table-responsive">
-        <table class="table table-hover align-middle shadow-sm">
-            <thead class="table-success text-center">
-                <tr>
-                    <th><i class="bi bi-file-earmark-text"></i> Type Contrat</th>
-                    <th><i class="bi bi-briefcase"></i> Secteur</th>
-                    <th><i class="bi bi-person-badge"></i> Profil</th>
-                    <th><i class="bi bi-people"></i> Poste</th>
-                    <th><i class="bi bi-cash"></i> Rémunération</th>
-                    <th><i class="bi bi-border-width"></i> Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null && Model.Any())
+<div class="offres-table table-responsive">
+    <table class="table table-borderless mb-0">
+        <thead>
+            <tr class="text-center">
+                <th><i class="fas fa-file-contract me-2"></i>Type</th>
+                <th><i class="fas fa-building me-2"></i>Secteur</th>
+                <th><i class="fas fa-user-tie me-2"></i>Profil</th>
+                <th><i class="fas fa-briefcase me-2"></i>Poste</th>
+                <th><i class="fas fa-euro-sign me-2"></i>Rémunération</th>
+                <th><i class="fas fa-tasks me-2"></i>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var offre in Model)
                 {
-                    @foreach (var offre in Model)
-                    {
-                        <tr class="text-center text-white">
-                            <td>@offre.Type</td>
-                            <td>@offre.Secteur</td>
-                            <td>@offre.Profil</td>
-                            <td>@offre.Poste</td>
-                            <td>@offre.Remuneration €</td>
-                            <td>
-                                <a href="@Url.Action("Details", "Offres", new { id = offre.Id })" class="btn btn-sm btn-primary ms-2">
-                                    Détails
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="5" class="text-center text-light">Aucune offre disponible.</td>
+                    <tr class="text-center">
+                        <td>@offre.Type</td>
+                        <td>@offre.Secteur</td>
+                        <td>@offre.Profil</td>
+                        <td>@offre.Poste</td>
+                        <td>@offre.Remuneration €</td>
+                        <td>
+                            <a href="@Url.Action("Details", "Offres", new { id = offre.Id })" class="action-btn text-decoration-none">
+                                <i class="fas fa-info-circle me-2"></i>Détails
+                            </a>
+                        </td>
                     </tr>
                 }
-            </tbody>
-        </table>
-    </div>
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="text-center py-4">
+                        <i class="fas fa-inbox fa-2x mb-3 d-block"></i>
+                        Aucune offre disponible pour le moment.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach((row, index) => {
+                row.style.animation = `slideInUp ${0.2 + index * 0.1}s ease-out forwards`;
+            });
+        });
+
+        const searchForm = document.getElementById('searchForm');
+        searchForm.addEventListener('show.bs.collapse', function () {
+            this.querySelector('.search-card').classList.add('animate__animated', 'animate__fadeIn');
+        });
+    </script>
+}

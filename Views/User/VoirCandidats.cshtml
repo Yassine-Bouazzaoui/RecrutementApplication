@@ -200,6 +200,24 @@
                                 Consulter le CV
                             </a>
                         </div>
+                        <div class="status-actions">
+                            <span class="badge @(candidature.Status == StatusCandidature.Validee ? "bg-success" :
+                                candidature.Status == StatusCandidature.Refusee ? "bg-danger" :
+                                "bg-warning")">
+                                @candidature.Status.ToString()
+                            </span>
+                            <div class="btn-group">
+                                <form asp-action="UpdateCandidatureStatus" method="post" style="display: inline;">
+                                    <input type="hidden" name="candidatureId" value="@candidature.Id" />
+                                    <button type="submit" name="newStatus" value="Validee" class="btn btn-sm btn-success">
+                                        <i class="fas fa-check"></i> Valider
+                                    </button>
+                                    <button type="submit" name="newStatus" value="Refusee" class="btn btn-sm btn-danger">
+                                        <i class="fas fa-times"></i> Refuser
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             }

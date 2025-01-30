@@ -1,6 +1,188 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <style>
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent: #4a90e2;
+            --border: #404040;
+        }
 
-<p>Use this page to detail your site's privacy policy.</p>
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(45deg, #2b2b2b, #1a1a1a);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+            .header h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+                background: linear-gradient(45deg, var(--accent), #6ab0ff);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+        .section {
+            background-color: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+            .section:hover {
+                transform: translateY(-5px);
+            }
+
+            .section h2 {
+                display: flex;
+                align-items: center;
+                color: var(--accent);
+                margin-bottom: 1.5rem;
+                font-size: 1.5rem;
+            }
+
+                .section h2 i {
+                    margin-right: 0.75rem;
+                }
+
+            .section p {
+                color: var(--text-secondary);
+                margin-bottom: 1rem;
+            }
+
+            .section ul {
+                list-style-type: none;
+                padding-left: 1.5rem;
+            }
+
+            .section li {
+                color: var(--text-secondary);
+                margin-bottom: 0.5rem;
+                display: flex;
+                align-items: center;
+            }
+
+                .section li::before {
+                    content: "•";
+                    color: var(--accent);
+                    font-weight: bold;
+                    margin-right: 0.5rem;
+                }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: rgba(74, 144, 226, 0.1);
+            border-radius: 5px;
+        }
+
+            .contact-info i {
+                color: var(--accent);
+            }
+
+        .last-updated {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Politique de Confidentialité</h1>
+        <p>Nous prenons la protection de vos données personnelles très au sérieux</p>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2><i class="fas fa-shield-alt"></i> Collecte des Données</h2>
+            <p>Nous collectons les informations suivantes lorsque vous utilisez nos services :</p>
+            <ul>
+                <li>Informations personnelles (nom, prénom, email)</li>
+                <li>Données de connexion et d'utilisation</li>
+                <li>Informations professionnelles</li>
+                <li>Documents téléchargés</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-user-lock"></i> Utilisation des Données</h2>
+            <p>Vos données sont utilisées pour :</p>
+            <ul>
+                <li>Gérer votre compte et vos candidatures</li>
+                <li>Améliorer nos services</li>
+                <li>Communiquer avec vous concernant les opportunités</li>
+                <li>Respecter nos obligations légales</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-cookie-bite"></i> Cookies et Traceurs</h2>
+            <p>Notre site utilise des cookies pour améliorer votre expérience :</p>
+            <ul>
+                <li>Cookies essentiels au fonctionnement du site</li>
+                <li>Cookies analytiques (mesure d'audience)</li>
+                <li>Cookies de personnalisation</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-user-shield"></i> Vos Droits</h2>
+            <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+            <ul>
+                <li>Droit d'accès à vos données</li>
+                <li>Droit de rectification</li>
+                <li>Droit à l'effacement</li>
+                <li>Droit à la portabilité</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-envelope"></i> Contact</h2>
+            <p>Pour toute question concernant notre politique de confidentialité :</p>
+            <div class="contact-info">
+                <i class="fas fa-envelope"></i>
+                <span>yassinebouazzaoui2003@gmail.com</span>
+            </div>
+            <div class="contact-info">
+                <i class="fas fa-phone"></i>
+                <span>+212 6688438856</span>
+            </div>
+        </div>
+
+        <div class="last-updated">
+            Dernière mise à jour : 30 janvier 2024
+        </div>
+    </div>
+</body>
+</html>

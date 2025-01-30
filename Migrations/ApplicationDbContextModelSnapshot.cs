@@ -271,10 +271,10 @@ namespace RecrutementApplication.Migrations
                     b.Property<DateOnly?>("DatePostulation")
                         .HasColumnType("date");
 
-                    b.Property<string>("LettreMotivation")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("OffreId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -325,9 +325,8 @@ namespace RecrutementApplication.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Remuneration")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Remuneration")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Responsibilites")
                         .IsRequired()

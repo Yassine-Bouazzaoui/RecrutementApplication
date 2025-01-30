@@ -28,7 +28,6 @@
             </div>
             <div class="col-lg-5 d-none d-lg-block">
                 <div class="position-relative image-parallax animate__animated animate__fadeInRight">
-                    <!-- Superposition colorée -->
                     <div class="position-absolute top-0 start-0 w-100 h-100 bg-primary opacity-10 rounded-4" style="z-index: 1; pointer-events: none;"></div>
 
                     <!-- Image principale -->
@@ -207,30 +206,95 @@
 
 <!-- CSS personnalisé à ajouter dans votre fichier de style -->
 <style>
-    .bg-primary {
-        z-index: 1;
-        pointer-events: none; /* Évite que cette superposition interfère */
+    :root {
+        --dark-primary: #121212;
+        --dark-secondary: #1E1E1E;
+        --dark-tertiary: #2D2D2D;
+        --accent-primary: #6366f1;
+        --accent-secondary: #818cf8;
+        --text-primary: #ffffff;
+        --text-secondary: #94a3b8;
     }
 
-    .img-fluid {
-        z-index: 2;
-        position: relative; /* Garde l'image visible au-dessus de la superposition */
+    body {
+        background: var(--dark-primary);
+        color: var(--text-primary);
     }
 
-    .py-6 {
-        padding-top: 5rem;
-        padding-bottom: 5rem;
+    .bg-gradient-dark {
+        background: linear-gradient(135deg, var(--dark-primary) 0%, var(--dark-secondary) 100%);
     }
 
-    .hover-lift {
-        transition: transform 0.2s ease-in-out;
+    .hero-section {
+        position: relative;
+        overflow: hidden;
+        padding: 8rem 0;
+        background: radial-gradient(circle at top right, var(--accent-primary) 0%, transparent 60%), radial-gradient(circle at bottom left, var(--accent-secondary) 0%, transparent 60%);
     }
 
-        .hover-lift:hover {
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+    .card {
+        background: var(--dark-secondary);
+        border: 1px solid var(--dark-tertiary);
+    }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+    .stats-section {
+        background: linear-gradient(45deg, var(--dark-secondary), var(--accent-primary));
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stats-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+    }
+
+        .stats-card:hover {
             transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+    .btn-primary {
+        background: var(--accent-primary);
+        border: none;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
     .icon-circle {
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
         width: 80px;
         height: 80px;
         border-radius: 50%;
@@ -238,38 +302,81 @@
         align-items: center;
         justify-content: center;
         margin-bottom: 1.5rem;
+        position: relative;
+        overflow: hidden;
     }
 
-    .transform-hover {
-        transition: transform 0.3s ease-in-out;
-    }
-
-        .transform-hover:hover {
-            transform: translateY(-10px);
+        .icon-circle::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            filter: blur(8px);
+            opacity: 0.7;
+            z-index: -1;
         }
 
-    .animate__animated {
-        animation-duration: 1s;
+    .feature-card {
+        border: 1px solid rgba(255,255,255,0.1);
+        background: rgba(30,30,30,0.5);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
     }
 
-    .bg-gradient-dark {
-        background: linear-gradient(135deg, #1a1a1a 0%, #343a40 100%);
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+   
+
+    .floating {
+        animation: float 6s ease-in-out infinite;
     }
 
-    .delay-1 {
-        animation-delay: 0.2s;
+    .pulsing {
+        animation: pulse 3s ease-in-out infinite;
     }
 
-    .delay-2 {
-        animation-delay: 0.4s;
+    /* Glassmorphism pour les cartes */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
     }
 
-    .text-reveal {
-        opacity: 0;
-        transform: translateY(20px);
-        animation: reveal 0.8s ease-in-out forwards;
+    /* Effets de survol améliorés */
+    .hover-glow:hover {
+        box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
     }
 
+    /* Nouveaux styles pour les badges */
+    .badge {
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+
+    /* Amélioration des transitions */
+    * {
+        transition: all 0.3s ease-in-out;
+    }
 </style>
 <script>
     // Animation des compteurs
