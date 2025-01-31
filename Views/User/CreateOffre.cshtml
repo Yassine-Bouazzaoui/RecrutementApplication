@@ -3,6 +3,78 @@
 @{
     ViewData["Title"] = "Créer une Offre";
 }
+<style>
+    :root {
+        --dark-bg: #1a1a1a;
+        --dark-input: #2d2d2d;
+        --dark-border: #404040;
+        --dark-text: #e0e0e0;
+        --dark-label: #bbbbbb;
+        --dark-primary: #3d7ad6;
+        --dark-primary-hover: #2d5aa6;
+        --dark-secondary: #4a4a4a;
+        --dark-secondary-hover: #5a5a5a;
+        --dark-danger: #dc3545;
+    }
+
+    body {
+        background-color: var(--dark-bg);
+        color: var(--dark-text);
+    }
+
+    .container {
+        background-color: var(--dark-bg);
+        padding: 2rem;
+        border-radius: 8px;
+    }
+
+    .form-control {
+        background-color: var(--dark-input);
+        border: 1px solid var(--dark-border);
+        color: var(--dark-text);
+    }
+
+        .form-control:focus {
+            background-color: var(--dark-input);
+            border-color: var(--dark-primary);
+            color: var(--dark-text);
+            box-shadow: 0 0 0 0.2rem rgba(61, 122, 214, 0.25);
+        }
+
+    .form-label {
+        color: var(--dark-label);
+        font-weight: 500;
+    }
+
+    .btn-primary {
+        background-color: var(--dark-primary);
+        border-color: var(--dark-primary);
+    }
+
+        .btn-primary:hover {
+            background-color: var(--dark-primary-hover);
+            border-color: var(--dark-primary-hover);
+        }
+
+    .btn-secondary {
+        background-color: var(--dark-secondary);
+        border-color: var(--dark-secondary);
+    }
+
+        .btn-secondary:hover {
+            background-color: var(--dark-secondary-hover);
+            border-color: var(--dark-secondary-hover);
+        }
+
+    .text-danger {
+        color: var(--dark-danger) !important;
+    }
+
+    select.form-control option {
+        background-color: var(--dark-input);
+        color: var(--dark-text);
+    }
+</style>
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">

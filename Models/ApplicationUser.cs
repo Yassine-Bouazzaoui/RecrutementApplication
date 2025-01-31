@@ -17,6 +17,7 @@ namespace RecrutementApplication.Models
         public string? Diplome { get; set; }
         public Profile? Profil { get; set; }
         public int? NbAnsExp { get; set; }
+        public string? ProfilePicture { get; set; }
         public string? CV { get; set; }
         public string? Entreprise { get; set; }
         public string? EntrepriseLogo { get; set; }

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using RecrutementApplication.Data;
 using RecrutementApplication.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+using RecrutementApplication.Utility;
 
 namespace RecrutementApplication.Controllers
 {
@@ -15,12 +17,15 @@ namespace RecrutementApplication.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<UserController> _logger;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public UserController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, ILogger<UserController> logger)
+
+        public UserController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, ILogger<UserController> logger, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _userManager = userManager;
             _logger = logger;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // Afficher toutes les Offers
@@ -276,6 +281,37 @@ namespace RecrutementApplication.Controllers
 
             return View(user);
         }
+        [HttpPost]
+        public async Task<IActionResult> UpdateProfilePicture(IFormFile profilePicture)
+        {
+            if (profilePicture == null)
+                return BadRequest("No file uploaded");
 
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return NotFound();
+
+            // Vérifier le type de fichier
+            var allowedTypes = new[] { "image/jpeg", "image/png", "image/gif" };
+            if (!allowedTypes.Contains(profilePicture.ContentType))
+                return BadRequest("Invalid file type. Please upload an image file.");
+
+            // Supprimer l'ancienne image si elle existe
+            if (!string.IsNullOrEmpty(user.ProfilePicture))
+            {
+                var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, "ProfilPics", user.ProfilePicture);
+                if (System.IO.File.Exists(oldImagePath))
+                {
+                    System.IO.File.Delete(oldImagePath);
+                }
+            }
+
+            // Sauvegarder la nouvelle image
+            var fileName = await profilePicture.SaveProfilePictureAsync(_webHostEnvironment.WebRootPath);
+            user.ProfilePicture = fileName;
+
+            await _userManager.UpdateAsync(user);
+            return RedirectToAction("Profile");
+        }
     }
 }

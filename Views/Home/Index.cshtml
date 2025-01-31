@@ -1,45 +1,53 @@
 ﻿@{
     ViewData["Title"] = "RecrutementApplication - Votre Passerelle Professionnelle";
 }
+<head>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    </head>
 
-<!-- Hero Section avec animation améliorée -->
-<section class="hero-section position-relative bg-gradient-dark text-white overflow-hidden">
-    <div class="container position-relative z-1 py-6">
+<section class="hero-section position-relative bg-gradient-dark text-white">
+    <div class="particle-container" id="particles-js"></div>
+    <div class="container position-relative z-1 py-8">
         <div class="row align-items-center">
             <div class="col-lg-7">
-                <span class="badge bg-primary rounded-pill mb-3 animate__animated animate__fadeInDown">
-                    <i class="bi bi-star-fill me-2"></i>Leader du Recrutement Digital
-                </span>
-                <h1 class="display-3 fw-bold mb-4 text-reveal animate__animated animate__fadeInUp">
-                    Transformez Vos <span class="text-primary">Ambitions Professionnelles</span>
+                <div class="glowing-badge mb-4 animate__animated animate__fadeInDown">
+                    <span class="badge bg-primary rounded-pill">
+                        <i class="bi bi-stars me-2"></i>Leader du Recrutement Digital
+                    </span>
+                </div>
+                <h1 class="display-2 fw-bold mb-4 gradient-text animate__animated animate__fadeInUp">
+                    Transformez Vos <span class="accent-text typewriter">Ambitions</span>
                 </h1>
-                <p class="lead mb-5 text-reveal delay-1 animate__animated animate__fadeInUp">
-                    <i class="bi bi-check2-circle me-2"></i>Une plateforme révolutionnaire qui connecte les talents exceptionnels aux opportunités stratégiques.
+                <p class="lead mb-5 animate__animated animate__fadeInUp">
+                    <i class="bi bi-check2-circle me-2 pulse-icon"></i>
+                    Une plateforme nouvelle génération connectant les talents aux opportunités de demain.
                 </p>
-                <div class="d-flex gap-3 text-reveal delay-2 animate__animated animate__fadeInUp">
-                    <a href="/Offres" class="btn btn-primary btn-lg shadow-lg hover-lift">
-                        <i class="bi bi-search me-2"></i>Découvrir les Offres
-                        <span class="badge bg-white text-primary ms-2">500+</span>
+                <div class="d-flex gap-3 animate__animated animate__fadeInUp">
+                    <a href="/Offres" class="btn btn-gradient btn-lg hover-lift-3d position-relative">
+                        <i class="bi bi-search-heart me-2"></i>Découvrir les Offres
+                        <div class="floating-badge">500+</div>
                     </a>
-                    <a href="/User/MesOffres" class="btn btn-outline-light btn-lg shadow-lg hover-lift">
-                        <i class="bi bi-plus-circle me-2"></i>Publier une Offre
+                    <a href="/User/MesOffres" class="btn btn-outline-glow btn-lg hover-lift-3d">
+                        <i class="bi bi-plus-circle-dotted me-2"></i>Publier une Offre
                     </a>
                 </div>
             </div>
             <div class="col-lg-5 d-none d-lg-block">
-                <div class="position-relative image-parallax animate__animated animate__fadeInRight">
-                    <div class="position-absolute top-0 start-0 w-100 h-100 bg-primary opacity-10 rounded-4" style="z-index: 1; pointer-events: none;"></div>
-
-                    <!-- Image principale -->
-                    <img src="/img/tendances-recrutement.png.webp" class="img-fluid rounded-4 shadow-lg transform-scale-hover" alt="Recrutement Moderne" style="z-index: 2; position: relative;">
-
-                    <!-- Badge en bas à droite -->
-                    <div class="position-absolute bottom-0 end-0 bg-white p-3 rounded-4 shadow-lg m-3 animate__animated animate__fadeInUp" style="z-index: 3;">
+                <div class="hero-image-container animate__animated animate__fadeInRight position-relative">
+                    <div class="floating-elements">
+                        <div class="floating-icon"><i class="bi bi-briefcase-fill"></i></div>
+                        <div class="floating-icon delay-1"><i class="bi bi-person-workspace"></i></div>
+                        <div class="floating-icon delay-2"><i class="bi bi-graph-up-arrow"></i></div>
+                    </div>
+                    <img src="/img/tendances-recrutement.png.webp" class="hero-image" alt="Recrutement Moderne">
+                    <div class="stats-card-floating">
                         <div class="d-flex align-items-center">
-                            <i class="bi bi-graph-up-arrow text-primary fs-4 me-2"></i>
+                            <i class="bi bi-lightning-charge-fill text-gradient fs-4 me-2"></i>
                             <div>
-                                <small class="text-dark d-block">Taux de réussite</small>
-                                <span class="text-dark fw-bold">98% satisfaction</span>
+                                <div class="counter-wrapper">
+                                    <span class="counter-number" data-target="98">0</span>%
+                                </div>
+                                <small class="text-gradient">Taux de réussite</small>
                             </div>
                         </div>
                     </div>
@@ -47,98 +55,84 @@
             </div>
         </div>
     </div>
-    <svg class="position-absolute bottom-0 start-0 w-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path fill="#ffffff" fill-opacity="1" d="M0,256L48,240C96,224,192,192,288,176C384,160,480,160,576,176C672,192,768,224,864,245.3C960,267,1056,277,1152,261.3C1248,245,1344,203,1392,181.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-    </svg>
+    <div class="hero-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
 </section>
 
-<!-- Section Caractéristiques avec cards améliorées -->
-<section class="features-section bg-light py-6">
+
+<!-- Section Features avec cartes 3D -->
+<section class="features-section bg-darker py-8">
     <div class="container">
-        <div class="text-center mb-5">
-            <span class="badge bg-primary rounded-pill mb-3">
-                <i class="bi bi-lightning-charge-fill me-2"></i>Nos Solutions
-            </span>
-            <h2 class="display-5 fw-bold">Des Outils Innovants pour Votre Succès</h2>
+        <div class="text-center mb-7">
+            <div class="glowing-badge">
+                <span class="badge bg-gradient rounded-pill mb-3">
+                    <i class="bi bi-lightning-charge-fill me-2"></i>Nos Solutions
+                </span>
+            </div>
+            <h2 class="display-4 fw-bold gradient-text mb-4">Solutions Innovantes</h2>
+            <p class="lead text-muted mb-5">Découvrez nos outils nouvelle génération pour votre réussite professionnelle</p>
         </div>
         <div class="row g-4">
+            <!-- Carte IA -->
             <div class="col-lg-4">
-                <div class="card border-0 shadow-lg h-100 transform-hover reveal-on-scroll">
-                    <div class="card-body p-5">
-                        <div class="icon-box mb-4">
-                            <span class="icon-circle bg-primary bg-opacity-10 text-primary">
-                                <i class="bi bi-search-heart fs-2"></i>
-                            </span>
+                <div class="feature-card-3d" data-tilt>
+                    <div class="card-content">
+                        <div class="icon-container">
+                            <i class="bi bi-brain-fill"></i>
+                            <div class="icon-glow"></div>
                         </div>
-                        <h4 class="card-title mb-3">Recherche Personnalisée</h4>
-                        <p class="card-text text-muted">Algorithme intelligent qui analyse vos compétences pour des recommandations précises.</p>
-                        <ul class="list-unstyled mb-4">
-                            <li class="mb-2">
-                                <i class="bi bi-check2-circle text-primary me-2"></i>Matching intelligent
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check2-circle text-primary me-2"></i>Filtres avancés
-                            </li>
-                            <li>
-                                <i class="bi bi-check2-circle text-primary me-2"></i>Suggestions personnalisées
-                            </li>
+                        <h4 class="gradient-text mb-4">IA Avancée</h4>
+                        <p class="text-muted mb-4">Intelligence artificielle qui analyse et comprend vos besoins.</p>
+                        <ul class="feature-list">
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Analyse prédictive</li>
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Matching intelligent</li>
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Recommendations précises</li>
                         </ul>
-                        <a href="/Offres" class="btn btn-primary w-100 hover-lift">
-                            <i class="bi bi-arrow-right me-2"></i>Explorer les Opportunités
+                        <a href="/Offres" class="btn btn-gradient-subtle stretched-link">
+                            Explorer <i class="bi bi-arrow-right ms-2"></i>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card border-0 shadow-lg h-100 transform-hover reveal-on-scroll delay-1">
-                    <div class="card-body p-5">
-                        <div class="icon-box mb-4">
-                            <span class="icon-circle bg-primary bg-opacity-10 text-primary">
-                                <i class="bi bi-people-fill fs-2"></i>
-                            </span>
+                <div class="feature-card-3d" data-tilt>
+                    <div class="card-content">
+                        <div class="icon-container">
+                            <i class="bi bi-shield-lock-fill"></i>
+                            <div class="icon-glow"></div>
                         </div>
-                        <h4 class="card-title mb-3">Recrutement Stratégique</h4>
-                        <p class="card-text text-muted">Outils avancés pour identifier et attirer les talents qui correspondent parfaitement à votre vision.</p>
-                        <ul class="list-unstyled mb-4">
-                            <li class="mb-2">
-                                <i class="bi bi-check2-circle text-primary me-2"></i>Analyse des profils
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check2-circle text-primary me-2"></i>Statistiques détaillées
-                            </li>
-                            <li>
-                                <i class="bi bi-check2-circle text-primary me-2"></i>Gestion des candidatures
-                            </li>
+                        <h4 class="gradient-text mb-4">Sécurité Renforcée</h4>
+                        <p class="text-muted mb-4">Protection maximale de vos données personnelles.</p>
+                        <ul class="feature-list">
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Chiffrement avancé</li>
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Conformité RGPD</li>
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Surveillance 24/7</li>
                         </ul>
-                        <a href="/User/MesOffres" class="btn btn-primary w-100 hover-lift">
-                            <i class="bi bi-arrow-right me-2"></i>Publier une Offre
+                        <a href="/Security" class="btn btn-gradient-subtle stretched-link">
+                            En savoir plus <i class="bi bi-arrow-right ms-2"></i>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card border-0 shadow-lg h-100 transform-hover reveal-on-scroll delay-2">
-                    <div class="card-body p-5">
-                        <div class="icon-box mb-4">
-                            <span class="icon-circle bg-primary bg-opacity-10 text-primary">
-                                <i class="bi bi-shield-lock-fill fs-2"></i>
-                            </span>
+                <div class="feature-card-3d" data-tilt>
+                    <div class="card-content">
+                        <div class="icon-container">
+                            <i class="bi bi-graph-up"></i>
+                            <div class="icon-glow"></div>
                         </div>
-                        <h4 class="card-title mb-3">Sécurité Absolue</h4>
-                        <p class="card-text text-muted">Engagement total pour la protection de vos données personnelles avec des normes de sécurité de pointe.</p>
-                        <ul class="list-unstyled mb-4">
-                            <li class="mb-2">
-                                <i class="bi bi-check2-circle text-primary me-2"></i>Chiffrement avancé
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check2-circle text-primary me-2"></i>Conformité RGPD
-                            </li>
-                            <li>
-                                <i class="bi bi-check2-circle text-primary me-2"></i>Protection des données
-                            </li>
+                        <h4 class="gradient-text mb-4">Analytics Avancés</h4>
+                        <p class="text-muted mb-4">Insights détaillés sur vos performances.</p>
+                        <ul class="feature-list">
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Tableaux de bord</li>
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Rapports personnalisés</li>
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Métriques en temps réel</li>
                         </ul>
-                        <a href="/Home/Privacy" class="btn btn-primary w-100 hover-lift">
-                            <i class="bi bi-arrow-right me-2"></i>Politique de Confidentialité
+                        <a href="/Analytics" class="btn btn-gradient-subtle stretched-link">
+                            Découvrir <i class="bi bi-arrow-right ms-2"></i>
                         </a>
                     </div>
                 </div>
@@ -147,335 +141,716 @@
     </div>
 </section>
 
-<!-- Section Statistiques avec animations -->
-<section class="stats-section bg-primary bg-gradient text-white py-6">
+<section class="stats-section py-8">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card" data-tilt>
+                <div class="stat-icon">
+                    <i class="bi bi-building-fill"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">
+                        <span class="counter" data-target="50">0</span>+
+                    </div>
+                    <div class="stat-label">Entreprises Partenaires</div>
+                </div>
+                <div class="stat-progress">
+                    <div class="progress-bar" style="width: 75%"></div>
+                </div>
+            </div>
+            <div class="stat-card" data-tilt>
+                <div class="stat-icon">
+                    <i class="bi bi-people-fill"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">
+                        <span class="counter" data-target="10000">0</span>+
+                    </div>
+                    <div class="stat-label">Utilisateurs Actifs</div>
+                </div>
+                <div class="stat-progress">
+                    <div class="progress-bar" style="width: 85%"></div>
+                </div>
+            </div>
+            <div class="stat-card" data-tilt>
+                <div class="stat-icon">
+                    <i class="bi bi-briefcase-fill"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">
+                        <span class="counter" data-target="500">0</span>+
+                    </div>
+                    <div class="stat-label">Offres Disponibles</div>
+                </div>
+                <div class="stat-progress">
+                    <div class="progress-bar" style="width: 65%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section position-relative py-8">
     <div class="container text-center">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <span class="badge bg-white text-primary rounded-pill mb-3">
-                    <i class="bi bi-graph-up me-2"></i>Nos Réussites
-                </span>
-                <h2 class="display-5 fw-bold mb-5 text-reveal">RecrutementApplication : La Confiance en Chiffres</h2>
-                <div class="row g-4">
-                    <div class="col-md-4 reveal-on-scroll">
-                        <div class="p-4 bg-white bg-opacity-10 rounded-4 shadow-sm hover-lift">
-                            <i class="bi bi-building fs-1 mb-3"></i>
-                            <h3 class="display-4 fw-bold text-white mb-2 counter">50+</h3>
-                            <p class="mb-0">Entreprises Partenaires</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 reveal-on-scroll delay-1">
-                        <div class="p-4 bg-white bg-opacity-10 rounded-4 shadow-sm hover-lift">
-                            <i class="bi bi-briefcase fs-1 mb-3"></i>
-                            <h3 class="display-4 fw-bold text-white mb-2 counter">500+</h3>
-                            <p class="mb-0">Offres Actives</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 reveal-on-scroll delay-2">
-                        <div class="p-4 bg-white bg-opacity-10 rounded-4 shadow-sm hover-lift">
-                            <i class="bi bi-emoji-smile fs-1 mb-3"></i>
-                            <h3 class="display-4 fw-bold text-white mb-2 counter">98%</h3>
-                            <p class="mb-0">Taux de Satisfaction</p>
-                        </div>
-                    </div>
-                </div>
+        <div class="cta-content">
+            <h2 class="display-4 fw-bold gradient-text mb-4">Prêt à Commencer ?</h2>
+            <p class="lead text-muted mb-5">Rejoignez des milliers de professionnels qui ont déjà fait le choix de l'excellence</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="/Identity/Account/Register" class="btn btn-gradient btn-lg hover-lift-3d">
+                    <i class="bi bi-person-plus me-2"></i>Créer un Compte
+                </a>
+                <a href="/Identity/Account/Login" class="btn btn-outline-glow btn-lg hover-lift-3d">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Connexion
+                </a>
             </div>
         </div>
     </div>
 </section>
-
-<!-- Section CTA améliorée -->
-<section class="cta-section bg-dark text-white py-6">
-    <div class="container text-center">
-        <span class="badge bg-primary rounded-pill mb-3">
-            <i class="bi bi-rocket-takeoff me-2"></i>Commencez Maintenant
-        </span>
-        <h2 class="display-4 fw-bold mb-4 text-reveal">Votre Carrière Commence Ici</h2>
-        <p class="lead mb-5 text-reveal delay-1">Ne laissez pas passer vos opportunités. Rejoignez RecrutementApplication dès maintenant.</p>
-        <div class="d-flex justify-content-center gap-3 text-reveal delay-2">
-            <a href="/Identity/Account/Register" class="btn btn-primary btn-lg shadow-lg hover-lift">
-                <i class="bi bi-person-plus me-2"></i>Créer un Compte
-                <i class="bi bi-arrow-right ms-2"></i>
-            </a>
-            <a href="/Identity/Account/Login" class="btn btn-outline-light btn-lg shadow-lg hover-lift">
-                <i class="bi bi-box-arrow-in-right me-2"></i>Connexion
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- CSS personnalisé à ajouter dans votre fichier de style -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+<script src="path/to/particles.min.js"></script>
 <style>
     :root {
-        --dark-primary: #121212;
-        --dark-secondary: #1E1E1E;
-        --dark-tertiary: #2D2D2D;
+        --dark-primary: #0a0a0a;
+        --dark-secondary: #111111;
+        --dark-tertiary: #1a1a1a;
         --accent-primary: #6366f1;
         --accent-secondary: #818cf8;
+        --gradient-primary: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
         --text-primary: #ffffff;
         --text-secondary: #94a3b8;
     }
 
     body {
-        background: var(--dark-primary);
+        background-color: var(--dark-primary);
         color: var(--text-primary);
-    }
-
-    .bg-gradient-dark {
-        background: linear-gradient(135deg, var(--dark-primary) 0%, var(--dark-secondary) 100%);
+        font-family: 'Inter', sans-serif;
     }
 
     .hero-section {
+        min-height: 90vh;
+        padding: 3rem 0;
         position: relative;
-        overflow: hidden;
-        padding: 8rem 0;
-        background: radial-gradient(circle at top right, var(--accent-primary) 0%, transparent 60%), radial-gradient(circle at bottom left, var(--accent-secondary) 0%, transparent 60%);
+        background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.1) 0%, transparent 70%), radial-gradient(circle at bottom left, rgba(129, 140, 248, 0.1) 0%, transparent 70%);
     }
 
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        .hero-section .container {
+            padding: 1rem 0;
+            z-index: 2;
         }
 
-    .card {
-        background: var(--dark-secondary);
-        border: 1px solid var(--dark-tertiary);
-    }
-
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        .hero-section .row {
+            min-height: calc(80vh - 12rem);
+            margin: 0 -1rem;
         }
 
-    .stats-section {
-        background: linear-gradient(45deg, var(--dark-secondary), var(--accent-primary));
+        .hero-section .col-lg-7 {
+            padding: 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-section h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.2;
+            margin-bottom: 2rem;
+        }
+
+        .hero-section .lead {
+            font-size: 1.25rem;
+            margin: 1.5rem 0;
+            max-width: 90%;
+        }
+
+    .hero-image-container {
         position: relative;
-        overflow: hidden;
+        height: 100%;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .stats-card {
-        background: rgba(255, 255, 255, 0.1);
+    .hero-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 1rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-gradient {
+        background: var(--gradient-primary);
+        border: none;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-glow {
+        border: 2px solid var(--accent-primary);
+        background: transparent;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-glow:hover {
+            background: var(--accent-primary);
+            color: white;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+    .feature-card-3d {
+        transform-style: preserve-3d;
+        perspective: 1000px;
+    }
+
+    .card-content {
+        background: rgba(255, 255, 255, 0.03);
         backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
         border-radius: 20px;
         padding: 2rem;
         transition: all 0.3s ease;
     }
 
-        .stats-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
+        .card-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
-    .btn-primary {
-        background: var(--accent-primary);
-        border: none;
-        position: relative;
-        overflow: hidden;
+    .stat-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 1.5rem;
+        transition: transform 0.3s ease;
     }
 
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .btn-primary:hover::before {
-            left: 100%;
-        }
-
-    .icon-circle {
-        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-        width: 80px;
-        height: 80px;
+    .stat-icon {
+        width: 64px;
+        height: 64px;
         border-radius: 50%;
+        background: var(--gradient-primary);
         display: flex;
         align-items: center;
         justify-content: center;
+        font-size: 1.5rem;
         margin-bottom: 1.5rem;
-        position: relative;
-        overflow: hidden;
     }
 
-        .icon-circle::after {
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        color: var(--text-secondary);
+        font-size: 1rem;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .gradient-text {
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    root {
+        --dark-primary: #0a0a0a;
+        --dark-secondary: #111111;
+        --dark-tertiary: #1a1a1a;
+        --accent-primary: #6366f1;
+        --accent-secondary: #818cf8;
+        --gradient-primary: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+        --text-primary: #ffffff;
+        --text-secondary: #94a3b8;
+    }
+
+    body {
+        background-color: var(--dark-primary);
+        color: var(--text-primary);
+        font-family: 'Inter', sans-serif;
+    }
+
+    .hero-section {
+        min-height: 90vh;
+        padding: 3rem 0;
+        position: relative;
+        background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.1) 0%, transparent 70%), radial-gradient(circle at bottom left, rgba(129, 140, 248, 0.1) 0%, transparent 70%);
+    }
+
+        .hero-section .container {
+            padding: 1rem 0;
+            z-index: 2;
+        }
+
+        .hero-section .row {
+            min-height: calc(80vh - 12rem);
+            margin: 0 -1rem;
+        }
+
+        .hero-section .col-lg-7 {
+            padding: 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+    .glowing-badge {
+        margin-bottom: 1.5rem;
+    }
+
+        .glowing-badge .badge {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+    .hero-section h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        line-height: 1.2;
+        margin-bottom: 2rem;
+    }
+
+    .hero-section .lead {
+        font-size: 1.25rem;
+        margin: 1.5rem 0;
+        max-width: 90%;
+    }
+
+    .hero-section .d-flex.gap-3 {
+        margin-top: 2rem;
+        flex-wrap: wrap;
+        gap: 1rem !important;
+    }
+
+    .hero-image-container {
+        position: relative;
+        height: 100%;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 1rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .floating-elements {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .floating-icon {
+        position: absolute;
+        padding: 0.75rem;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        border-radius: 50%;
+        font-size: 1.5rem;
+    }
+
+        .floating-icon:nth-child(1) {
+            top: 5%;
+            left: 10%;
+        }
+
+        .floating-icon:nth-child(2) {
+            top: 45%;
+            right: 5%;
+        }
+
+        .floating-icon:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+        }
+
+    .stats-card-floating {
+        position: absolute;
+        bottom: 15%;
+        right: 10%;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 0.75rem;
+        transform: translateY(-10px); /* Léger décalage vers le haut */
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+
+    /* Particules et formes */
+    .particle-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .hero-shapes .shape {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(60px);
+    }
+
+    .shape-1 {
+        top: 20%;
+        left: 10%;
+        width: 300px;
+        height: 300px;
+        background: rgba(99, 102, 241, 0.1);
+        animation: float 15s infinite;
+    }
+
+    .shape-2 {
+        bottom: 10%;
+        right: 20%;
+        width: 400px;
+        height: 400px;
+        background: rgba(129, 140, 248, 0.1);
+        animation: float 20s infinite reverse;
+    }
+
+
+    /* Boutons */
+    .btn-gradient {
+        background: var(--gradient-primary);
+        border: none;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-glow {
+        border: 2px solid var(--accent-primary);
+        background: transparent;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-glow:hover {
+            background: var(--accent-primary);
+            color: white;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+    /* Cartes 3D */
+    .feature-card-3d {
+        transform-style: preserve-3d;
+        perspective: 1000px;
+    }
+
+    .card-content {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+    }
+
+        .card-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+
+    
+    .stat-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 1.5rem;
+        transition: transform 0.3s ease; /* Animation simplifiée */
+    }
+
+    .stat-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: var(--gradient-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px); /* Animation 2D uniquement vers le haut */
+    }
+
+        .stat-icon::after {
             content: '';
             position: absolute;
             width: 100%;
             height: 100%;
+            border-radius: 50%;
             background: inherit;
-            filter: blur(8px);
-            opacity: 0.7;
+            filter: blur(15px);
+            opacity: 0.3;
+
             z-index: -1;
         }
 
-    .feature-card {
-        border: 1px solid rgba(255,255,255,0.1);
-        background: rgba(30,30,30,0.5);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        overflow: hidden;
-        position: relative;
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
     }
 
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
+    .stat-label {
+        color: var(--text-secondary);
+        font-size: 1rem;
+    }
+
+    .stat-progress {
+        height: 4px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        overflow: hidden;
+        margin-top: 1rem;
+    }
+
+        .stat-progress .progress-bar {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            transition: width 1.5s ease;
         }
 
-        .feature-card:hover::before {
-            transform: scaleX(1);
+    .hover-lift-3d {
+        transition: transform 0.3s ease;
+    }
+        .hover-lift-3d:hover {
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            
         }
 
-   
-
-    .floating {
+    .floating-badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background: var(--accent-primary);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 600;
         animation: float 6s ease-in-out infinite;
     }
 
-    .pulsing {
-        animation: pulse 3s ease-in-out infinite;
+    .glowing-badge {
+        position: relative;
     }
 
-    /* Glassmorphism pour les cartes */
-    .glass-card {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
+        .glowing-badge::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            filter: blur(20px);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+    /* Texte et typographie */
+    .gradient-text {
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
-    /* Effets de survol améliorés */
-    .hover-glow:hover {
-        box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+    .typewriter {
+        overflow: hidden;
+        border-right: 3px solid var(--accent-primary);
+        white-space: nowrap;
+        margin: 0;
+        animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
     }
 
-    /* Nouveaux styles pour les badges */
-    .badge {
-        padding: 0.5rem 1rem;
-        border-radius: 50px;
-        font-weight: 500;
-        letter-spacing: 1px;
-    }
-
-    /* Amélioration des transitions */
-    * {
-        transition: all 0.3s ease-in-out;
-    }
 </style>
-<script>
-    // Animation des compteurs
-    const counters = document.querySelectorAll('.counter');
-    counters.forEach(counter => {
-        const target = parseInt(counter.innerText);
-        let count = 0;
-        const duration = 2000;
-        const increment = target / (duration / 16);
 
-        const updateCount = () => {
-            count += increment;
-            if (count < target) {
-                counter.innerText = Math.ceil(count);
-                requestAnimationFrame(updateCount);
-            } else {
-                counter.innerText = target;
-            }
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#6366f1'
+                },
+                shape: {
+                    type: 'circle'
+                },
+                opacity: {
+                    value: 0.5,
+                    random: true
+                },
+                size: {
+                    value: 3,
+                    random: true
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#6366f1',
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 0.8
+                        }
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        const observerOptions = {
+            threshold: 0.5
         };
 
-        // Démarrer l'animation lorsque l'élément est visible
-        const observer = new IntersectionObserver((entries) => {
+        const observerCallback = (entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    updateCount();
-                    observer.unobserve(entry.target);
+                    const counter = entry.target;
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    const duration = 2000;
+                    const increment = target / (duration / 16);
+                    let current = 0;
+
+                    const updateCounter = () => {
+                        current += increment;
+                        if (current < target) {
+                            counter.textContent = Math.ceil(current);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target;
+                        }
+                    };
+
+                    updateCounter();
+                    observer.unobserve(counter);
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+        document.querySelectorAll('.counter').forEach(counter => observer.observe(counter));
+
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+            max: 15,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.2
+        });
+
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(element => revealObserver.observe(element));
+
+        const progressBars = document.querySelectorAll('.progress-bar');
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bar = entry.target;
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                    progressObserver.unobserve(bar);
                 }
             });
         }, { threshold: 0.5 });
 
-        observer.observe(counter);
+        progressBars.forEach(bar => progressObserver.observe(bar));
     });
 
-    // Animation des éléments au défilement
-    const revealElements = document.querySelectorAll('.reveal-on-scroll');
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate__animated', 'animate__fadeInUp');
-                revealObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
+    let lastScroll = 0;
+    const header = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll <= 0) {
+            header.classList.remove('scroll-up');
+            return;
+        }
 
-    revealElements.forEach(element => {
-        revealObserver.observe(element);
-    });
-
-    // Effet de parallaxe pour l'image
-    const parallaxImage = document.querySelector('.image-parallax');
-    if (parallaxImage) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * 0.15;
-            parallaxImage.style.transform = `translate3d(0, ${rate}px, 0)`;
-        });
-    }
-
-    // Animation des boutons hover-lift
-    const hoverButtons = document.querySelectorAll('.hover-lift');
-    hoverButtons.forEach(button => {
-        button.addEventListener('mouseover', () => {
-            button.style.transform = 'translateY(-5px)';
-            button.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-        });
-
-        button.addEventListener('mouseout', () => {
-            button.style.transform = 'translateY(0)';
-            button.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
-        });
-    });
-
-    // Smooth scroll pour les liens d'ancrage
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // Animation du texte reveal
-    const textRevealElements = document.querySelectorAll('.text-reveal');
-    const textRevealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                textRevealObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    textRevealElements.forEach(element => {
-        textRevealObserver.observe(element);
+        if (currentScroll > lastScroll && !header.classList.contains('scroll-down')) {
+            header.classList.remove('scroll-up');
+            header.classList.add('scroll-down');
+        } else if (currentScroll < lastScroll && header.classList.contains('scroll-down')) {
+            header.classList.remove('scroll-down');
+            header.classList.add('scroll-up');
+        }
+        lastScroll = currentScroll;
     });
 </script>
