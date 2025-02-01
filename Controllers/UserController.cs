@@ -160,7 +160,7 @@ namespace RecrutementApplication.Controllers
                 _context.Offers.Remove(offre);
                 _context.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("MesOffres");
         }
 
         [HttpPost]

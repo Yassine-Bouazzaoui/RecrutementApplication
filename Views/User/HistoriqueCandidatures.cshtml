@@ -1,302 +1,453 @@
 ﻿@model IEnumerable<RecrutementApplication.Models.Candidature>
 
-@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
-{
-    <div class="alert alert-success animate__animated animate__fadeInDown animate__faster" role="alert">
-        <i class="fas fa-check-circle me-2 animate__animated animate__rubberBand"></i>
-        @ViewBag.SuccessMessage
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+@{
+    /* Même logique Razor que précédemment */
+    var totalCandidatures = Model.Count();
+    var validees = Model.Count(c => c.Status == StatusCandidature.Validee);
+    var refusees = Model.Count(c => c.Status == StatusCandidature.Refusee);
+    var enAttente = Model.Count(c => c.Status == StatusCandidature.EnAttente);
+
+    var pctValidees = totalCandidatures > 0 ? (validees * 100.0 / totalCandidatures) : 0;
+    var pctRefusees = totalCandidatures > 0 ? (refusees * 100.0 / totalCandidatures) : 0;
+    var pctEnAttente = totalCandidatures > 0 ? (enAttente * 100.0 / totalCandidatures) : 0;
+
+    var profilStats = Model.GroupBy(c => c.Offre.Profil)
+        .Select(g => new { Profil = g.Key, Count = g.Count() })
+        .OrderByDescending(x => x.Count);
+
+    var typeContratStats = Model.GroupBy(c => c.Offre.Type)
+        .Select(g => new { Type = g.Key, Count = g.Count() })
+        .OrderByDescending(x => x.Count);
 }
 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger animate__animated animate__shakeX animate__faster" role="alert">
-        <i class="fas fa-exclamation-triangle me-2 animate__animated animate__swing"></i>
-        @TempData["Error"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-}
+<div class="dashboard-container">
+    @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+    {
+        <div class="alert custom-alert success" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            @ViewBag.SuccessMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
 
-<div class="dashboard-container animate__animated animate__fadeIn">
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert custom-alert danger" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
     <div class="dashboard-card">
         <div class="dashboard-header">
             <div class="header-content">
                 <div class="title-section">
-                    <i class="fas fa-briefcase-clock title-icon"></i>
-                    <h1 class="dashboard-title">Tableau de bord des candidatures</h1>
+                    <i class="fas fa-briefcase title-icon"></i>
+                    <h1>Tableau de bord des candidatures</h1>
                 </div>
                 <div class="header-actions">
-                    <div class="stats-badge">
+                    <div class="stats-total">
                         <i class="fas fa-chart-line me-2"></i>
-                        <span>Total: @Model.Count()</span>
+                        <span>Total: @totalCandidatures</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="dashboard-body">
-            <div class="table-container">
-                <table class="modern-table">
-                    <thead>
-                        <tr>
-                            <th><i class="fas fa-building"></i> Entreprise</th>
-                            <th><i class="fas fa-briefcase"></i> Poste</th>
-                            <th><i class="fas fa-calendar"></i> Date</th>
-                            <th><i class="fas fa-cogs"></i> Actions</th>
-                            <th><i class="fas fa-flag"></i> Statut</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var candidature in Model)
-                        {
-                            <tr class="table-row animate__animated animate__fadeInUp"
-                                style="animation-delay: @(Model.ToList().IndexOf(candidature) * 0.1)s">
-                                <td>
-                                    <div class="company-info">
-                                        <div class="company-logo-wrapper">
-                                            <img src="@Url.Content($"~/img/{@candidature.Offre.EntrepriseLogo}")"
-                                                 alt="@candidature.Offre.Entreprise"
-                                                 class="company-logo" />
-                                        </div>
-                                        <span class="company-name">@candidature.Offre.Entreprise</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="position-badge">
-                                        <i class="fas fa-code"></i>
-                                        <span>@candidature.Offre.Poste</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="date-badge">
-                                        <i class="far fa-calendar-alt"></i>
-                                        <span>@(candidature.DatePostulation?.ToString("dd MMM yyyy") ?? "Non définie")</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="actions-group">
-                                        <a href="@Url.Action("Details", "Offres", new { id = candidature.Offre.Id })"
-                                           class="action-btn details-btn">
-                                            <i class="fas fa-eye"></i>
-                                            <span>Détails</span>
-                                        </a>
-                                    </div>
-                                </td>
-                                <td>
-                                    @{
-                                        var statusClass = candidature.Status switch
-                                        {
-                                            StatusCandidature.Validee => "status-success",
-                                            StatusCandidature.Refusee => "status-danger",
-                                            _ => "status-pending"
-                                        };
-
-                                        var statusIcon = candidature.Status switch
-                                        {
-                                            StatusCandidature.Validee => "fas fa-check-circle",
-                                            StatusCandidature.Refusee => "fas fa-times-circle",
-                                            _ => "fas fa-clock"
-                                        };
-                                    }
-                                    <div class="status-badge @statusClass">
-                                        <i class="@statusIcon"></i>
-                                        <span>@candidature.Status.ToString()</span>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon success">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Validées</h3>
+                    <div class="stat-numbers">
+                        <span class="stat-value">@validees</span>
+                        <span class="stat-percentage">@pctValidees.ToString("F1")%</span>
+                    </div>
+                    <div class="progress dark">
+                        <div class="progress-bar success" role="progressbar" style="width: @pctValidees%"></div>
+                    </div>
+                </div>
             </div>
+
+            <div class="stat-card">
+                <div class="stat-icon warning">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>En Attente</h3>
+                    <div class="stat-numbers">
+                        <span class="stat-value">@enAttente</span>
+                        <span class="stat-percentage">@pctEnAttente.ToString("F1")%</span>
+                    </div>
+                    <div class="progress dark">
+                        <div class="progress-bar warning" role="progressbar" style="width: @pctEnAttente%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon danger">
+                    <i class="fas fa-times-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Refusées</h3>
+                    <div class="stat-numbers">
+                        <span class="stat-value">@refusees</span>
+                        <span class="stat-percentage">@pctRefusees.ToString("F1")%</span>
+                    </div>
+                    <div class="progress dark">
+                        <div class="progress-bar danger" role="progressbar" style="width: @pctRefusees%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3><i class="fas fa-user-graduate me-2"></i>Répartition par Profil</h3>
+                <div class="chart-container">
+                    <canvas id="profilChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3><i class="fas fa-file-contract me-2"></i>Types de Contrat</h3>
+                <div class="chart-container">
+                    <canvas id="contratChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-building me-2"></i>Entreprise</th>
+                        <th><i class="fas fa-briefcase me-2"></i>Poste</th>
+                        <th><i class="fas fa-calendar me-2"></i>Date</th>
+                        <th><i class="fas fa-cogs me-2"></i>Actions</th>
+                        <th><i class="fas fa-flag me-2"></i>Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var candidature in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    @if (!string.IsNullOrEmpty(candidature.Offre.EntrepriseLogo))
+                                    {
+                                        <img src="@Url.Content($"~/img/{candidature.Offre.EntrepriseLogo}")"
+                                             alt="@candidature.Offre.Entreprise"
+                                             class="company-logo me-2" />
+                                    }
+                                    <span>@candidature.Offre.Entreprise</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge badge-info">
+                                    <i class="fas fa-code me-1"></i>
+                                    @candidature.Offre.Poste
+                                </span>
+                            </td>
+                            <td>
+                                <span class="text-muted">
+                                    <i class="far fa-calendar-alt me-1"></i>
+                                    @(candidature.DatePostulation?.ToString("dd MMM yyyy") ?? "Non définie")
+                                </span>
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Details", "Offres", new { id = candidature.Offre.Id })"
+                                   class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-eye me-1"></i>Détails
+                                </a>
+                            </td>
+                            <td>
+                                @{
+                                    var (statusClass, statusIcon) = candidature.Status switch
+                                    {
+                                        StatusCandidature.Validee => ("success", "fas fa-check-circle"),
+                                        StatusCandidature.Refusee => ("danger", "fas fa-times-circle"),
+                                        _ => ("warning", "fas fa-clock")
+                                    };
+                                }
+                                <span class="badge badge-@statusClass">
+                                    <i class="@statusIcon me-1"></i>
+                                    @candidature.Status.ToString()
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 
 <style>
     :root {
-        --primary-blue: #4e73df;
-        --hover-blue: #2e59d9;
-        --success-green: #1cc88a;
-        --danger-red: #e74a3b;
-        --warning-yellow: #f6c23e;
-        --text-color: #ffffff;
-        --text-muted: #858796;
-        --border-color: rgba(255, 255, 255, 0.15);
+        --dark-bg: #1a1c23;
+        --card-bg: #2d2f3b;
+        --card-darker: #24262f;
+        --text-primary: #ffffff;
+        --text-secondary: #9ca3af;
+        --text-muted: #6b7280;
+        --border-color: #383b47;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --primary-color: #3b82f6;
+        --info-color: #0ea5e9;
+    }
+
+    body {
+        background-color: var(--dark-bg);
+        color: var(--text-primary);
     }
 
     .dashboard-container {
-        padding: 1.5rem;
-        color: var(--text-color);
+        padding: 20px;
     }
 
     .dashboard-card {
-        border-radius: 0.5rem;
-        border: 1px solid var(--border-color);
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     }
 
     .dashboard-header {
-        padding: 1.5rem;
-        background: var(--primary-blue);
-        border-radius: 0.5rem 0.5rem 0 0;
+        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        padding: 25px;
+        border-radius: 12px 12px 0 0;
     }
 
-    .header-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .title-section {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .title-icon {
-        font-size: 1.5rem;
-        animation: pulse 2s infinite;
-    }
-
-    .dashboard-title {
+    .title-section h1 {
         font-size: 1.5rem;
         margin: 0;
+        color: white;
     }
 
-    .stats-badge {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 0.5rem 1rem;
-        border-radius: 2rem;
+    .stat-card {
+        background-color: var(--card-darker);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .stat-icon {
+        width: 50px;
+        height: 50px;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        justify-content: center;
+        border-radius: 10px;
+        font-size: 1.5rem;
+        margin-right: 15px;
+        background-color: var(--card-bg);
     }
 
-    .modern-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0 0.5rem;
+        .stat-icon.success {
+            color: var(--success-color);
+        }
+
+        .stat-icon.warning {
+            color: var(--warning-color);
+        }
+
+        .stat-icon.danger {
+            color: var(--danger-color);
+        }
+
+    .stat-info h3 {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 10px;
     }
 
-        .modern-table th {
-            color: var(--text-muted);
-            padding: 1rem;
+    .stat-value {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--text-primary);
+    }
+
+    .stat-percentage {
+        color: var(--text-secondary);
+        font-size: 1rem;
+    }
+
+    .progress.dark {
+        background-color: var(--card-bg);
+        height: 6px;
+        border-radius: 3px;
+        margin-top: 10px;
+    }
+
+    .progress-bar.success {
+        background-color: var(--success-color);
+    }
+
+    .progress-bar.warning {
+        background-color: var(--warning-color);
+    }
+
+    .progress-bar.danger {
+        background-color: var(--danger-color);
+    }
+
+    .charts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .chart-card {
+        background-color: var(--card-darker);
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+        .chart-card h3 {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+    .table {
+        color: var(--text-primary);
+    }
+
+        .table th {
+            background-color: var(--card-darker);
+            border-color: var(--border-color);
+            color: var(--text-secondary);
             font-weight: 500;
         }
 
-    .company-info {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
+        .table td {
+            border-color: var(--border-color);
+            vertical-align: middle;
+        }
+
+        .table tr:hover {
+            background-color: var(--card-darker);
+        }
+
+    .badge {
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-weight: 500;
     }
 
-    .company-logo-wrapper {
-        width: 40px;
-        height: 40px;
-        border-radius: 0.5rem;
-        overflow: hidden;
-        transition: transform 0.3s ease;
+    .badge-success {
+        background-color: rgba(16, 185, 129, 0.2);
+        color: var(--success-color);
     }
 
-        .company-logo-wrapper:hover {
-            transform: scale(1.1);
+    .badge-warning {
+        background-color: rgba(245, 158, 11, 0.2);
+        color: var(--warning-color);
+    }
+
+    .badge-danger {
+        background-color: rgba(239, 68, 68, 0.2);
+        color: var(--danger-color);
+    }
+
+    .badge-info {
+        background-color: rgba(14, 165, 233, 0.2);
+        color: var(--info-color);
+    }
+
+    .btn-outline-primary {
+        color: var(--primary-color);
+        border-color: var(--primary-color);
+        background-color: transparent;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
         }
 
     .company-logo {
-        width: 100%;
-        height: 100%;
+        width: 40px;
+        height: 40px;
         object-fit: cover;
+        border-radius: 6px;
+        background-color: var(--card-bg);
     }
 
-    .position-badge, .date-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        border-radius: 2rem;
-        background: rgba(78, 115, 223, 0.1);
-        font-size: 0.875rem;
+    .custom-alert {
+        background-color: var(--card-darker);
+        border: none;
+        color: var(--text-primary);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
     }
 
-    .action-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        border-radius: 2rem;
-        background: var(--primary-blue);
-        color: white;
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-
-        .action-btn:hover {
-            background: var(--hover-blue);
-            transform: translateY(-2px);
+        .custom-alert.success {
+            border-left: 4px solid var(--success-color);
         }
 
-    .status-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        border-radius: 2rem;
-        font-size: 0.875rem;
-    }
-
-    .status-success {
-        background: var(--success-green);
-        color: white;
-    }
-
-    .status-danger {
-        background: var(--danger-red);
-        color: white;
-    }
-
-    .status-pending {
-        background: var(--warning-yellow);
-        color: #666;
-    }
-
-    .table-row td {
-        padding: 1rem;
-        background: rgba(255, 255, 255, 0.05);
-        transition: all 0.3s ease;
-    }
-
-    .table-row:hover td {
-        background: rgba(255, 255, 255, 0.1);
-        transform: translateY(-2px);
-    }
-
-    .animate__animated {
-        animation-duration: 0.5s;
-    }
-
-    
+        .custom-alert.danger {
+            border-left: 4px solid var(--danger-color);
+        }
 </style>
 
+<script src="~/js/chart.umd.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const tableRows = document.querySelectorAll('.table-row');
-        tableRows.forEach((row, index) => {
-            row.style.opacity = '0';
-            row.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                row.style.opacity = '1';
-                row.style.transform = 'translateY(0)';
-            }, index * 100);
+        const chartConfig = {
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        font: { size: 12 }
+                    }
+                }
+            }
+        };
+
+        const profilData = @Html.Raw(Json.Serialize(profilStats.Select(x => new { label = x.Profil.ToString(), value = x.Count })));
+        const contratData = @Html.Raw(Json.Serialize(typeContratStats.Select(x => new { label = x.Type.ToString(), value = x.Count })));
+
+        new Chart(document.getElementById('profilChart').getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: profilData.map(item => item.label),
+                datasets: [{
+                    data: profilData.map(item => item.value),
+                    backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e']
+                }]
+            },
+            options: {
+                ...chartConfig,
+                cutout: '70%'
+            }
         });
 
-        const actionButtons = document.querySelectorAll('.action-btn');
-        actionButtons.forEach(btn => {
-            btn.addEventListener('mouseenter', () => {
-                btn.style.transform = 'translateY(-2px)';
-            });
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'translateY(0)';
-            });
+        new Chart(document.getElementById('contratChart').getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: contratData.map(item => item.label),
+                datasets: [{
+                    data: contratData.map(item => item.value),
+                    backgroundColor: ['#e74a3b', '#4e73df', '#1cc88a']
+                }]
+            },
+            options: chartConfig
         });
     });
 </script>

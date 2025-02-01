@@ -81,8 +81,10 @@
         <i class="fas fa-briefcase"></i> Créer une Nouvelle Offre
     </h1>
 
+
     @using (Html.BeginForm("CreateOffre", "User", FormMethod.Post, new { @class = "needs-validation", novalidate = "true" }))
     {
+
         <div class="row">
             <div class="col-md-6 mb-3">
                 @Html.LabelFor(m => m.Secteur, "Secteur", new { @class = "form-label" })
@@ -91,24 +93,32 @@
             </div>
 
             <div class="col-md-6 mb-3">
-                @Html.LabelFor(m => m.Profil, "Profil Requis", new { @class = "form-label" })
-                @Html.DropDownListFor(m => m.Profil, new SelectList(Enum.GetValues(typeof(RecrutementApplication.Models.Profile))), "-- Sélectionnez un profil --", new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Profil, "", new { @class = "text-danger" })
+                @Html.LabelFor(m => m.Type, "Type de Contrat", new { @class = "form-label" })
+                @Html.DropDownListFor(m => m.Type, new SelectList(Enum.GetValues(typeof(RecrutementApplication.Models.TypeContrat))), new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Type, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="row">
+
+            <div class="col-md-6 mb-3">
+                @Html.LabelFor(m => m.Profil, "Profil Requis", new { @class = "form-label" })
+                @Html.DropDownListFor(m => m.Profil, new SelectList(Enum.GetValues(typeof(RecrutementApplication.Models.Profile))), "-- Sélectionnez un profil --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Profil, "", new { @class = "text-danger" })
+            </div>
+
             <div class="col-md-6 mb-3">
                 @Html.LabelFor(m => m.Poste, "Poste", new { @class = "form-label" })
                 @Html.TextBoxFor(m => m.Poste, new { @class = "form-control", placeholder = "Intitulé du poste", required = "required" })
                 @Html.ValidationMessageFor(m => m.Poste, "", new { @class = "text-danger" })
             </div>
 
-            <div class="col-md-6 mb-3">
-                @Html.LabelFor(m => m.Remuneration, "Rémunération", new { @class = "form-label" })
-                @Html.TextBoxFor(m => m.Remuneration, new { @class = "form-control", placeholder = "Montant de la rémunération", required = "required" })
-                @Html.ValidationMessageFor(m => m.Remuneration, "", new { @class = "text-danger" })
-            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            @Html.LabelFor(m => m.Remuneration, "Rémunération", new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.Remuneration, new { @class = "form-control", placeholder = "Montant de la rémunération", required = "required" })
+            @Html.ValidationMessageFor(m => m.Remuneration, "", new { @class = "text-danger" })
         </div>
 
         <div class="mb-3">
@@ -153,3 +163,9 @@
         </div>
     }
 </div>
+
+
+
+
+
+
