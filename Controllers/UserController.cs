@@ -54,7 +54,7 @@ namespace RecrutementApplication.Controllers
             var offre = _context.Offers.Find(id);
             if (offre == null) return NotFound();
 
-            return View("~/Views/Offres/Details.cshtml", offre);  // Spécifiez le chemin complet vers la vue        }
+            return View("~/Views/Offres/Details.cshtml", offre); 
         }
 
 
@@ -188,7 +188,6 @@ namespace RecrutementApplication.Controllers
             var candidature = _context.Candidatures.Find(candidatureId);
             if (candidature == null) return NotFound();
 
-            // Vérifier que le recruteur est bien le propriétaire de l'offre
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var offre = _context.Offers.Find(candidature.OffreId);
             if (offre.rectuteurId != userId) return Unauthorized();
@@ -209,10 +208,9 @@ namespace RecrutementApplication.Controllers
                 var candidatures = await _context.Candidatures
                     .Where(c => c.CandidatId == userId)
                     .Include(c => c.Offre)
-                    .OrderByDescending(c => c.DatePostulation) // Les plus récentes d'abord
+                    .OrderByDescending(c => c.DatePostulation) 
                     .ToListAsync();
 
-                // Ajouter un message de succès si présent dans TempData
                 if (TempData["Success"] != null)
                 {
                     ViewBag.SuccessMessage = TempData["Success"].ToString();
@@ -227,7 +225,7 @@ namespace RecrutementApplication.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        // Voir les candidats pour une offre
+
         [Authorize(Roles = "Recruteur")]
         public IActionResult VoirCandidats(int offreId)
         {
@@ -323,12 +321,10 @@ namespace RecrutementApplication.Controllers
             if (user == null)
                 return NotFound();
 
-            // Vérifier le type de fichier
             var allowedTypes = new[] { "image/jpeg", "image/png", "image/gif" };
             if (!allowedTypes.Contains(profilePicture.ContentType))
                 return BadRequest("Invalid file type. Please upload an image file.");
 
-            // Supprimer l'ancienne image si elle existe
             if (!string.IsNullOrEmpty(user.ProfilePicture))
             {
                 var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, "ProfilPics", user.ProfilePicture);
@@ -338,7 +334,6 @@ namespace RecrutementApplication.Controllers
                 }
             }
 
-            // Sauvegarder la nouvelle image
             var fileName = await profilePicture.SaveProfilePictureAsync(_webHostEnvironment.WebRootPath);
             user.ProfilePicture = fileName;
 

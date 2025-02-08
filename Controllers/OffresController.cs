@@ -19,19 +19,16 @@ namespace RecrutementApplication.Controllers
             _context = context;
         }
 
-        // GET: Offres
       
         public async Task<IActionResult> Index(string secteur, string profil, decimal? minRemuneration)
         {
             var offres = _context.Offers.AsQueryable();
 
-            // Filtrer par secteur si un secteur est spécifié
             if (!string.IsNullOrEmpty(secteur))
             {
                 offres = offres.Where(o => o.Secteur.Contains(secteur));
             }
 
-            // Filtrer par profil si un profil est spécifié
             if (!string.IsNullOrEmpty(profil))
             {
                 if (Enum.TryParse<Profile>(profil, true, out var parsedProfil))

@@ -170,14 +170,12 @@ namespace RecrutementApplication.Areas.Identity.Pages.Account
 
                 try
                 {
-                    // Remplissage des données utilisateur
                     user.Nom = Input.Nom;
                     user.Prenom = Input.Prenom;
                     user.Age = Input.Age;
                     user.Mail = Input.Email;
                     user.Profil = Input.Profil;
 
-                    // Gestion du fichier uploadé
                     if (file != null)
                     {
                         var allowedExtensions = Input.Role == "Candidat" ? new[] { ".pdf" } : new[] { ".png", ".jpg", ".jpeg" };
@@ -209,7 +207,6 @@ namespace RecrutementApplication.Areas.Identity.Pages.Account
                         }
                     }
 
-                    // Création de l'utilisateur
                     await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                     await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                     var result = await _userManager.CreateAsync(user, Input.Password);
@@ -218,10 +215,8 @@ namespace RecrutementApplication.Areas.Identity.Pages.Account
                     {
                         _logger.LogInformation("User created a new account with password.");
 
-                        // Attribution du rôle
                         await AssignRoleAsync(user, Input.Role);
 
-                        // Envoi du mail de confirmation
                         var userId = await _userManager.GetUserIdAsync(user);
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -268,7 +263,6 @@ namespace RecrutementApplication.Areas.Identity.Pages.Account
             return Page();
         }
 
-        // Si nous arrivons ici, il y a eu un problème, on réaffiche le formulaire
 
         // Méthode pour sauvegarder un fichier
         private async Task<string> SaveFileAsync(IFormFile file, string folderName)
@@ -277,7 +271,6 @@ namespace RecrutementApplication.Areas.Identity.Pages.Account
             string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
             string filePath = Path.Combine(wwwRootPath, folderName);
 
-            // Vérification et création du répertoire si nécessaire
             if (!Directory.Exists(filePath))
             {
                 Directory.CreateDirectory(filePath);

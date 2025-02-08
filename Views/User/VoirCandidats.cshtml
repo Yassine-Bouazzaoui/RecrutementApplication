@@ -569,7 +569,6 @@
         margin-bottom: 0.5rem;
     }
 
-    /* Status Badges */
     .status-badge {
         padding: 0.5rem 1rem;
         border-radius: 2rem;
@@ -599,7 +598,6 @@
             border-color: rgba(248, 113, 113, 0.2);
         }
 
-    /* Distribution Charts */
     .distribution-progress {
         height: 8px;
         border-radius: 4px;
@@ -607,7 +605,6 @@
         transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Empty State Enhancement */
     .empty-state {
         padding: 4rem 2rem;
         text-align: center;
@@ -641,7 +638,6 @@
             pointer-events: none;
         }
 
-    /* Amélioration des boutons avec effet de glassmorphism */
     .btn {
         background: rgba(255, 255, 255, 0.05);
         backdrop-filter: blur(10px);
@@ -664,7 +660,6 @@
             opacity: 1;
         }
 
-    /* Animation pour les barres de progression */
     .distribution-progress {
         position: relative;
         overflow: hidden;
@@ -682,7 +677,6 @@
             animation: shimmer 2s infinite;
         }
 
-    /* Amélioration des cartes candidat */
     .candidate-card {
         background: rgba(30, 41, 59, 0.8);
         backdrop-filter: blur(12px);
@@ -749,7 +743,6 @@
 
 <div class="stats-dashboard">
     <div class="stats-row">
-        <!-- Statistiques générales -->
         <div class="stat-card">
             <div class="stat-header">
                 <div class="stat-title">Total Candidatures</div>
@@ -1033,23 +1026,19 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize counters with animation
         const statValues = document.querySelectorAll('.stat-value');
         statValues.forEach(value => {
             const target = parseInt(value.textContent);
             animateCounter(0, target, value);
         });
 
-        // Enhanced filter functionality
         window.filterCandidates = function(filter) {
             const cards = document.querySelectorAll('.candidate-card');
             const buttons = document.querySelectorAll('.filter-btn');
 
-            // Update button states
             buttons.forEach(btn => btn.classList.remove('active'));
             document.querySelector(`.filter-btn[data-filter="${filter}"]`).classList.add('active');
 
-            // Get current date for recent filter
             const sevenDaysAgo = new Date();
             sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 

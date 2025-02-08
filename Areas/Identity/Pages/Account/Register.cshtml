@@ -14,9 +14,7 @@
             <p class="text-light-50">Choisissez votre parcours et commencez votre aventure professionnelle</p>
         </div>
 
-        <!-- Role Selection Cards -->
         <div class="row justify-content-center g-4 mb-5">
-            <!-- Candidat Card -->
             <div class="col-lg-5">
                 <div class="card h-100 border-glow bg-dark-gradient text-white hover-scale role-card" id="candidatCard" tabindex="0" role="button">
                     <div class="card-body p-5 text-center">
@@ -46,7 +44,6 @@
                 </div>
             </div>
 
-            <!-- Recruteur Card -->
             <div class="col-lg-5">
                 <div class="card h-100 border-glow bg-dark-gradient text-white hover-scale role-card" id="recruteurCard" tabindex="0" role="button">
                     <div class="card-body p-5 text-center">
@@ -81,7 +78,6 @@
             <div asp-validation-summary="All" class="text-danger"></div>
         </div>
 
-        <!-- Form Section -->
         <div id="formSection" class="mt-5 d-none">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -89,7 +85,6 @@
                         <div class="card-body p-5">
                             <h3 id="formTitle" class="text-center h2 mb-5 text-light"></h3>
                             <form method="post" enctype="multipart/form-data">
-                                <!-- Personal Information Section -->
                                 <div class="mb-5">
                                     <h4 class="mb-4 text-light">Informations Personnelles</h4>
                                     <div class="row g-4">
@@ -120,7 +115,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Security Section -->
                                 <div class="mb-5">
                                     <h4 class="mb-4 text-light">Sécurité</h4>
                                     <div class="row g-4">
@@ -138,7 +132,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Candidat Fields -->
                                 <div id="candidatFields" class="d-none">
                                     <div class="mb-5">
                                         <h4 class="mb-4 text-light">Profil Professionnel</h4>
@@ -187,7 +180,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Recruteur Fields -->
                                 <div id="recruteurFields" class="d-none">
                                     <div class="mb-5">
                                         <h4 class="mb-4">Information Entreprise</h4>
@@ -227,7 +219,6 @@
 </div>
 
 <style>
-    /* Variables pour le thème sombre */
     :root {
         --dark-bg: #121212;
         --dark-card: #1E1E1E;
@@ -237,12 +228,10 @@
         --glow-success: rgba(25, 135, 84, 0.5);
     }
 
-    /* Reset des styles par défaut des form-floating */
     .form-floating {
         position: relative;
     }
 
-        /* Styles de base pour les labels */
         .form-floating > label {
             position: absolute;
             top: 0;
@@ -262,7 +251,6 @@
             background-color: transparent !important;
         }
 
-        /* Animation du label lorsque le champ est focalisé ou rempli */
         .form-floating > .form-control:focus ~ label,
         .form-floating > .form-control:not(:placeholder-shown) ~ label,
         .form-floating > .form-select:focus ~ label,
@@ -274,14 +262,12 @@
             padding-right: 0.75rem;
         }
 
-        /* Styles pour les champs de formulaire */
         .form-floating > .form-control,
         .form-floating > .form-select {
             height: calc(3.5rem + 2px);
             padding: 1rem 0.75rem;
         }
 
-    /* Ajustements spécifiques pour le thème sombre */
     .dark-input .form-control,
     .dark-input .form-select {
         background-color: var(--dark-input);
@@ -294,7 +280,6 @@
             color: #fff;
         }
 
-    /* Suppression de tout background indésirable */
     .form-floating > label::after {
         background-color: transparent !important;
         content: none !important;
@@ -317,7 +302,6 @@
         color: var(--text-light-50) !important;
     }
 
-    /* Styles pour les cartes */
     .card {
         background-color: var(--dark-card);
         border: none;
@@ -328,7 +312,6 @@
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     }
 
-    /* Styles pour les boutons */
     .glow-button {
         position: relative;
         overflow: hidden;
@@ -344,7 +327,6 @@
         box-shadow: 0 0 15px var(--glow-success);
     }
 
-    /* Styles pour les inputs */
     .dark-input .form-control {
         background-color: var(--dark-input);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -362,7 +344,6 @@
         color: var(--text-light-50);
     }
 
-    /* Effets de survol et animations */
     .hover-scale {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -383,7 +364,6 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
-    /* Upload zone styles */
     .upload-zone {
         background-color: var(--dark-input);
         border: 2px dashed rgba(255, 255, 255, 0.1);
@@ -391,24 +371,22 @@
     }
 
         .upload-zone:hover {
-            border-color: #0d6efd; /* Bleu pour la zone CV */
-            background-color: rgba(13, 110, 253, 0.1); /* Bleu pour la zone CV */
+            border-color: #0d6efd; 
+            background-color: rgba(13, 110, 253, 0.1); 
         }
 
-    /* Zone CV (bleu) */
     .cv-zone:hover {
         border-color: #0d6efd;
         background-color: rgba(13, 110, 253, 0.1);
     }
 
-    /* Zone Logo (vert) */
     .logo-zone:hover {
-        border-color: #198754; /* Vert pour la zone Logo */
-        background-color: rgba(25, 135, 84, 0.1); /* Vert pour la zone Logo */
+        border-color: #198754; 
+        background-color: rgba(25, 135, 84, 0.1); 
     }
 
 
-    /* Icon circle styles */
+   
     .icon-circle {
         width: 100px;
         height: 100px;
@@ -427,7 +405,6 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        // Le JavaScript reste identique car il gère uniquement la logique de bascule
         const candidatCard = document.getElementById('candidatCard');
         const recruteurCard = document.getElementById('recruteurCard');
         const formSection = document.getElementById('formSection');
@@ -449,7 +426,6 @@
         candidatCard.addEventListener('click', () => toggleForm('Candidat'));
         recruteurCard.addEventListener('click', () => toggleForm('Recruteur'));
 
-        // Accessibility
         candidatCard.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') toggleForm('Candidat');
         });
