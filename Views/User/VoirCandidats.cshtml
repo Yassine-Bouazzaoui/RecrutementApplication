@@ -5,197 +5,296 @@
 
 <style>
     :root {
-        --primary-color: #3d7ad6;
-        --primary-dark: #2d5aa6;
-        --bg-dark: #121212;
-        --card-bg: #1e1e1e;
-        --card-hover: #252525;
-        --text-primary: #ffffff;
-        --text-secondary: #a0a0a0;
-        --success: #4CAF50;
-        --warning: #FFC107;
-        --danger: #f44336;
+        --primary-color: #4F46E5;
+        --primary-hover: #4338CA;
+        --success-color: #059669;
+        --success-hover: #047857;
+        --warning-color: #D97706;
+        --warning-hover: #B45309;
+        --danger-color: #DC2626;
+        --danger-hover: #B91C1C;
+        --card-bg: #1E293B;
+        --card-hover: #2D3748;
+        --text-primary: #F1F5F9;
+        --text-secondary: #94A3B8;
+        --border-color: rgba(255, 255, 255, 0.08);
+    }
+    .stats-dashboard {
+        margin-bottom: 2.5rem;
     }
 
-    body {
-        background-color: var(--bg-dark);
-        color: var(--text-primary);
-    }
-
-    .candidates-container {
-        background: var(--card-bg);
-        border-radius: 12px;
-        padding: 1.5rem;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    .page-header {
-        background: var(--primary-color);
-        padding: 1.5rem;
-        border-radius: 10px;
+    .stats-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.25rem;
         margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+        background: linear-gradient(145deg, var(--card-bg) 0%, var(--card-hover) 100%);
+        padding: 1.5rem;
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: transform 0.3s ease;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+    .stat-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .stat-title {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+
+    .stat-main {
+        margin-bottom: 1rem;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-subtitle {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+    }
+
+    .stat-chart {
+        height: 60px;
+        margin-top: 1rem;
+        position: relative;
+    }
+
+    .progress-container {
+        background: rgba(255, 255, 255, 0.1);
+        height: 8px;
+        border-radius: 4px;
+        margin-top: 0.5rem;
+    }
+
+    .progress-bar {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.3s ease;
+    }
+
+    .chart-legend {
+        display: flex;
+        gap: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .legend-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .profile-distribution, .experience-distribution {
+        background: var(--card-bg);
+        padding: 1.5rem;
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .distribution-title {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+    }
+
+    .distribution-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .distribution-label {
+        color: var(--text-secondary);
+    }
+
+    .distribution-value {
+        font-weight: 500;
+    }
+
+    .distribution-bar {
+        height: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        margin-top: 0.5rem;
+    }
+
+    .distribution-progress {
+        height: 100%;
+        border-radius: 3px;
+        background: var(--primary-color);
+        transition: width 0.3s ease;
+    }
+
+    .candidates-section {
+        margin-top: 2rem;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: linear-gradient(145deg, var(--primary-color), var(--primary-dark));
+        border-radius: 12px;
+    }
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
     }
 
     .header-title {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        margin: 0;
-        font-size: 1.5rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: white;
     }
 
-    .candidates-counter {
-        background: rgba(255, 255, 255, 0.2);
+    .filter-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .filter-btn {
         padding: 0.5rem 1rem;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+    .candidates-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .candidate-card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .candidate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+    .card-header {
+        padding: 1.25rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .poste-tag {
+        font-size: 0.85rem;
+        padding: 0.25rem 0.75rem;
         border-radius: 20px;
-        font-weight: 500;
-        font-size: 0.95rem;
+        background: rgba(99, 102, 241, 0.1);
+        color: #6366f1;
+        margin-top: 0.5rem;
+    }
+
+    .date-postulation {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
         display: flex;
         align-items: center;
         gap: 0.5rem;
     }
 
-    .counter-icon {
-        font-size: 1rem;
-    }
-
-    .stats-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.25rem;
-        margin-bottom: 2rem;
-    }
-
-    .stat-card {
-        background: linear-gradient(145deg, var(--card-bg) 0%, var(--card-hover) 100%);
-        padding: 1.25rem;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .stat-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-    }
-
-        .stat-icon.validees {
-            background: rgba(76, 175, 80, 0.1);
-            color: var(--success);
-        }
-
-        .stat-icon.en-attente {
-            background: rgba(255, 193, 7, 0.1);
-            color: var(--warning);
-        }
-
-        .stat-icon.refusees {
-            background: rgba(244, 67, 54, 0.1);
-            color: var(--danger);
-        }
-
-    .stat-content {
-        flex: 1;
-    }
-
-    .stat-value {
-        font-size: 1.75rem;
-        font-weight: 700;
-        margin-bottom: 0.25rem;
-        line-height: 1;
-    }
-
-    .stat-label {
-        color: var(--text-secondary);
-        font-size: 0.9rem;
-    }
-
-    .stat-trend {
-        font-size: 0.85rem;
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
-        margin-top: 0.5rem;
-    }
-
-        .stat-trend.up {
-            color: var(--success);
-        }
-
-        .stat-trend.down {
-            color: var(--danger);
-        }
-
-    .avatar-placeholder {
-        width: 70px;
-        height: 70px;
-        border-radius: 10px;
-        background: linear-gradient(145deg, var(--primary-color), var(--primary-dark));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.5rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        border: 2px solid rgba(255, 255, 255, 0.1);
-        position: relative;
-        overflow: hidden;
-    }
-
-        .avatar-placeholder::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient( 45deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100% );
-        }
-    .candidate-card {
+    .empty-state {
+        text-align: center;
+        padding: 3rem;
         background: var(--card-bg);
-        border-radius: 10px;
-        margin-bottom: 1rem;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        transition: background-color 0.3s ease;
+        border-radius: 12px;
+        margin-top: 1rem;
     }
 
-        .candidate-card:hover {
-            background: var(--card-hover);
-        }
+    .empty-icon {
+        font-size: 3rem;
+        color: var(--text-secondary);
+        margin-bottom: 1rem;
+    }
 
-    .profile-section {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1rem;
+    .empty-text {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
     }
 
     .profile-avatar {
-        width: 70px;
-        height: 70px;
-        border-radius: 10px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
         object-fit: cover;
     }
 
     .avatar-placeholder {
-        width: 70px;
-        height: 70px;
-        border-radius: 10px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
         background: var(--primary-color);
+        color: white;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
+        font-weight: 600;
     }
 
     .candidate-info {
@@ -205,80 +304,86 @@
     .candidate-name {
         font-size: 1.1rem;
         font-weight: 600;
+        color: var(--text-primary);
         margin-bottom: 0.25rem;
     }
 
     .candidate-title {
         color: var(--text-secondary);
         font-size: 0.9rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.25rem;
     }
 
     .info-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
-        padding: 0 1rem 1rem 1rem;
+        padding: 1.25rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .info-item {
-        background: rgba(255, 255, 255, 0.05);
-        padding: 0.75rem;
-        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
     }
 
     .info-label {
+        font-size: 0.85rem;
         color: var(--text-secondary);
-        margin-bottom: 0.25rem;
-        font-size: 0.8rem;
     }
 
     .info-value {
+        font-weight: 500;
         color: var(--text-primary);
-        font-size: 0.95rem;
     }
 
     .status-badge {
-        padding: 0.4rem 0.8rem;
-        border-radius: 6px;
-        font-weight: 500;
+        display: inline-flex;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
         font-size: 0.85rem;
-        display: inline-block;
+        font-weight: 500;
     }
 
         .status-badge.success {
             background: rgba(76, 175, 80, 0.1);
-            color: var(--success);
+            color: #4CAF50;
         }
 
         .status-badge.warning {
             background: rgba(255, 193, 7, 0.1);
-            color: var(--warning);
+            color: #FFC107;
         }
 
         .status-badge.danger {
             background: rgba(244, 67, 54, 0.1);
-            color: var(--danger);
+            color: #F44336;
         }
 
     .action-buttons {
-        padding: 1rem;
         display: flex;
-        gap: 0.75rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        gap: 1rem;
+        padding: 1.25rem;
+        justify-content: flex-end;
     }
 
     .btn {
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        border: none;
-        font-weight: 500;
-        font-size: 0.9rem;
-        cursor: pointer;
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
     }
+
+        .btn i {
+            font-size: 1rem;
+        }
 
     .btn-primary {
         background: var(--primary-color);
@@ -286,173 +391,716 @@
     }
 
     .btn-success {
-        background: var(--success);
+        background: #4CAF50;
         color: white;
     }
 
     .btn-danger {
-        background: var(--danger);
+        background: #F44336;
         color: white;
     }
+
+    .btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+    }
+
+    .stats-dashboard {
+        margin: 2rem auto;
+        max-width: 1400px;
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    .stats-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        background: linear-gradient(145deg, var(--card-bg) 0%, var(--card-hover) 100%);
+        padding: 1.75rem;
+        border-radius: 1rem;
+        border: 1px solid var(--border-color);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03));
+            z-index: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .stat-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(90deg, #fff, #ccc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin: 1rem 0;
+    }
+
+    .btn {
+        position: relative;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.025em;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid transparent;
+        backdrop-filter: blur(8px);
+    }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            transform: translateX(100%);
+        }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+        color: white;
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, var(--success-color), var(--success-hover));
+        color: white;
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, var(--danger-color), var(--danger-hover));
+        color: white;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Enhanced Filter Buttons */
+    .filter-buttons {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        font-weight: 500;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-secondary);
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-hover);
+        }
+
+        .filter-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+    /* Enhanced Candidate Cards */
+    .candidate-card {
+        background: var(--card-bg);
+        border-radius: 1rem;
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: slideIn 0.5s ease-out;
+    }
+
+        .candidate-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+    .candidate-name {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+
+    /* Status Badges */
+    .status-badge {
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+        font-weight: 600;
+        font-size: 0.875rem;
+        letter-spacing: 0.025em;
+        text-transform: uppercase;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid transparent;
+    }
+
+        .status-badge.success {
+            background: rgba(5, 150, 105, 0.1);
+            color: #34D399;
+            border-color: rgba(52, 211, 153, 0.2);
+        }
+
+        .status-badge.warning {
+            background: rgba(217, 119, 6, 0.1);
+            color: #FBBF24;
+            border-color: rgba(251, 191, 36, 0.2);
+        }
+
+        .status-badge.danger {
+            background: rgba(220, 38, 38, 0.1);
+            color: #F87171;
+            border-color: rgba(248, 113, 113, 0.2);
+        }
+
+    /* Distribution Charts */
+    .distribution-progress {
+        height: 8px;
+        border-radius: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
+        transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Empty State Enhancement */
+    .empty-state {
+        padding: 4rem 2rem;
+        text-align: center;
+        background: linear-gradient(145deg, var(--card-bg) 0%, var(--card-hover) 100%);
+        border-radius: 1rem;
+        border: 1px solid var(--border-color);
+    }
+
+    .empty-icon {
+        font-size: 4rem;
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        animation: pulse 2s infinite;
+    }
+
+    .stat-card {
+        position: relative;
+        background: linear-gradient(165deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100% );
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient( 90deg, transparent, rgba(255, 255, 255, 0.05), transparent );
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite linear;
+            pointer-events: none;
+        }
+
+    /* Amélioration des boutons avec effet de glassmorphism */
+    .btn {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, var(--primary-color), transparent, var(--primary-color) );
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+    /* Animation pour les barres de progression */
+    .distribution-progress {
+        position: relative;
+        overflow: hidden;
+    }
+
+        .distribution-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient( 90deg, transparent, rgba(255, 255, 255, 0.2), transparent );
+            transform: translateX(-100%);
+            animation: shimmer 2s infinite;
+        }
+
+    /* Amélioration des cartes candidat */
+    .candidate-card {
+        background: rgba(30, 41, 59, 0.8);
+        backdrop-filter: blur(12px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+        .candidate-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+
+    .status-badge {
+        position: relative;
+        overflow: hidden;
+    }
+
+        .status-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient( 45deg, transparent, rgba(255, 255, 255, 0.1), transparent );
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .status-badge:hover::before {
+            transform: translateX(100%);
+        }
+
+    .profile-avatar, .avatar-placeholder {
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+        .profile-avatar:hover, .avatar-placeholder:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-color);
+        }
+
+    .candidates-grid {
+        scroll-behavior: smooth;
+        overflow: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-color) transparent;
+    }
+
+        .candidates-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .candidates-grid::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .candidates-grid::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
 </style>
 
-<div class="candidates-container">
-    <div class="page-header">
-        <h1 class="header-title">
-            <i class="fas fa-users-gear"></i>
-            Liste des Candidats
-        </h1>
-        <div class="candidates-counter">
-            <i class="fas fa-user-friends counter-icon"></i>
-            <span>@Model.Count candidature@(Model.Count > 1 ? "s" : "")</span>
+<div class="stats-dashboard">
+    <div class="stats-row">
+        <!-- Statistiques générales -->
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-title">Total Candidatures</div>
+                <div class="stat-icon" style="background: rgba(99, 102, 241, 0.1); color: #6366f1;">
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+            <div class="stat-main">
+                <div class="stat-value">@Model.Count</div>
+                <div class="stat-subtitle">
+                    @{
+                        var today = DateOnly.FromDateTime(DateTime.Now);
+                        var recentCandidatures = Model.Count(c => c.DatePostulation.HasValue &&
+                        c.DatePostulation.Value >= today.AddDays(-7));
+                    }
+                    +@recentCandidatures cette semaine
+                </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: 100%; background: #6366f1;"></div>
+            </div>
+        </div>
+
+        <!-- Taux de conversion -->
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-title">Taux de Conversion</div>
+                <div class="stat-icon" style="background: rgba(76, 175, 80, 0.1); color: #4CAF50;">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+            </div>
+            <div class="stat-main">
+                @{
+                    var tauxConversion = Model.Any() ?
+                    (double)Model.Count(c => c.Status == StatusCandidature.Validee) / Model.Count * 100 : 0;
+                }
+                <div class="stat-value">@tauxConversion.ToString("F1")%</div>
+                <div class="stat-subtitle">Candidatures validées</div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: @tauxConversion%; background: #4CAF50;"></div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-title">En Attente</div>
+                <div class="stat-icon" style="background: rgba(255, 193, 7, 0.1); color: #FFC107;">
+                    <i class="fas fa-clock"></i>
+                </div>
+            </div>
+            <div class="stat-main">
+                @{
+                    var candidaturesEnAttente = Model.Count(c => c.Status == StatusCandidature.EnAttente);
+                    var pourcentageEnAttente = Model.Any() ?
+                    (double)candidaturesEnAttente / Model.Count * 100 : 0;
+                }
+                <div class="stat-value">@candidaturesEnAttente</div>
+                <div class="stat-subtitle">@pourcentageEnAttente.ToString("F1")% des candidatures</div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: @pourcentageEnAttente%; background: #FFC107;"></div>
+            </div>
         </div>
     </div>
 
-    <div class="stats-container">
-        <div class="stat-card">
-            <div class="stat-icon validees">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <div class="stat-content">
-                <div class="stat-value">@Model.Count(c => c.Status == StatusCandidature.Validee)</div>
-                <div class="stat-label">Candidatures validées</div>
-                <div class="stat-trend up">
-                    <i class="fas fa-arrow-up"></i>
-                    @{
-                        var pourcentageValidees = Model.Any() ?
-                        (double)Model.Count(c => c.Status == StatusCandidature.Validee) / Model.Count * 100 : 0;
-                    }
-                    @pourcentageValidees.ToString("F1")%
-                </div>
-            </div>
+    <div class="stats-grid">
+        <div class="profile-distribution">
+            <h3 class="distribution-title">Distribution par Profil</h3>
+            @{
+                var profilGroups = Model
+                .GroupBy(c => c.Candidat.Profil)
+                .Select(g => new { Profil = g.Key, Count = g.Count() })
+                .OrderByDescending(g => g.Count);
+
+                foreach (var group in profilGroups)
+                {
+                    var percentage = (double)group.Count / Model.Count * 100;
+                    <div class="distribution-item">
+                        <div class="distribution-label">@(group.Profil?.ToString() ?? "Non spécifié")</div>
+                        <div class="distribution-value">@percentage.ToString("F1")%</div>
+                        <div class="distribution-bar">
+                            <div class="distribution-progress" style="width: @percentage%"></div>
+                        </div>
+                    </div>
+                }
+            }
         </div>
 
-        <div class="stat-card">
-            <div class="stat-icon en-attente">
-                <i class="fas fa-clock"></i>
-            </div>
-            <div class="stat-content">
-                <div class="stat-value">@Model.Count(c => c.Status == StatusCandidature.EnAttente)</div>
-                <div class="stat-label">En attente de traitement</div>
-                <div class="stat-trend">
-                    @{
-                        var pourcentageEnAttente = Model.Any() ?
-                        (double)Model.Count(c => c.Status == StatusCandidature.EnAttente) / Model.Count * 100 : 0;
-                    }
-                    @pourcentageEnAttente.ToString("F1")%
-                </div>
-            </div>
+        <div class="experience-distribution">
+            <h3 class="distribution-title">Distribution par Expérience</h3>
+            @{
+                var expGroups = Model
+                .GroupBy(c => c.Candidat.NbAnsExp switch
+                {
+                    <= 2 => "Junior (0-2 ans)",
+                    <= 5 => "Confirmé (3-5 ans)",
+                    <= 8 => "Senior (6-8 ans)",
+                    _ => "Expert (8+ ans)"
+                })
+                .Select(g => new { Experience = g.Key, Count = g.Count() })
+                .OrderBy(g => g.Experience);
+
+                foreach (var group in expGroups)
+                {
+                    var percentage = (double)group.Count / Model.Count * 100;
+                    <div class="distribution-item">
+                        <div class="distribution-label">@group.Experience</div>
+                        <div class="distribution-value">@percentage.ToString("F1")%</div>
+                        <div class="distribution-bar">
+                            <div class="distribution-progress" style="width: @percentage%"></div>
+                        </div>
+                    </div>
+                }
+            }
         </div>
 
-        <div class="stat-card">
-            <div class="stat-icon refusees">
-                <i class="fas fa-times-circle"></i>
-            </div>
-            <div class="stat-content">
-                <div class="stat-value">@Model.Count(c => c.Status == StatusCandidature.Refusee)</div>
-                <div class="stat-label">Candidatures refusées</div>
-                <div class="stat-trend down">
-                    @{
-                        var pourcentageRefusees = Model.Any() ?
-                        (double)Model.Count(c => c.Status == StatusCandidature.Refusee) / Model.Count * 100 : 0;
-                    }
-                    @pourcentageRefusees.ToString("F1")%
-                </div>
-            </div>
+        <!-- Analyse des diplômes -->
+        <div class="profile-distribution">
+            <h3 class="distribution-title">Distribution par Diplôme</h3>
+            @{
+                var diplomeGroups = Model
+                .GroupBy(c => c.Candidat.Diplome ?? "Non spécifié")
+                .Select(g => new { Diplome = g.Key, Count = g.Count() })
+                .OrderByDescending(g => g.Count);
+
+                foreach (var group in diplomeGroups)
+                {
+                    var percentage = (double)group.Count / Model.Count * 100;
+                    <div class="distribution-item">
+                        <div class="distribution-label">@group.Diplome</div>
+                        <div class="distribution-value">@percentage.ToString("F1")%</div>
+                        <div class="distribution-bar">
+                            <div class="distribution-progress" style="width: @percentage%"></div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="profile-distribution">
+            <h3 class="distribution-title">Distribution par Secteur</h3>
+            @{
+                var secteurGroups = Model
+                .GroupBy(c => c.Offre.Secteur)
+                .Select(g => new { Secteur = g.Key, Count = g.Count() })
+                .OrderByDescending(g => g.Count);
+
+                foreach (var group in secteurGroups)
+                {
+                    var percentage = (double)group.Count / Model.Count * 100;
+                    <div class="distribution-item">
+                        <div class="distribution-label">@group.Secteur</div>
+                        <div class="distribution-value">@percentage.ToString("F1")%</div>
+                        <div class="distribution-bar">
+                            <div class="distribution-progress" style="width: @percentage%"></div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+<div class="candidates-section">
+    
+    <div class="section-header">
+        <div class="header-left">
+            <i class="fas fa-users text-white text-xl"></i>
+            <h2 class="header-title">Candidats (@Model.Count)</h2>
+        </div>
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCandidates('all')">
+                Tous (@Model.Count)
+            </button>
+            <button class="filter-btn" onclick="filterCandidates('recent')">
+                Récents (@Model.Count(c => c.DatePostulation >= DateOnly.FromDateTime(DateTime.Now.AddDays(-7))))
+            </button>
+            <button class="filter-btn" onclick="filterCandidates('enattente')">
+                En attente (@Model.Count(c => c.Status == StatusCandidature.EnAttente))
+            </button>
         </div>
     </div>
 
-    @foreach (var candidature in Model)
+    @if (!Model.Any())
     {
-        <div class="candidate-card">
-            <div class="profile-section">
-                @if (!string.IsNullOrEmpty(candidature.Candidat.ProfilePicture))
-                {
-                    <img src="@Url.Content($"~/ProfilPics/{candidature.Candidat.ProfilePicture}")"
-                         alt="Photo de profil"
-                         class="profile-avatar"
-                         onerror="this.src='/images/default-avatar.png';" />
-                }
-                else
-                {
-                    <div class="avatar-placeholder">
-                        @(candidature.Candidat.Prenom[0])@(candidature.Candidat.Nom[0])
+        <div class="empty-state">
+            <div class="empty-icon">
+                <i class="fas fa-inbox"></i>
+            </div>
+            <p class="empty-text">Aucune candidature reçue pour le moment</p>
+        </div>
+    }
+    else
+    {
+        <div class="candidates-grid">
+            @foreach (var candidature in Model.OrderByDescending(c => c.DatePostulation))
+            {
+                <div class="candidate-card"
+                     data-date="@candidature.DatePostulation?.ToString("yyyy-MM-dd")"
+                     data-status="@candidature.Status.ToString().ToLower()">
+                    <div class="card-header">
+                        @if (!string.IsNullOrEmpty(candidature.Candidat.ProfilePicture))
+                        {
+                            <img src="@Url.Content($"~/ProfilPics/{candidature.Candidat.ProfilePicture}")"
+                                 alt="Photo de profil"
+                                 class="profile-avatar"
+                                 onerror="this.src='/images/default-avatar.png';" />
+                        }
+                        else
+                        {
+                            <div class="avatar-placeholder">
+                                @(candidature.Candidat.Prenom[0])@(candidature.Candidat.Nom[0])
+                            </div>
+                        }
+                        <div class="candidate-info">
+                            <div class="candidate-name">
+                                @candidature.Candidat.Prenom @candidature.Candidat.Nom
+                            </div>
+                            <div class="candidate-title">@candidature.Candidat.Titre</div>
+                            <div class="poste-tag">@candidature.Offre.Poste</div>
+                            <div class="date-postulation">
+                                <i class="far fa-calendar-alt"></i>
+                                Postulé le @candidature.DatePostulation?.ToString("dd/MM/yyyy")
+                            </div>
+                        </div>
                     </div>
-                }
-                <div class="candidate-info">
-                    <div class="candidate-name">@candidature.Candidat.Prenom @candidature.Candidat.Nom</div>
-                    <div class="candidate-title">@candidature.Candidat.Titre</div>
-                    <div class="status-badge @(candidature.Status == StatusCandidature.Validee ? "success" :
-                                           candidature.Status == StatusCandidature.Refusee ? "danger" : "warning")">
-                        @candidature.Status.ToString()
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Status</div>
+                            <div class="status-badge @(candidature.Status == StatusCandidature.Validee ? "success" :
+                                                   candidature.Status == StatusCandidature.Refusee ? "danger" : "warning")">
+                                @candidature.Status.ToString()
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-label">Profil</div>
+                            <div class="info-value">@(candidature.Candidat.Profil?.ToString() ?? "Non spécifié")</div>
+                        </div>
+
+                        @if (candidature.Candidat.NbAnsExp.HasValue)
+                        {
+                            <div class="info-item">
+                                <div class="info-label">Expérience</div>
+                                <div class="info-value">@candidature.Candidat.NbAnsExp ans</div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="action-buttons">
+                        @if (!string.IsNullOrEmpty(candidature.Candidat.CV))
+                        {
+                            <a href="@Url.Content($"~/CVs/{candidature.Candidat.CV}")" class="btn btn-primary" target="_blank">
+                                <i class="fas fa-file-pdf"></i>
+                                Voir le CV
+                            </a>
+                        }
+                        <form asp-action="UpdateCandidatureStatus" method="post" class="d-flex gap-2">
+                            <input type="hidden" name="candidatureId" value="@candidature.Id" />
+                            @if (candidature.Status != StatusCandidature.Validee)
+                            {
+                                <button type="submit" name="newStatus" value="Validee" class="btn btn-success">
+                                    <i class="fas fa-check"></i>
+                                    Valider
+                                </button>
+                            }
+                            @if (candidature.Status != StatusCandidature.Refusee)
+                            {
+                                <button type="submit" name="newStatus" value="Refusee" class="btn btn-danger">
+                                    <i class="fas fa-times"></i>
+                                    Refuser
+                                </button>
+                            }
+                        </form>
                     </div>
                 </div>
-            </div>
-
-            <div class="info-grid">
-                <div class="info-item">
-                    <div class="info-label">Email</div>
-                    <div class="info-value">@candidature.Candidat.Email</div>
-                </div>
-
-                @if (!string.IsNullOrEmpty(candidature.Candidat.PhoneNumber))
-                {
-                    <div class="info-item">
-                        <div class="info-label">Téléphone</div>
-                        <div class="info-value">@candidature.Candidat.PhoneNumber</div>
-                    </div>
-                }
-
-                @if (!string.IsNullOrEmpty(candidature.Candidat.Diplome))
-                {
-                    <div class="info-item">
-                        <div class="info-label">Formation</div>
-                        <div class="info-value">@candidature.Candidat.Diplome</div>
-                    </div>
-                }
-
-                @if (candidature.Candidat.NbAnsExp.HasValue)
-                {
-                    <div class="info-item">
-                        <div class="info-label">Expérience</div>
-                        <div class="info-value">@candidature.Candidat.NbAnsExp ans</div>
-                    </div>
-                }
-
-                <div class="info-item">
-                    <div class="info-label">Âge</div>
-                    <div class="info-value">@candidature.Candidat.Age ans</div>
-                </div>
-
-                @if (!string.IsNullOrEmpty(candidature.Candidat.Entreprise))
-                {
-                    <div class="info-item">
-                        <div class="info-label">Entreprise actuelle</div>
-                        <div class="info-value">@candidature.Candidat.Entreprise</div>
-                    </div>
-                }
-            </div>
-
-            <div class="action-buttons">
-                @if (!string.IsNullOrEmpty(candidature.Candidat.CV))
-                {
-                    <a href="@Url.Content($"~/CVs/{candidature.Candidat.CV}")" class="btn btn-primary" target="_blank">
-                        <i class="fas fa-file-pdf"></i>
-                        Voir le CV
-                    </a>
-                }
-                <form asp-action="UpdateCandidatureStatus" method="post" class="d-flex gap-2">
-                    <input type="hidden" name="candidatureId" value="@candidature.Id" />
-                    <button type="submit" name="newStatus" value="Validee" class="btn btn-success">
-                        <i class="fas fa-check"></i>
-                        Valider
-                    </button>
-                    <button type="submit" name="newStatus" value="Refusee" class="btn btn-danger">
-                        <i class="fas fa-times"></i>
-                        Refuser
-                    </button>
-                </form>
-            </div>
+            }
         </div>
     }
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize counters with animation
+        const statValues = document.querySelectorAll('.stat-value');
+        statValues.forEach(value => {
+            const target = parseInt(value.textContent);
+            animateCounter(0, target, value);
+        });
+
+        // Enhanced filter functionality
+        window.filterCandidates = function(filter) {
+            const cards = document.querySelectorAll('.candidate-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update button states
+            buttons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.filter-btn[data-filter="${filter}"]`).classList.add('active');
+
+            // Get current date for recent filter
+            const sevenDaysAgo = new Date();
+            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+            cards.forEach(card => {
+                const date = new Date(card.dataset.date);
+                const status = card.dataset.status;
+                let show = false;
+
+                switch(filter) {
+                    case 'all':
+                        show = true;
+                        break;
+                    case 'recent':
+                        show = date >= sevenDaysAgo;
+                        break;
+                    case 'enattente':
+                        show = status === 'enattente';
+                        break;
+                }
+
+                if (show) {
+                    card.style.display = 'block';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
+        };
+    });
+
+    function animateCounter(start, end, element, duration = 1500) {
+        let current = start;
+        const increment = (end - start) / (duration / 16);
+
+        const animate = () => {
+            current += increment;
+            if (current >= end) {
+                element.textContent = end;
+                return;
+            }
+            element.textContent = Math.floor(current);
+            requestAnimationFrame(animate);
+        };
+
+        animate();
+    }
+</script>

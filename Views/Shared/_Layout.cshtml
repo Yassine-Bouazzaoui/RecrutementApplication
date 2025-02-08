@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - RecrutementApplication</title>
     <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/fontawesome/fontawesome-free-6.7.2-web/css/all.min.css" asp-append-version="true" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.theme.css" />
@@ -17,177 +17,174 @@
     <link rel="stylesheet" href="~/RecrutementApplication.styles.css" asp-append-version="true" />
 </head>
 
+
 <style>
     :root {
-        --nav-bg: #1a1a1a;
-        --nav-accent: #6366f1;
-        --text-primary: #e2e2e2;
-        --text-secondary: #a0a0a0;
+      
+        --nav-bg: #0f172a;
+        --nav-accent: #6a5acd;
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --hover-bg: rgba(59, 130, 246, 0.1);
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .navbar-dark-custom {
-        background: linear-gradient(to right, #1a1a1a, #2d2d2d);
-        padding: 1rem;
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-        border: none;
+        background: var(--nav-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 0.75rem 1rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
 
     .navbar-brand {
         color: var(--text-primary) !important;
-        font-weight: 600;
+        font-weight: 700;
         font-size: 1.5rem;
-        position: relative;
-        transition: all 0.3s ease;
+        letter-spacing: -0.025em;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: var(--transition);
     }
 
-        .navbar-brand::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--nav-accent);
-            transition: width 0.3s ease;
+        .navbar-brand:hover {
+            background: var(--hover-bg);
+            transform: translateY(-1px);
         }
 
-        .navbar-brand:hover::after {
-            width: 100%;
+        .navbar-brand i {
+            color: var(--nav-accent);
+            transition: var(--transition);
         }
 
-    .navbar-nav .nav-link {
+        .navbar-brand:hover i {
+            transform: rotate(15deg);
+        }
+
+    .nav-link {
         color: var(--text-secondary) !important;
         font-weight: 500;
-        padding: 0.5rem 1rem;
-        margin: 0 0.2rem;
-        border-radius: 8px;
-        transition: all 0.3s ease;
+        padding: 0.675rem 1rem;
+        margin: 0 0.25rem;
+        border-radius: 0.5rem;
+        transition: var(--transition);
+        position: relative;
     }
 
-        .navbar-nav .nav-link:hover,
-        .navbar-nav .nav-link.active {
+        .nav-link:hover,
+        .nav-link.active {
             color: var(--text-primary) !important;
-            background: rgba(99, 102, 241, 0.1);
+            background: var(--hover-bg);
+            transform: translateY(-1px);
         }
 
-    .navbar-toggler {
-        border-color: rgba(255, 255, 255, 0.1);
-        padding: 0.5rem;
-    }
+        .nav-link i {
+            color: var(--nav-accent);
+            transition: var(--transition);
+        }
 
-    .navbar-toggler-icon {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.7)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-    }
+        .nav-link:hover i {
+            transform: translateY(-1px);
+        }
 
-    .navbar-collapse {
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-
-    /* Styles pour les boutons de connexion/inscription */
     .nav-btn {
-        padding: 0.5rem 1.2rem;
-        border-radius: 8px;
-        font-weight: 500;
-        transition: all 0.3s ease;
+        padding: 0.675rem 1.25rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: var(--transition);
+        margin: 0 0.25rem;
     }
 
     .nav-btn-primary {
         background: var(--nav-accent);
         color: white !important;
         border: none;
+        box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
     }
 
         .nav-btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 8px 12px -1px rgba(59, 130, 246, 0.3);
+            background: #2563eb;
         }
 
     .nav-btn-outline {
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: var(--text-primary) !important;
+        border: 2px solid rgba(148, 163, 184, 0.2);
+        color: var(--text-secondary) !important;
     }
 
         .nav-btn-outline:hover {
-            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--nav-accent);
+            color: var(--text-primary) !important;
+            transform: translateY(-2px);
         }
-
-    /* Animation pour le menu burger */
-    .navbar-toggler:focus {
-        box-shadow: none;
-        outline: none;
-    }
-
-    .navbar-toggler .navbar-toggler-icon {
-        transition: transform 0.3s ease;
-    }
-
-    .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
-        transform: rotate(90deg);
-    }
 
     .profile-link {
         display: flex;
         align-items: center;
-        padding: 0.5rem 1rem;
-        color: #e1e1e1;
-        text-decoration: none;
-        background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        border: 1px solid #333;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        padding: 0.5rem 1.25rem;
+        color: var(--text-primary);
+        background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05));
+        border-radius: 0.5rem;
+        border: 2px solid rgba(59, 130, 246, 0.1);
+        transition: var(--transition);
     }
 
+        .profile-link:hover {
+            transform: translateY(-2px);
+            border-color: var(--nav-accent);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+            color: var(--text-primary);
+        }
+
     .profile-text {
-        font-weight: 500;
+        font-weight: 600;
         margin-right: 0.75rem;
-        transition: all 0.3s ease;
     }
 
     .profile-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        transition: all 0.3s ease;
+        color: var(--nav-accent);
+        font-size: 1.25rem;
     }
 
-    .profile-link:hover {
-        background: linear-gradient(45deg, #2d2d2d, #3d3d3d);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        color: #ffffff;
+    .profile-link:hover .profile-icon {
+        transform: scale(1.1);
+    }
+
+    .nav-btn i {
+        color: inherit !important;
+    }
+
+   
 </style>
+
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-dark navbar-dark-custom">
-            <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-dark-custom fixed-top">
+            <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <i class="fas fa-briefcase me-2"></i>RecrutementApp
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">
-                                <i class="fas fa-home me-1"></i> Accueil
+                                <i class="fas fa-home me-2"></i>Accueil
                             </a>
                         </li>
-                       
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Offres" asp-action="Index">
-                                <i class="fas fa-list me-1"></i> Offres
+                                <i class="fas fa-list me-2"></i>Offres
                             </a>
                         </li>
-                      
                         @if (User.IsInRole("Recruteur"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="User" asp-action="MesOffres">
-                                    <i class="fas fa-bookmark me-1"></i> Mes Offres
+                                    <i class="fas fa-bookmark me-2"></i>Mes Offres
                                 </a>
                             </li>
                         }
@@ -195,7 +192,7 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="User" asp-action="HistoriqueCandidatures">
-                                    <i class="fas fa-history me-1"></i> Mes Candidatures
+                                    <i class="fas fa-history me-2"></i>Mes Candidatures
                                 </a>
                             </li>
                         }
@@ -205,21 +202,20 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav">
+                   
+                    <ul class="navbar-nav align-items-center">
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item me-3">
-                                <a asp-controller="User" asp-action="Profile" class="profile-link" title="Mon Profil">
+                                <a asp-controller="User" asp-action="Profile" class="profile-link">
                                     <span class="profile-text">Mon Profil</span>
-                                    <div class="profile-icon">
-                                        <i class="fas fa-user-circle"></i>
-                                    </div>
+                                    <i class="fas fa-user-circle profile-icon"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <form asp-area="Identity" asp-page="/Account/Logout" method="post">
                                     <button type="submit" class="nav-link nav-btn nav-btn-primary">
-                                        <i class="fas fa-sign-out-alt me-1"></i> Déconnexion
+                                        <i class="fas fa-sign-out-alt me-2 text-current"></i>Déconnexion
                                     </button>
                                 </form>
                             </li>
@@ -228,22 +224,22 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link nav-btn nav-btn-outline" asp-area="Identity" asp-page="/Account/Register">
-                                    <i class="fas fa-user-plus me-1"></i> Inscription
+                                    <i class="fas fa-user-plus me-2 text-current"></i>Inscription
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link nav-btn nav-btn-primary" asp-area="Identity" asp-page="/Account/Login">
-                                    <i class="fas fa-sign-in-alt me-1"></i> Connexion
+                                    <i class="fas fa-sign-out-alt me-2 text-current"></i>Connexion
                                 </a>
                             </li>
                         }
-                       
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+
+    <div class="container" style="margin-top: 5rem;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

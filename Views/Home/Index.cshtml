@@ -4,210 +4,6 @@
 <head>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     </head>
-
-<section class="hero-section position-relative bg-gradient-dark text-white">
-    <div class="particle-container" id="particles-js"></div>
-    <div class="container position-relative z-1 py-8">
-        <div class="row align-items-center">
-            <div class="col-lg-7">
-                <div class="glowing-badge mb-4 animate__animated animate__fadeInDown">
-                    <span class="badge bg-primary rounded-pill">
-                        <i class="bi bi-stars me-2"></i>Leader du Recrutement Digital
-                    </span>
-                </div>
-                <h1 class="display-2 fw-bold mb-4 gradient-text animate__animated animate__fadeInUp">
-                    Transformez Vos <span class="accent-text typewriter">Ambitions</span>
-                </h1>
-                <p class="lead mb-5 animate__animated animate__fadeInUp">
-                    <i class="bi bi-check2-circle me-2 pulse-icon"></i>
-                    Une plateforme nouvelle génération connectant les talents aux opportunités de demain.
-                </p>
-                <div class="d-flex gap-3 animate__animated animate__fadeInUp">
-                    <a href="/Offres" class="btn btn-gradient btn-lg hover-lift-3d position-relative">
-                        <i class="bi bi-search-heart me-2"></i>Découvrir les Offres
-                        <div class="floating-badge">500+</div>
-                    </a>
-                    <a href="/User/MesOffres" class="btn btn-outline-glow btn-lg hover-lift-3d">
-                        <i class="bi bi-plus-circle-dotted me-2"></i>Publier une Offre
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-5 d-none d-lg-block">
-                <div class="hero-image-container animate__animated animate__fadeInRight position-relative">
-                    <div class="floating-elements">
-                        <div class="floating-icon"><i class="bi bi-briefcase-fill"></i></div>
-                        <div class="floating-icon delay-1"><i class="bi bi-person-workspace"></i></div>
-                        <div class="floating-icon delay-2"><i class="bi bi-graph-up-arrow"></i></div>
-                    </div>
-                    <img src="/img/tendances-recrutement.png.webp" class="hero-image" alt="Recrutement Moderne">
-                    <div class="stats-card-floating">
-                        <div class="d-flex align-items-center">
-                            <i class="bi bi-lightning-charge-fill text-gradient fs-4 me-2"></i>
-                            <div>
-                                <div class="counter-wrapper">
-                                    <span class="counter-number" data-target="98">98</span>%
-                                </div>
-                                <small class="text-gradient">Taux de réussite</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="hero-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-    </div>
-</section>
-
-
-<section class="features-section bg-darker py-8">
-    <div class="container">
-        <div class="text-center mb-7">
-            <div class="glowing-badge">
-                <span class="badge bg-gradient rounded-pill mb-3">
-                    <i class="bi bi-lightning-charge-fill me-2"></i>Nos Solutions
-                </span>
-            </div>
-            <h2 class="display-4 fw-bold gradient-text mb-4">Solutions Innovantes</h2>
-            <p class="lead text-muted mb-5">Découvrez nos outils nouvelle génération pour votre réussite professionnelle</p>
-        </div>
-        <div class="row g-4">
-            <!-- Carte IA -->
-            <div class="col-lg-4">
-                <div class="feature-card-3d" data-tilt>
-                    <div class="card-content">
-                        <div class="icon-container">
-                            <i class="bi bi-brain-fill"></i>
-                            <div class="icon-glow"></div>
-                        </div>
-                        <h4 class="gradient-text mb-4">IA Avancée</h4>
-                        <p class="text-muted mb-4">Intelligence artificielle qui analyse et comprend vos besoins.</p>
-                        <ul class="feature-list">
-                            <li><i class="bi bi-check2-circle text-gradient"></i>Analyse prédictive</li>
-                            <li><i class="bi bi-check2-circle text-gradient"></i>Matching intelligent</li>
-                            <li><i class="bi bi-check2-circle text-gradient"></i>Recommendations précises</li>
-                        </ul>
-                        <a asp-controller="Offres" asp-action="Index" class="btn btn-gradient-subtle stretched-link">
-                            Explorer <i class="bi bi-arrow-right ms-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="feature-card-3d" data-tilt>
-                    <div class="card-content">
-                        <div class="icon-container">
-                            <i class="bi bi-shield-lock-fill"></i>
-                            <div class="icon-glow"></div>
-                        </div>
-                        <h4 class="gradient-text mb-4">Sécurité Renforcée</h4>
-                        <p class="text-muted mb-4">Protection maximale de vos données personnelles.</p>
-                        <ul class="feature-list">
-                            <li><i class="bi bi-check2-circle text-gradient"></i>Chiffrement avancé</li>
-                            <li><i class="bi bi-check2-circle text-gradient"></i>Conformité RGPD</li>
-                            <li><i class="bi bi-check2-circle text-gradient"></i>Surveillance 24/7</li>
-                        </ul>
-                        <a asp-controller="Home" asp-action="Privacy" class="btn btn-gradient-subtle stretched-link">
-                            En savoir plus <i class="bi bi-arrow-right ms-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="feature-card-3d" data-tilt>
-                    <div class="card-content">
-                        <div class="icon-container">
-                            <i class="bi bi-graph-up"></i>
-                            <div class="icon-glow"></div>
-                        </div>
-                        <h4 class="gradient-text mb-4">Analytics Avancés</h4>
-                        <p class="text-muted mb-4">Insights détaillés sur vos performances.</p>
-                        <ul class="feature-list">
-                            <li><i class="bi bi-check2-circle text-gradient"></i>Tableaux de bord</li>
-                            <li><i class="bi bi-check2-circle text-gradient"></i>Rapports personnalisés</li>
-                            <li><i class="bi bi-check2-circle text-gradient"></i>Métriques en temps réel</li>
-                        </ul>
-                        <a href="#" class="btn btn-gradient-subtle stretched-link">
-                            Découvrir <i class="bi bi-arrow-right ms-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="stats-section py-8">
-    <div class="container">
-        <div class="stats-grid">
-            <div class="stat-card" data-tilt>
-                <div class="stat-icon">
-                    <i class="bi bi-building-fill"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-number">
-                        <span class="counter" data-target="50">0</span>+
-                    </div>
-                    <div class="stat-label">Entreprises Partenaires</div>
-                </div>
-                <div class="stat-progress">
-                    <div class="progress-bar" style="width: 75%"></div>
-                </div>
-            </div>
-            <div class="stat-card" data-tilt>
-                <div class="stat-icon">
-                    <i class="bi bi-people-fill"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-number">
-                        <span class="counter" data-target="10000">0</span>+
-                    </div>
-                    <div class="stat-label">Utilisateurs Actifs</div>
-                </div>
-                <div class="stat-progress">
-                    <div class="progress-bar" style="width: 85%"></div>
-                </div>
-            </div>
-            <div class="stat-card" data-tilt>
-                <div class="stat-icon">
-                    <i class="bi bi-briefcase-fill"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-number">
-                        <span class="counter" data-target="500">0</span>+
-                    </div>
-                    <div class="stat-label">Offres Disponibles</div>
-                </div>
-                <div class="stat-progress">
-                    <div class="progress-bar" style="width: 65%"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="cta-section position-relative py-8">
-    <div class="container text-center">
-        <div class="cta-content">
-            <h2 class="display-4 fw-bold gradient-text mb-4">Prêt à Commencer ?</h2>
-            <p class="lead text-muted mb-5">Rejoignez des milliers de professionnels qui ont déjà fait le choix de l'excellence</p>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="/Identity/Account/Register" class="btn btn-gradient btn-lg hover-lift-3d">
-                    <i class="bi bi-person-plus me-2"></i>Créer un Compte
-                </a>
-                <a href="/Identity/Account/Login" class="btn btn-outline-glow btn-lg hover-lift-3d">
-                    <i class="bi bi-box-arrow-in-right me-2"></i>Connexion
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
-<script src="path/to/particles.min.js"></script>
 <style>
     :root {
         --dark-primary: #0a0a0a;
@@ -570,7 +366,7 @@
         }
 
 
-    
+
     .stat-card {
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.05);
@@ -596,18 +392,17 @@
         transform: translateY(-5px); /* Animation 2D uniquement vers le haut */
     }
 
-        .stat-icon::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: inherit;
-            filter: blur(15px);
-            opacity: 0.3;
-
-            z-index: -1;
-        }
+    .stat-icon::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: inherit;
+        filter: blur(15px);
+        opacity: 0.3;
+        z-index: -1;
+    }
 
     .stat-number {
         font-size: 2.5rem;
@@ -642,10 +437,10 @@
     .hover-lift-3d {
         transition: transform 0.3s ease;
     }
+
         .hover-lift-3d:hover {
-            transform: translateY(-5px); 
+            transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            
         }
 
     .floating-badge {
@@ -696,6 +491,210 @@
     }
 
 </style>
+<section class="hero-section position-relative bg-gradient-dark text-white">
+    <div class="particle-container" id="particles-js"></div>
+    <div class="container position-relative z-1 py-8">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <div class="glowing-badge mb-4 animate__animated animate__fadeInDown">
+                    <span class="badge bg-primary rounded-pill">
+                        <i class="bi bi-stars me-2"></i>Leader du Recrutement Digital
+                    </span>
+                </div>
+                <h1 class="display-2 fw-bold mb-4 gradient-text animate__animated animate__fadeInUp">
+                    Transformez Vos <span class="accent-text typewriter">Ambitions</span>
+                </h1>
+                <p class="lead mb-5 animate__animated animate__fadeInUp">
+                    <i class="bi bi-check2-circle me-2 pulse-icon"></i>
+                    Une plateforme nouvelle génération connectant les talents aux opportunités de demain.
+                </p>
+                <div class="d-flex gap-3 animate__animated animate__fadeInUp">
+                    <a href="/Offres" class="btn btn-gradient btn-lg hover-lift-3d position-relative">
+                        <i class="bi bi-search-heart me-2"></i>Découvrir les Offres
+                        <div class="floating-badge">500+</div>
+                    </a>
+                    <a href="/User/MesOffres" class="btn btn-outline-glow btn-lg hover-lift-3d">
+                        <i class="bi bi-plus-circle-dotted me-2"></i>Publier une Offre
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <div class="hero-image-container animate__animated animate__fadeInRight position-relative">
+                    <div class="floating-elements">
+                        <div class="floating-icon"><i class="bi bi-briefcase-fill"></i></div>
+                        <div class="floating-icon delay-1"><i class="bi bi-person-workspace"></i></div>
+                        <div class="floating-icon delay-2"><i class="bi bi-graph-up-arrow"></i></div>
+                    </div>
+                    <img src="/img/tendances-recrutement.png.webp" class="hero-image" alt="Recrutement Moderne">
+                    <div class="stats-card-floating">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-lightning-charge-fill text-gradient fs-4 me-2"></i>
+                            <div>
+                                <div class="counter-wrapper">
+                                    <span class="counter-number" data-target="98">98</span>%
+                                </div>
+                                <small class="text-gradient">Taux de réussite</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+</section>
+
+
+<section class="features-section bg-darker py-8">
+    <div class="container">
+        <div class="text-center mb-7">
+            <div class="glowing-badge">
+                <span class="badge bg-gradient rounded-pill mb-3">
+                    <i class="bi bi-lightning-charge-fill me-2"></i>Nos Solutions
+                </span>
+            </div>
+            <h2 class="display-4 fw-bold gradient-text mb-4">Solutions Innovantes</h2>
+            <p class="lead text-muted mb-5">Découvrez nos outils nouvelle génération pour votre réussite professionnelle</p>
+        </div>
+        <div class="row g-4">
+            <!-- Carte IA -->
+            <div class="col-lg-4">
+                <div class="feature-card-3d" data-tilt>
+                    <div class="card-content">
+                        <div class="icon-container">
+                            <i class="bi bi-brain-fill"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <h4 class="gradient-text mb-4">IA Avancée</h4>
+                        <p class="text-muted mb-4">Intelligence artificielle qui analyse et comprend vos besoins.</p>
+                        <ul class="feature-list">
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Analyse prédictive</li>
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Matching intelligent</li>
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Recommendations précises</li>
+                        </ul>
+                        <a asp-controller="Offres" asp-action="Index" class="btn btn-gradient-subtle stretched-link">
+                            Explorer <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="feature-card-3d" data-tilt>
+                    <div class="card-content">
+                        <div class="icon-container">
+                            <i class="bi bi-shield-lock-fill"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <h4 class="gradient-text mb-4">Sécurité Renforcée</h4>
+                        <p class="text-muted mb-4">Protection maximale de vos données personnelles.</p>
+                        <ul class="feature-list">
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Chiffrement avancé</li>
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Conformité RGPD</li>
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Surveillance 24/7</li>
+                        </ul>
+                        <a asp-controller="Home" asp-action="Privacy" class="btn btn-gradient-subtle stretched-link">
+                            En savoir plus <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="feature-card-3d" data-tilt>
+                    <div class="card-content">
+                        <div class="icon-container">
+                            <i class="bi bi-graph-up"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <h4 class="gradient-text mb-4">Analytics Avancés</h4>
+                        <p class="text-muted mb-4">Insights détaillés sur vos performances.</p>
+                        <ul class="feature-list">
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Tableaux de bord</li>
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Rapports personnalisés</li>
+                            <li><i class="bi bi-check2-circle text-gradient"></i>Métriques en temps réel</li>
+                        </ul>
+                        <a href="#" class="btn btn-gradient-subtle stretched-link">
+                            Découvrir <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats-section py-8">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card" data-tilt>
+                <div class="stat-icon">
+                    <i class="bi bi-building-fill"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">
+                        <span class="counter" data-target="50">0</span>+
+                    </div>
+                    <div class="stat-label">Entreprises Partenaires</div>
+                </div>
+                <div class="stat-progress">
+                    <div class="progress-bar" style="width: 75%"></div>
+                </div>
+            </div>
+            <div class="stat-card" data-tilt>
+                <div class="stat-icon">
+                    <i class="bi bi-people-fill"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">
+                        <span class="counter" data-target="10000">0</span>+
+                    </div>
+                    <div class="stat-label">Utilisateurs Actifs</div>
+                </div>
+                <div class="stat-progress">
+                    <div class="progress-bar" style="width: 85%"></div>
+                </div>
+            </div>
+            <div class="stat-card" data-tilt>
+                <div class="stat-icon">
+                    <i class="bi bi-briefcase-fill"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">
+                        <span class="counter" data-target="500">0</span>+
+                    </div>
+                    <div class="stat-label">Offres Disponibles</div>
+                </div>
+                <div class="stat-progress">
+                    <div class="progress-bar" style="width: 65%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section position-relative py-8">
+    <div class="container text-center">
+        <div class="cta-content">
+            <h2 class="display-4 fw-bold gradient-text mb-4">Prêt à Commencer ?</h2>
+            <p class="lead text-muted mb-5">Rejoignez des milliers de professionnels qui ont déjà fait le choix de l'excellence</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="/Identity/Account/Register" class="btn btn-gradient btn-lg hover-lift-3d">
+                    <i class="bi bi-person-plus me-2"></i>Créer un Compte
+                </a>
+                <a href="/Identity/Account/Login" class="btn btn-outline-glow btn-lg hover-lift-3d">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Connexion
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+<script src="path/to/particles.min.js"></script>
+
 
 
 <script>

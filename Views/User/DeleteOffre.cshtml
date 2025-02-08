@@ -1,61 +1,207 @@
 ﻿@model RecrutementApplication.Models.Offre
-
 @{
     ViewData["Title"] = "Supprimer l'offre";
 }
 
-<div class="container mt-5">
-    <div class="card shadow">
-        <div class="card-header bg-danger text-white">
-            <h3 class="card-title mb-0">
-                <i class="fas fa-exclamation-triangle"></i> Confirmation de suppression
-            </h3>
+<style>
+    :root {
+        --bg-primary: #1a1a1a;
+        --bg-secondary: #2d2d2d;
+        --text-primary: #ffffff;
+        --text-secondary: #b3b3b3;
+        --accent-color: #ff4444;
+        --border-radius: 12px;
+        --transition: all 0.3s ease;
+    }
+
+    body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+    }
+
+    .delete-container {
+        max-width: 900px;
+        margin: 3rem auto;
+        padding: 0 1rem;
+    }
+
+    .glass-card {
+        background: rgba(45, 45, 45, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--border-radius);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .card-header {
+        background: linear-gradient(45deg, #ff4444, #ff1a1a);
+        padding: 1.5rem;
+        position: relative;
+    }
+
+    .card-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(255, 68, 68, 0.2), rgba(255, 26, 26, 0.2));
+        backdrop-filter: blur(5px);
+    }
+
+    .warning-box {
+        background: rgba(255, 193, 7, 0.1);
+        border-left: 4px solid #ffc107;
+        padding: 1rem;
+        margin: 1.5rem 0;
+        border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    }
+
+    .details-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: var(--border-radius);
+        margin: 1.5rem 0;
+    }
+
+    .details-header {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .details-content {
+        padding: 1.5rem;
+    }
+
+    .detail-row {
+        display: flex;
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        transition: var(--transition);
+        border-radius: var(--border-radius);
+    }
+
+    .detail-row:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .detail-label {
+        width: 30%;
+        color: var(--text-secondary);
+        font-weight: 500;
+    }
+
+    .detail-value {
+        width: 70%;
+        color: var(--text-primary);
+    }
+
+    .btn-danger {
+        background: linear-gradient(45deg, #ff4444, #ff1a1a);
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: var(--border-radius);
+        transition: var(--transition);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+    }
+
+    .btn-danger:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
+    }
+
+    .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 0.8rem 1.5rem;
+        border-radius: var(--border-radius);
+        transition: var(--transition);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+    }
+
+    .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+    }
+
+    .icon-pulse {
+        animation: pulse 2s infinite;
+    }
+
+  
+</style>
+
+<div class="delete-container">
+    <div class="glass-card">
+        <div class="card-header">
+            <h2 class="d-flex align-items-center gap-2 mb-0">
+                <i class="fas fa-exclamation-triangle icon-pulse"></i>
+                Confirmation de suppression
+            </h2>
         </div>
-        <div class="card-body">
-            <div class="alert alert-warning">
-                <i class="fas fa-exclamation-circle"></i> Êtes-vous sûr de vouloir supprimer cette offre ? Cette action est irréversible.
+        <div class="p-4">
+            <div class="warning-box">
+                <div class="d-flex align-items-center gap-3">
+                    <i class="fas fa-exclamation-circle fa-lg"></i>
+                    <p class="mb-0">Êtes-vous sûr de vouloir supprimer cette offre ? Cette action est irréversible.</p>
+                </div>
             </div>
 
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Détails de l'offre</h5>
+            <div class="details-card">
+                <div class="details-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Détails de l'offre
+                    </h4>
                 </div>
-                <div class="card-body">
-                    <dl class="row">
-                        <dt class="col-sm-3">Poste</dt>
-                        <dd class="col-sm-9">@Model.Poste</dd>
-
-                        <dt class="col-sm-3">Type de contrat</dt>
-                        <dd class="col-sm-9">@Model.Type</dd>
-
-                        <dt class="col-sm-3">Secteur</dt>
-                        <dd class="col-sm-9">@Model.Secteur</dd>
-
-                        <dt class="col-sm-3">Profil requis</dt>
-                        <dd class="col-sm-9">@Model.Profil</dd>
-
-                        <dt class="col-sm-3">Localisation</dt>
-                        <dd class="col-sm-9">@Model.Location</dd>
-
-                        <dt class="col-sm-3">Date de publication</dt>
-                        <dd class="col-sm-9">@Model.DatePub.ToShortDateString()</dd>
-
-                        <dt class="col-sm-3">Date limite</dt>
-                        <dd class="col-sm-9">@Model.DeadLine.ToShortDateString()</dd>
-                    </dl>
+                <div class="details-content">
+                    <div class="detail-row">
+                        <div class="detail-label">Poste</div>
+                        <div class="detail-value">@Model.Poste</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Type de contrat</div>
+                        <div class="detail-value">@Model.Type</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Secteur</div>
+                        <div class="detail-value">@Model.Secteur</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Profil requis</div>
+                        <div class="detail-value">@Model.Profil</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Localisation</div>
+                        <div class="detail-value">@Model.Location</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Date de publication</div>
+                        <div class="detail-value">@Model.DatePub.ToShortDateString()</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Date limite</div>
+                        <div class="detail-value">@Model.DeadLine.ToShortDateString()</div>
+                    </div>
                 </div>
             </div>
 
             @using (Html.BeginForm("DeleteOffre", "User", FormMethod.Post))
             {
                 @Html.HiddenFor(m => m.Id)
-
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between align-items-center gap-3">
                     <button type="submit" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> Confirmer la suppression
+                        <i class="fas fa-trash me-2"></i>
+                        Confirmer la suppression
                     </button>
                     <a href="@Url.Action("MesOffres", "User")" class="btn btn-secondary">
-                        <i class="fas fa-times"></i> Annuler
+                        <i class="fas fa-times me-2"></i>
+                        Annuler
                     </a>
                 </div>
             }

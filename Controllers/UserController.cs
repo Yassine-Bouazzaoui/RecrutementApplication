@@ -28,7 +28,6 @@ namespace RecrutementApplication.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        // Afficher toutes les Offers
         [AllowAnonymous]
         public IActionResult Index(string secteur = null, Profile? profil = null, decimal? remuneration = null)
         {
@@ -40,9 +39,9 @@ namespace RecrutementApplication.Controllers
             if (profil.HasValue)
                 Offers = Offers.Where(o => o.Profil == profil.Value);
 
-            if (remuneration.HasValue) // Vérifie si la valeur de 'remuneration' est présente
+            if (remuneration.HasValue) 
             {
-                Offers = Offers.Where(o => o.Remuneration >= remuneration.Value); // Comparer avec un decimal
+                Offers = Offers.Where(o => o.Remuneration >= remuneration.Value); 
             }
 
             return View(Offers.ToList());
@@ -57,6 +56,8 @@ namespace RecrutementApplication.Controllers
 
             return View("~/Views/Offres/Details.cshtml", offre);  // Spécifiez le chemin complet vers la vue        }
         }
+
+
             [Authorize(Roles = "Recruteur")]
         public async Task<IActionResult> MesOffres()
         {
@@ -135,7 +136,7 @@ namespace RecrutementApplication.Controllers
             {
                 _context.Offers.Update(offre);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MesOffres");
             }
             return View(offre);
         }
@@ -173,7 +174,7 @@ namespace RecrutementApplication.Controllers
                 CandidatId = userId,
                 OffreId = offreId,
                 DatePostulation = DateOnly.FromDateTime(DateTime.Now),
-                Status = StatusCandidature.EnAttente // Statut par défaut
+                Status = StatusCandidature.EnAttente 
             };
             _context.Candidatures.Add(candidature);
             _context.SaveChanges();
@@ -248,7 +249,6 @@ namespace RecrutementApplication.Controllers
             return View("VoirCandidats", candidatures);
         }
 
-        // Modifier le profil
         public IActionResult EditProfile()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -271,7 +271,39 @@ namespace RecrutementApplication.Controllers
             return View(user);
         }
 
-        // Afficher le profil
+        [Authorize(Roles = "Candidat")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Withdraw(int id)
+        {
+            var candidature = await _context.Candidatures
+                .FirstOrDefaultAsync(c => c.Id == id && c.CandidatId == User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (candidature == null)
+            {
+                TempData["Error"] = "Candidature non trouvée ou accès non autorisé.";
+                return RedirectToAction("HistoriqueCandidatures");
+            }
+
+            if (candidature.Status != StatusCandidature.EnAttente)
+            {
+                TempData["Error"] = "Seules les candidatures en attente peuvent être retirées.";
+                return RedirectToAction("HistoriqueCandidatures");
+            }
+
+            try
+            {
+                _context.Candidatures.Remove(candidature);
+                await _context.SaveChangesAsync();
+                ViewBag.SuccessMessage = "Votre candidature a été retirée avec succès.";
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "Une erreur est survenue lors du retrait de la candidature.";
+            }
+
+            return RedirectToAction("HistoriqueCandidatures");
+        }
         public IActionResult Profile()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

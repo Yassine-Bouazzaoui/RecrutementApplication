@@ -10,112 +10,65 @@
         <div class="row justify-content-center">
             <!-- Formulaire de connexion -->
             <div class="col-md-10 col-lg-8 col-xl-6">
-                <div class="card shadow-lg border-0 rounded-lg">
-                    <div class="card-body p-4">
-                        <div class="text-center mb-4">
-                            <i class="fas fa-user-circle fa-3x text-primary mb-3"></i>
-                            <h1 class="text-primary">@ViewData["Title"]</h1>
+                <div class="dark-card">
+                    <div class="dark-card-header">
+                        <div class="dark-card-icon">
+                            <i class="fas fa-user-circle"></i>
                         </div>
-                        <form id="account" method="post">
-                            <h2 class="h5 text-center text-muted mb-4">Utilisez un compte local pour vous connecter</h2>
-                            <hr class="divider" />
-                            <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
-                            <div class="form-group mb-4">
-                                <div class="input-wrapper">
-                                    <div class="input-icon">
-                                        <i class="fas fa-envelope text-primary"></i>
-                                    </div>
-                                    <input asp-for="Input.Email"
-                                           class="custom-input"
-                                           type="email"
-                                           placeholder="Entrez votre email"
-                                           autocomplete="username"
-                                           required />
-                                    <label asp-for="Input.Email" class="custom-label">Email</label>
-                                </div>
-                                <span asp-validation-for="Input.Email" class="text-danger"></span>
-                            </div>
-
-                            <div class="form-group mb-4">
-                                <div class="input-wrapper">
-                                    <div class="input-icon">
-                                        <i class="fas fa-lock text-primary"></i>
-                                    </div>
-                                    <input asp-for="Input.Password"
-                                           class="custom-input"
-                                           type="password"
-                                           placeholder="Entrez votre mot de passe"
-                                           autocomplete="current-password"
-                                           required />
-                                    <label asp-for="Input.Password" class="custom-label">Mot de passe</label>
-                                    <button type="button" class="password-toggle" onclick="togglePassword(this)">
-                                        <i class="fas fa-eye text-primary"></i>
-                                    </button>
-                                </div>
-                                <span asp-validation-for="Input.Password" class="text-danger"></span>
-                            </div>
-
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" asp-for="Input.RememberMe" />
-                                <label asp-for="Input.RememberMe" class="form-check-label">Se souvenir de moi</label>
-                            </div>
-
-                            <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary mb-3 btn-animate">
-                                <i class="fas fa-sign-in-alt me-2"></i>Se connecter
-                            </button>
-
-                            <div class="text-center links-container">
-                                <a id="forgot-password" asp-page="./ForgotPassword" class="link-hover">
-                                    <i class="fas fa-key me-2"></i>Mot de passe oublié ?
-                                </a>
-                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="link-hover">
-                                    <i class="fas fa-user-plus me-2"></i>Nouvel utilisateur
-                                </a>
-                                <a id="resend-confirmation" asp-page="./ResendEmailConfirmation" class="link-hover">
-                                    <i class="fas fa-envelope me-2"></i>Renvoyer la confirmation
-                                </a>
-                            </div>
-                        </form>
+                        <h2>@ViewData["Title"]</h2>
+                        <p>Connectez-vous à votre compte</p>
                     </div>
-                </div>
-            </div>
 
-            <div class="col-md-10 col-lg-8 col-xl-6 mt-4 mt-lg-0">
-                <div class="card shadow-lg border-0 rounded-lg">
-                    <div class="card-body p-4">
-                        <div class="text-center mb-4">
-                            <i class="fas fa-share-alt fa-3x text-primary mb-3"></i>
-                            <h3 class="text-muted">Connexion externe</h3>
+                    <form id="account" method="post" class="dark-card-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger alert alert-danger mb-4" role="alert"></div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                <input asp-for="Input.Email"
+                                       class="form-control"
+                                       type="email"
+                                       placeholder="Votre email"
+                                       autocomplete="username"
+                                       required />
+                            </div>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
                         </div>
-                        <hr class="divider" />
-                        @{
-                            if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                            {
-                                <div class="alert alert-warning text-center">
-                                    <i class="fas fa-exclamation-triangle me-2"></i>
-                                    <p>
-                                        Aucun service d'authentification externe configuré. Consultez cet <a href="https://go.microsoft.com/fwlink/?LinkID=532715" target="_blank">
-                                            article
-                                            sur la configuration
-                                        </a>.
-                                    </p>
-                                </div>
-                            }
-                            else
-                            {
-                                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="text-center">
-                                    <div class="d-grid gap-3">
-                                        @foreach (var provider in Model.ExternalLogins!)
-                                        {
-                                            <button type="submit" class="btn btn-outline-primary btn-lg btn-social" name="provider" value="@provider.Name">
-                                                <i class="fab fa-@provider.Name.ToLower() me-2"></i>@provider.DisplayName
-                                            </button>
-                                        }
-                                    </div>
-                                </form>
-                            }
-                        }
-                    </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input asp-for="Input.Password"
+                                       class="form-control password-input"
+                                       type="password"
+                                       placeholder="Votre mot de passe"
+                                       autocomplete="current-password"
+                                       required />
+                                <button type="button" class="btn btn-toggle-password" onclick="togglePassword(this)">
+                                    <i class="fas fa-eye-slash"></i>
+                                </button>
+                            </div>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                            <label asp-for="Input.RememberMe" class="form-check-label">
+                                Se souvenir de moi
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-sign-in-alt me-2"></i>Connexion
+                        </button>
+
+                        <div class="additional-links">
+                            <a asp-page="./ForgotPassword" class="link">Mot de passe oublié ?</a>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="link">
+                                Créer un compte
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -124,35 +77,33 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     <script>
         function togglePassword(button) {
-            const input = button.parentElement.querySelector('input');
+            const input = button.parentElement.querySelector('.password-input');
             const icon = button.querySelector('i');
 
             if (input.type === 'password') {
                 input.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                input.type = 'password';
                 icon.classList.remove('fa-eye-slash');
                 icon.classList.add('fa-eye');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
             }
         }
     </script>
 }
 
 <style>
-    /* Variables et thème sombre */
     :root {
-        --primary-color: #4f46e5;
-        --primary-hover: #4338ca;
-        --bg-dark: #1a1a1a;
-        --card-bg: #2d2d2d;
-        --text-primary: #ffffff;
-        --text-muted: #9ca3af;
-        --border-color: #404040;
+        --bg-dark: #121212;
+        --card-dark: #1E1E1E;
+        --border-dark: #2C2C2C;
+        --text-primary: #E0E0E0;
+        --text-secondary: #A0A0A0;
+        --primary-color: #BB86FC;
+        --accent-color: #03DAC6;
     }
 
     body {
@@ -161,184 +112,120 @@
         font-family: 'Inter', sans-serif;
     }
 
-    /* Style des cartes */
-    .card {
-        background-color: var(--card-bg);
-        border: 1px solid var(--border-color);
-        backdrop-filter: blur(10px);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .dark-card {
+        background-color: var(--card-dark);
+        border-radius: 16px;
+        border: 1px solid var(--border-dark);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+        transition: all 0.3s ease;
     }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        .dark-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
         }
+
+    .dark-card-header {
+        background-color: rgba(30, 30, 30, 0.8);
+        padding: 30px 20px;
+        text-align: center;
+        border-bottom: 1px solid var(--border-dark);
+    }
+
+    .dark-card-icon {
+        font-size: 4rem;
+        color: var(--primary-color);
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: center;
+        transition: transform 0.3s ease;
+    }
+
+    .dark-card:hover .dark-card-icon {
+        transform: scale(1.1) rotate(10deg);
+    }
+
+    .dark-card-header h2 {
+        color: var(--text-primary);
+        margin-bottom: 10px;
+    }
+
+    .dark-card-header p {
+        color: var(--text-secondary);
+    }
+
+    .dark-card-body {
+        padding: 30px;
+    }
 
     .form-group {
-        position: relative;
-        margin-bottom: 1.5rem;
+        margin-bottom: 20px;
     }
 
-    .input-wrapper {
-        position: relative;
-        display: flex;
-        align-items: center;
-        background-color: #363636;
-        border: 1px solid var(--border-color);
-        border-radius: 0.375rem;
-        transition: all 0.3s ease;
+    .input-group {
+        background-color: var(--bg-dark);
+        border: 1px solid var(--border-dark);
+        border-radius: 8px;
+        overflow: hidden;
     }
 
-        .input-wrapper:focus-within {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.25);
-        }
-
-    .input-icon {
-        display: flex;
-        align-items: center;
-        padding: 0.75rem;
-        color: var(--text-muted);
-    }
-
-    .custom-input {
-        flex: 1;
-        padding: 0.75rem;
-        background: transparent;
+    .input-group-text {
+        background-color: var(--border-dark);
+        color: var(--text-secondary);
         border: none;
-        color: var(--text-primary);
-        font-size: 1rem;
-        outline: none;
+        padding: 10px 15px;
     }
 
-        .custom-input::placeholder {
-            color: var(--text-muted);
-            opacity: 0.7;
+    .form-control {
+        background-color: transparent;
+        color: var(--text-primary);
+        border: none;
+        padding: 15px;
+    }
+
+        .form-control::placeholder {
+            color: var(--text-secondary);
         }
 
-    .custom-label {
-        position: absolute;
-        left: 2.5rem;
-        top: 0;
-        transform: translateY(-50%);
-        background-color: var(--card-bg);
-        padding: 0 0.5rem;
-        font-size: 0.875rem;
-        color: var(--text-muted);
-        pointer-events: none;
-        transition: all 0.3s ease;
-    }
-
-    .password-toggle {
+    .btn-toggle-password {
         background: none;
         border: none;
-        padding: 0.75rem;
-        cursor: pointer;
-        transition: opacity 0.3s ease;
-    }
-
-        .password-toggle:hover {
-            opacity: 0.8;
-        }
-
-    /* Focus et remplissage */
-    .custom-input:focus::placeholder {
-        opacity: 0.5;
-    }
-
-    .custom-input:focus + .custom-label,
-    .custom-input:not(:placeholder-shown) + .custom-label {
-        transform: translateY(-50%) scale(0.85);
-        color: var(--primary-color);
-    }
-
-    /* Style des validations */
-    .text-danger {
-        font-size: 0.875rem;
-        margin-top: 0.25rem;
-        display: block;
+        color: var(--text-secondary);
+        padding: 10px 15px;
     }
 
     .btn-primary {
         background-color: var(--primary-color);
         border: none;
+        color: var(--bg-dark);
+        padding: 12px;
         transition: all 0.3s ease;
     }
 
         .btn-primary:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
         }
 
-    /* Liens */
-    .links-container {
+    .additional-links {
         display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
+        justify-content: space-between;
+        margin-top: 20px;
     }
 
-    .link-hover {
-        color: var(--text-muted);
+    .link {
+        color: var(--text-secondary);
         text-decoration: none;
-        transition: all 0.3s ease;
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-        opacity: 0.8;
+        transition: color 0.3s ease;
     }
 
-        .link-hover:hover {
+        .link:hover {
             color: var(--primary-color);
-            background-color: rgba(79, 70, 229, 0.1);
-            opacity: 1;
-            transform: translateX(5px);
         }
 
-    /* Divider */
-    .divider {
-        border-color: var(--border-color);
-        opacity: 0.2;
+    .text-danger {
+        color: #FF5370 !important;
+        margin-top: 5px;
     }
-
-    /* Service externe buttons */
-    .btn-social {
-        background-color: transparent;
-        border: 1px solid var(--border-color);
-        color: var(--text-primary);
-        transition: all 0.3s ease;
-    }
-
-        .btn-social:hover {
-            background-color: rgba(79, 70, 229, 0.1);
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-
-    /* Icons */
-    .fa-user-circle, .fa-share-alt {
-        transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-
-    .card:hover .fa-user-circle,
-    .card:hover .fa-share-alt {
-        transform: scale(1.1);
-    }
-
 </style>
-<script>
-    function togglePassword(button) {
-        const input = button.parentElement.querySelector('input');
-        const icon = button.querySelector('i');
-
-        if (input.type === 'password') {
-            input.type = 'text';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
-        } else {
-            input.type = 'password';
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye');
-        }
-    }
-</script>

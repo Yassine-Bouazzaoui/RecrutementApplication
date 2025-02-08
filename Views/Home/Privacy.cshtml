@@ -2,132 +2,229 @@
 <html lang="fr">
 <head>
     <style>
-        :root {
-            --bg-primary: #1a1a1a;
-            --bg-secondary: #2d2d2d;
-            --text-primary: #ffffff;
-            --text-secondary: #b3b3b3;
-            --accent: #4a90e2;
-            --border: #404040;
-        }
-
-        body {
+        .privacy-container {
+            --bg-primary: #0a0b0e;
+            --bg-secondary: #12141a;
+            --bg-card: #1a1d25;
+            --text-primary: #e6e9f0;
+            --text-secondary: #989cab;
+            --accent: #4f46e5;
+            --accent-glow: rgba(79, 70, 229, 0.15);
+            --gradient-1: linear-gradient(135deg, #4f46e5, #06b6d4);
+            --gradient-2: linear-gradient(45deg, #4f46e5, #8b5cf6);
+            --card-border: 1px solid rgba(255, 255, 255, 0.05);
+            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             background-color: var(--bg-primary);
             color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem 4rem;
             font-family: 'Segoe UI', system-ui, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .header {
+        .privacy-header {
+            position: relative;
             text-align: center;
-            padding: 3rem 0;
-            background: linear-gradient(45deg, #2b2b2b, #1a1a1a);
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 2rem;
+            padding: 4rem 0;
+            margin-bottom: 4rem;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            overflow: hidden;
         }
 
-            .header h1 {
-                font-size: 2.5rem;
-                margin-bottom: 1rem;
-                background: linear-gradient(45deg, var(--accent), #6ab0ff);
+            .privacy-header::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: var(--gradient-1);
+                opacity: 0.1;
+                animation: rotate 20s linear infinite;
+                pointer-events: none;
+            }
+
+        
+
+        .privacy-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .privacy-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .privacy-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: var(--card-border);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .privacy-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 1px;
+                background: var(--gradient-2);
+                transform: scaleX(0);
+                transition: transform 0.3s ease;
+            }
+
+            .privacy-card:hover::before {
+                transform: scaleX(1);
+            }
+
+            .privacy-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+            .section-title i {
+                margin-right: 1rem;
+                font-size: 1.8rem;
+                background: var(--gradient-1);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
 
-        .section {
-            background-color: var(--bg-secondary);
-            border-radius: 10px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+        .privacy-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
-            .section:hover {
-                transform: translateY(-5px);
+            .privacy-list li {
+                margin-bottom: 1rem;
+                padding-left: 2rem;
+                position: relative;
+                color: var(--text-secondary);
+                transition: color 0.3s ease;
             }
 
-            .section h2 {
-                display: flex;
-                align-items: center;
-                color: var(--accent);
-                margin-bottom: 1.5rem;
-                font-size: 1.5rem;
-            }
-
-                .section h2 i {
-                    margin-right: 0.75rem;
+                .privacy-list li:hover {
+                    color: var(--text-primary);
                 }
 
-            .section p {
-                color: var(--text-secondary);
-                margin-bottom: 1rem;
-            }
-
-            .section ul {
-                list-style-type: none;
-                padding-left: 1.5rem;
-            }
-
-            .section li {
-                color: var(--text-secondary);
-                margin-bottom: 0.5rem;
-                display: flex;
-                align-items: center;
-            }
-
-                .section li::before {
-                    content: "•";
-                    color: var(--accent);
-                    font-weight: bold;
-                    margin-right: 0.5rem;
+                .privacy-list li::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 8px;
+                    height: 8px;
+                    background: var(--accent);
+                    border-radius: 50%;
+                    box-shadow: 0 0 10px var(--accent-glow);
                 }
 
         .contact-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            padding: 1rem;
-            background-color: rgba(74, 144, 226, 0.1);
-            border-radius: 5px;
+            background: rgba(79, 70, 229, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(79, 70, 229, 0.1);
         }
 
-            .contact-info i {
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+            .contact-item:hover {
+                color: var(--text-primary);
+                transform: translateX(10px);
+            }
+
+            .contact-item i {
+                margin-right: 1rem;
                 color: var(--accent);
             }
 
         .last-updated {
             text-align: center;
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-top: 2rem;
             font-style: italic;
+            margin-top: 3rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            font-size: 0.9rem;
         }
 
+        .glow {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: var(--accent);
+            filter: blur(200px);
+            opacity: 0.05;
+            pointer-events: none;
+            transition: 0.8s ease;
+        }
 
+        .glow-1 {
+            top: -250px;
+            right: -250px;
+        }
+
+        .glow-2 {
+            bottom: -250px;
+            left: -250px;
+        }
+
+        .privacy-container:hover .glow-1 {
+            transform: translateX(-100px) translateY(100px);
+        }
+
+        .privacy-container:hover .glow-2 {
+            transform: translateX(100px) translateY(-100px);
+        }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="header">
-        <h1>Politique de Confidentialité</h1>
-        <p>Nous prenons la protection de vos données personnelles très au sérieux</p>
-    </div>
+    <div class="privacy-container">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
 
-    <div class="container">
-        <div class="section">
-            <h2><i class="fas fa-shield-alt"></i> Collecte des Données</h2>
+        <div class="privacy-header">
+            <h1 class="privacy-title">Politique de Confidentialité</h1>
+            <p class="privacy-subtitle">Protection et sécurité de vos données personnelles</p>
+        </div>
+
+        <div class="privacy-card">
+            <h2 class="section-title">
+                <i class="fas fa-shield-alt"></i>
+                Collecte des Données
+            </h2>
             <p>Nous collectons les informations suivantes lorsque vous utilisez nos services :</p>
-            <ul>
+            <ul class="privacy-list">
                 <li>Informations personnelles (nom, prénom, email)</li>
                 <li>Données de connexion et d'utilisation</li>
                 <li>Informations professionnelles</li>
@@ -135,10 +232,13 @@
             </ul>
         </div>
 
-        <div class="section">
-            <h2><i class="fas fa-user-lock"></i> Utilisation des Données</h2>
+        <div class="privacy-card">
+            <h2 class="section-title">
+                <i class="fas fa-user-lock"></i>
+                Utilisation des Données
+            </h2>
             <p>Vos données sont utilisées pour :</p>
-            <ul>
+            <ul class="privacy-list">
                 <li>Gérer votre compte et vos candidatures</li>
                 <li>Améliorer nos services</li>
                 <li>Communiquer avec vous concernant les opportunités</li>
@@ -146,20 +246,26 @@
             </ul>
         </div>
 
-        <div class="section">
-            <h2><i class="fas fa-cookie-bite"></i> Cookies et Traceurs</h2>
+        <div class="privacy-card">
+            <h2 class="section-title">
+                <i class="fas fa-cookie-bite"></i>
+                Cookies et Traceurs
+            </h2>
             <p>Notre site utilise des cookies pour améliorer votre expérience :</p>
-            <ul>
+            <ul class="privacy-list">
                 <li>Cookies essentiels au fonctionnement du site</li>
                 <li>Cookies analytiques (mesure d'audience)</li>
                 <li>Cookies de personnalisation</li>
             </ul>
         </div>
 
-        <div class="section">
-            <h2><i class="fas fa-user-shield"></i> Vos Droits</h2>
+        <div class="privacy-card">
+            <h2 class="section-title">
+                <i class="fas fa-user-shield"></i>
+                Vos Droits
+            </h2>
             <p>Conformément au RGPD, vous disposez des droits suivants :</p>
-            <ul>
+            <ul class="privacy-list">
                 <li>Droit d'accès à vos données</li>
                 <li>Droit de rectification</li>
                 <li>Droit à l'effacement</li>
@@ -167,16 +273,21 @@
             </ul>
         </div>
 
-        <div class="section">
-            <h2><i class="fas fa-envelope"></i> Contact</h2>
+        <div class="privacy-card">
+            <h2 class="section-title">
+                <i class="fas fa-envelope"></i>
+                Contact
+            </h2>
             <p>Pour toute question concernant notre politique de confidentialité :</p>
             <div class="contact-info">
-                <i class="fas fa-envelope"></i>
-                <span>yassinebouazzaoui2003@gmail.com</span>
-            </div>
-            <div class="contact-info">
-                <i class="fas fa-phone"></i>
-                <span>+212 6688438856</span>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>yassinebouazzaoui2003@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+212 6688438856</span>
+                </div>
             </div>
         </div>
 
