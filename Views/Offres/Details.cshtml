@@ -17,6 +17,7 @@
         --border-color: rgba(255, 255, 255, 0.15); 
         --success-color: #3ddc84; 
         --warning-color: #ffcc00; 
+ 
     }
 
 
@@ -257,6 +258,15 @@
 
     .deadline-warning {
         color: var(--warning-color);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+
+    .over-warning {
+        color: red;
         display: flex;
         align-items: center;
         gap: 0.5rem;
@@ -656,12 +666,20 @@
             <div class="job-detail-content">
                 <div class="job-detail-label">Date limite</div>
                 <div class="job-detail-value">@Model.DeadLine.ToString("dd MMMM yyyy")</div>
-                @if ((Model.DeadLine - DateTime.Now).TotalDays < 7)
+                @if ((Model.DeadLine - DateTime.Now).TotalDays < 7 && (Model.DeadLine - DateTime.Now).TotalDays > 0)
                 {
                     <div class="deadline-warning">
                         <i class="fas fa-exclamation-circle"></i>
                         Expire bientôt
                     </div>
+                }
+                @if ((Model.DeadLine - DateTime.Now).TotalDays < 0)
+                {
+                        <div class="over-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Expirée
+                    </div>
+                
                 }
             </div>
         </div>
